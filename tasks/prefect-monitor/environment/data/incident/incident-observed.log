@@ -1,0 +1,6 @@
+Captured baseline replay output; input records are synthetic.
+{"received_sequence": 1, "event": "prefect.flow-run.heartbeat", "occurred": "2026-10-20T12:00:00Z"}
+{"received_sequence": 2, "event": "prefect.flow-run.heartbeat", "occurred": "2026-10-20T12:00:30Z"}
+{"received_sequence": 3, "event": "prefect.flow-run.Completed", "occurred": "2026-10-20T12:01:00Z"}
+{"received_sequence": 4, "event": "prefect.flow-run.heartbeat", "occurred": "2026-10-20T12:01:00Z"}
+{"incident_id": "completed-run-001", "observed_actions": 1, "expected_actions": 0}

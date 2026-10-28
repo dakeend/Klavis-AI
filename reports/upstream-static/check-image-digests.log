@@ -1,0 +1,2 @@
+OK    tasks/prefect-monitor/environment/Dockerfile:3    FROM ${BASE_IMAGE}                                 
+OK    tasks/prefect-monitor/tests/Dockerfile:3    FROM ${BASE_IMAGE}                                 

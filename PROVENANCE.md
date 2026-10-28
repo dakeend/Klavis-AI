@@ -1,0 +1,7 @@
+# Provenance
+
+Baseline: PrefectHQ/prefect `71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8`. The archived server source, complete tests and Python build inputs are exported directly from Git objects, without history or local checkout modifications. Documentation/media, UI development sources and unrelated tooling are omitted; source/test file contents are unchanged. SHA-256 of the deterministic gzip input: `d384966ac31229dd2bbbbabe82cf05fa03b91085f651ca586ac837167457174b`.
+
+The reference runtime/migration patch is the six-file subset of [PR #23445](https://github.com/PrefectHQ/prefect/pull/23445), commit `189bf69608210e0276017976dad2326718fce7c5`. The two additional historical behavior files come from that PR. Their new-module retention import was replaced with the existing ordering-contract constant, and an intermediate bucket/count assertion was removed so final action behavior decides the test. [PR #22886](https://github.com/PrefectHQ/prefect/pull/22886), commit `239f9c68b7cbeb7fa9d6995b62a03ff124b5b16b`, is already in the baseline; its four retry tests are pass-to-pass regressions.
+
+The incident JSON, replay, logs, diagnostic prompt and packaging derive from this workspace's authored task design. The separate-process SQLite controller is new packaging coverage. Prefect source and derived tests remain under Apache-2.0; see UPSTREAM-LICENSE. Preserve upstream notices when redistributing. This is explicitly PR-derived; packaging does not certify originality under the recruiting assignment.

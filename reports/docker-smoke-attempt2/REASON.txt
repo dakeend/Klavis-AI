@@ -1,0 +1,1 @@
+Both images built. First container start returned an OCI runtime EOF before any tests. Docker/containerd remained active; a minimal isolated Python container then succeeded. Retrying; this is an infrastructure failure, not a candidate semantic failure.

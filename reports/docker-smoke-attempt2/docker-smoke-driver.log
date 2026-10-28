@@ -1,0 +1,3 @@
+docker: Error response from daemon: failed to create task for container: Unavailable: error reading from server: EOF
+
+Run 'docker run --help' for more information

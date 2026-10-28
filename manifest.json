@@ -1,0 +1,16 @@
+{
+  "baseline_commit": "71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8",
+  "baseline_gzip_sha256": "d384966ac31229dd2bbbbabe82cf05fa03b91085f651ca586ac837167457174b",
+  "author": {
+    "name": "邢念文",
+    "email": "alluwen@163.com",
+    "github": "dakeend"
+  },
+  "test_groups": {
+    "public_and_historical": 36,
+    "retry_regression": 4,
+    "reactive_no_after_compatibility": 3,
+    "process_restart_upgrade": 1
+  },
+  "reward": "binary; every group must pass; diagnosis is collected for review, not text-scored"
+}

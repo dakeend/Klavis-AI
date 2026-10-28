@@ -1,0 +1,24 @@
+Exception in thread Thread-2 (_connection_worker_thread):
+Traceback (most recent call last):
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\aiosqlite\core.py", line 66, in _connection_worker_thread
+    future.get_loop().call_soon_threadsafe(set_result, future, result)
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 803, in call_soon_threadsafe
+    self._check_closed()
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 519, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\python3.11\Lib\threading.py", line 1038, in _bootstrap_inner
+    self.run()
+  File "D:\python3.11\Lib\threading.py", line 975, in run
+    self._target(*self._args, **self._kwargs)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\aiosqlite\core.py", line 75, in _connection_worker_thread
+    future.get_loop().call_soon_threadsafe(set_exception, future, e)
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 803, in call_soon_threadsafe
+    self._check_closed()
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 519, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed

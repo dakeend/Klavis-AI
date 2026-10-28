@@ -1,0 +1,3 @@
+Checking tasks/prefect-monitor/task.toml...
+PASS tasks/prefect-monitor
+All task.toml files have the expected [task] name

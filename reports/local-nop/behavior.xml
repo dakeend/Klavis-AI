@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="24" skipped="0" tests="36" time="209.550" timestamp="2026-10-28T22:20:26.773317+08:00" hostname="DESKTOP-FHK31TA"><testcase classname="tests.events.server.triggers.test_incident_completed_run" name="test_completed_run_incident" time="36.327"><failure message="AssertionError: Completed run received 1 unresponsive-run action(s); expected zero&#10;assert 1 == 0">tests\events\server\triggers\test_incident_completed_run.py:68: in test_completed_run_incident
+    assert observed == incident["expected_actions"], (
+E   AssertionError: Completed run received 1 unresponsive-run action(s); expected zero
+E   assert 1 == 0</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-also-expected]" time="3.185"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:119: in test_expect_event_evaluated_before_its_window_opens_satisfies_it
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-not-expected]" time="3.265"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:119: in test_expect_event_evaluated_before_its_window_opens_satisfies_it
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected]" time="3.170" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected]" time="3.498" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]" time="3.709" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]" time="3.436" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_later_after_events_evaluated_late_keep_the_window_satisfied" time="4.677"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:160: in test_later_after_events_evaluated_late_keep_the_window_satisfied
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected]" time="3.615" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected]" time="3.671" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]" time="4.005"><failure message="AssertionError: assert 1 == 0&#10; +  where 1 = &lt;AsyncMock id='2273860381648'&gt;.await_count">tests\events\server\triggers\test_early_expect_events.py:187: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 1 == 0
+E    +  where 1 = &lt;AsyncMock id='2273860381648'&gt;.await_count</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]" time="3.253"><failure message="AssertionError: assert 1 == 0&#10; +  where 1 = &lt;AsyncMock id='2273844020240'&gt;.await_count">tests\events\server\triggers\test_early_expect_events.py:187: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 1 == 0
+E    +  where 1 = &lt;AsyncMock id='2273844020240'&gt;.await_count</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_counted_in_a_window_carries_into_a_late_roll" time="3.903"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:205: in test_expect_event_counted_in_a_window_carries_into_a_late_roll
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_counted_in_a_window_carries_into_a_late_roll_in_any_order" time="5.457"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:222: in test_expect_event_counted_in_a_window_carries_into_a_late_roll_in_any_order
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_every_expect_event_counted_in_a_window_carries_into_a_late_roll" time="6.514"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:240: in test_every_expect_event_counted_in_a_window_carries_into_a_late_roll
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_rolled_window_fires_with_the_carried_expect_event" time="4.227"><failure message="AssertionError: assert 'A' == 'B'&#10;  &#10;  - B&#10;  + A">tests\events\server\triggers\test_early_expect_events.py:260: in test_rolled_window_fires_with_the_carried_expect_event
+    assert firing.triggering_event.event == "B"
+E   AssertionError: assert 'A' == 'B'
+E     
+E     - B
+E     + A</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected]" time="2.910" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected]" time="2.972" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]" time="3.355"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests\events\server\triggers\test_early_expect_events.py:300: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]" time="3.350"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests\events\server\triggers\test_early_expect_events.py:300: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-also-expected]" time="3.455"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:323: in test_expect_event_at_the_same_instant_as_after_counts_in_either_order
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-not-expected]" time="2.710"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:323: in test_expect_event_at_the_same_instant_as_after_counts_in_either_order
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[a-first-after-is-also-expected]" time="2.703" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[a-first-after-is-not-expected]" time="2.630" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-also-expected]" time="3.435"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 2 times.">tests\events\server\triggers\test_early_expect_events.py:343: in test_expect_event_after_an_expired_window_counts_in_the_next_one
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 2 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-not-expected]" time="3.708"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 2 times.">tests\events\server\triggers\test_early_expect_events.py:343: in test_expect_event_after_an_expired_window_counts_in_the_next_one
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 2 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_a_high_threshold_counts_every_held_event" time="21.090"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:361: in test_a_high_threshold_counts_every_held_event
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-also-expected]" time="14.458"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:381: in test_many_later_expect_events_do_not_crowd_out_an_earlier_one
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-not-expected]" time="14.563"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:381: in test_many_later_expect_events_do_not_crowd_out_an_earlier_one
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_later_expect_event_keeps_an_earlier_one_held_for_a_lost_follower" time="2.667"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:399: in test_later_expect_event_keeps_an_earlier_one_held_for_a_lost_follower
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_is_still_held_when_a_lost_follower_is_evaluated" time="3.109"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:432: in test_expect_event_is_still_held_when_a_lost_follower_is_evaluated
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_carries_into_a_late_roll_of_a_window_longer_than_the_retention" time="3.611"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_early_expect_events.py:457: in test_expect_event_carries_into_a_late_roll_of_a_window_longer_than_the_retention
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_zombie_flow_detection_does_not_fire_when_flow_completes" time="3.690" /><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_zombie_flow_detection_does_not_fire_when_heartbeat_races_terminal" time="4.442"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_proactive_terminal_events.py:124: in test_zombie_flow_detection_does_not_fire_when_heartbeat_races_terminal
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_after_event_following_an_expect_event_re_arms_the_window" time="3.327" /><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_flow_run_timeout_enforcer_does_not_fire_when_run_completes" time="4.600"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests\events\server\triggers\test_proactive_terminal_events.py:228: in test_flow_run_timeout_enforcer_does_not_fire_when_run_completes
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase></testsuite></testsuites>

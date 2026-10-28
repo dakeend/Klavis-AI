@@ -1,0 +1,148 @@
+{
+  "upstream_commit": "6964e9252c90227fc1cfa26cbc59aee4134792e4",
+  "executed_at": "2026-10-28T15:14:54.730544+00:00",
+  "scope": "official static scripts executed locally; not hosted CI or LLM quality review",
+  "checks": [
+    {
+      "name": "check-allow-internet.sh",
+      "exit_code": 0,
+      "sha256": "3381127a1fe657c350f4d84b261757865311d3eb252afabfa1bc6e96490c394c"
+    },
+    {
+      "name": "check-canary.sh",
+      "exit_code": 0,
+      "sha256": "364754f72e349828587afaa7473daaebf36ba5758446deedf622041115b24980"
+    },
+    {
+      "name": "check-compose-volumes.sh",
+      "exit_code": 0,
+      "sha256": "a62cbfa33146021b5e5905d84e3d4928a1a5607b60f9026d72ffdeabe2a7d489"
+    },
+    {
+      "name": "check-cpu-threads.sh",
+      "exit_code": 0,
+      "sha256": "af0f78b3f09a5ae844dc13ca7963740eddd35668262a6c4b1f27dd7b62adfdd0"
+    },
+    {
+      "name": "check-dockerfile-platform.sh",
+      "exit_code": 0,
+      "sha256": "278cb32f983bbc2406686d2145d0ee6d37a146734a47549a4e6935fa105254b7"
+    },
+    {
+      "name": "check-dockerfile-references.sh",
+      "exit_code": 0,
+      "sha256": "42109fb65183b24959755afa0b88e6a3c562b89bcd18c24461cbfc6d0af13043"
+    },
+    {
+      "name": "check-dockerfile-sanity.sh",
+      "exit_code": 0,
+      "sha256": "519805bf87fdaaa0c5082e061f99ba050a920a1738c1a5d2b8ef77e0963fa222"
+    },
+    {
+      "name": "check-gpu-types.sh",
+      "exit_code": 0,
+      "sha256": "f556fa27ac25b3eb9dc9cee0252466a3ef4078f6e55255df4c38280db9c3cb88"
+    },
+    {
+      "name": "check-image-digests.sh",
+      "exit_code": 0,
+      "sha256": "954cfe09567a88563814f05559fa25a5e0ae72d1308a394018f118133956cdfb"
+    },
+    {
+      "name": "check-instruction-headings.sh",
+      "exit_code": 0,
+      "sha256": "6752581f1e0ab039256cb5c123e5f3fd2126787bd605356a4205799c777f7a3c"
+    },
+    {
+      "name": "check-instruction-suffix.sh",
+      "exit_code": 0,
+      "sha256": "71470461d67710c9a1ecd357a93a0b8a19fafb7c27b5056a289cb95492332206"
+    },
+    {
+      "name": "check-no-allow-internet-true.sh",
+      "exit_code": 0,
+      "sha256": "5fb646301d5ea0e6d3a6b55d607f7a553ca4c9c81aec82892a527b0b4e7e59ca"
+    },
+    {
+      "name": "check-no-cheat-dir.sh",
+      "exit_code": 0,
+      "sha256": "a6265a31bdc7a43c979751c3c27c8e9f9316c19308c0eea4555d1b0d1a2857ed"
+    },
+    {
+      "name": "check-nproc.sh",
+      "exit_code": 0,
+      "sha256": "302c073877da7a52fff4ce4906a27e1562a45097ce3adcdf7405da32ca47afc5"
+    },
+    {
+      "name": "check-pip-pinning.sh",
+      "exit_code": 0,
+      "sha256": "8b0cd9bb6002ba4d9e72b7084f903ecc13bc3c8c0c7cba77cdee6a3f2c55fa75"
+    },
+    {
+      "name": "check-pytest-version.sh",
+      "exit_code": 0,
+      "sha256": "c418f7bc2f76304c7a89ccb1de41efdc036796a6c4a344122ce2d007ca04262e"
+    },
+    {
+      "name": "check-resource-sizes.sh",
+      "exit_code": 0,
+      "sha256": "60f888b7571e5d97ebf2bfa371659e10539abd748e887565695b00c84b1d97b4"
+    },
+    {
+      "name": "check-separate-verifier.sh",
+      "exit_code": 0,
+      "sha256": "34b55c6fad6dbb67d0f6a97a03ff70f2c96d890a8d6508694ea9744865dc047f"
+    },
+    {
+      "name": "check-task-absolute-path.sh",
+      "exit_code": 0,
+      "sha256": "1a12d0d6d0d6d9e6685e4a3f5ada189b6e6242217d03866c7e77369336367388"
+    },
+    {
+      "name": "check-task-changelog.sh",
+      "exit_code": 0,
+      "sha256": "50a879fc6a474e58e5dd1588bc6a693adb9e2ee8390a18d939fb2138268789f2"
+    },
+    {
+      "name": "check-task-fields.sh",
+      "exit_code": 0,
+      "sha256": "6473728c174cf906f3cf092a9f54bc5c6f4ac4528556db0b11ffc9f51e7130cb"
+    },
+    {
+      "name": "check-task-package-name.sh",
+      "exit_code": 0,
+      "sha256": "75430aa745dbc14d41c84c3bd517c65b323469b9543dcfb942c1fb08fe29151c"
+    },
+    {
+      "name": "check-task-slug.sh",
+      "exit_code": 0,
+      "sha256": "2a0d5bfac2c859280241de609be6c1df5059d046f6cce606a9138e1d77468210"
+    },
+    {
+      "name": "check-task-timeout.sh",
+      "exit_code": 0,
+      "sha256": "279d4a835e4b7d9a5e2c4d761c2d36b5b81e8f1b950acf36fcd6113eb0de8b18"
+    },
+    {
+      "name": "check-test-file-references.sh",
+      "exit_code": 0,
+      "sha256": "c648e513ba8f7c8e2b8e699dd08313c8bee32e6359ec92be514f499394d02ea6"
+    },
+    {
+      "name": "check-test-sh-sanity.sh",
+      "exit_code": 0,
+      "sha256": "d80628b61b69c5a5a4f879b23869259fb21ff4a3575f54f281991e7c4b39002d"
+    },
+    {
+      "name": "check-trial-network-fetch.sh",
+      "exit_code": 0,
+      "sha256": "54dd5c1431f03364e128696a054629719e0b93df9f37b89badb655fcc5537ef7"
+    },
+    {
+      "name": "check-verifier-tooling-baked.sh",
+      "exit_code": 0,
+      "sha256": "c3a7d305634aac433dec50a5ec55bcbae6515b8346d6beeb0bb11efd336171f6"
+    }
+  ],
+  "all_passed": true
+}

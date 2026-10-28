@@ -1,0 +1,25 @@
+{
+  "mode": "oracle",
+  "kind": "portable behavioral check, not Harbor CI",
+  "python": "E:\\工作\\笔试\\klavis\\sandbox-codex-6.1-sol-max\\.runtime\\venv\\Scripts\\python.exe",
+  "source": "E:\\工作\\笔试\\klavis\\vfy\\package-oracle-222410\\source",
+  "groups": {
+    "retry": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_tests": 4
+    },
+    "compatibility": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_tests": 3
+    }
+  },
+  "isolation_verified": false,
+  "requested_groups": "retry,compatibility,reliability",
+  "reliability": {
+    "passed": true
+  },
+  "requested_groups_passed": true,
+  "all_passed": false
+}

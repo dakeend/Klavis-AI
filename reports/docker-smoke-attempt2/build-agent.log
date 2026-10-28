@@ -1,0 +1,347 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  4.722MB
+Step 1/14 : ARG BASE_IMAGE=python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d
+Step 2/14 : FROM ${BASE_IMAGE}
+ ---> 5f019029fead
+Step 3/14 : RUN apt-get update && apt-get install -y --no-install-recommends git build-essential libcairo2 util-linux ca-certificates curl && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 108b31deb1fd
+Step 4/14 : RUN python -m pip install --no-cache-dir uv==0.9.7
+ ---> Running in 8602651b6216
+Collecting uv==0.9.7
+  Downloading uv-0.9.7-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Downloading uv-0.9.7-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (21.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.4/21.4 MB 305.9 kB/s eta 0:00:00
+Installing collected packages: uv
+Successfully installed uv-0.9.7
+[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[0m[91m
+[notice] A new release of pip is available: 24.0 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+[0m ---> Removed intermediate container 8602651b6216
+ ---> f450bc164895
+Step 5/14 : ENV UV_PYTHON_DOWNLOADS=never UV_LINK_MODE=copy UV_PROJECT_ENVIRONMENT=/opt/venv     PATH="/opt/venv/bin:$PATH" PREFECT_SERVER_ANALYTICS_ENABLED=false     PYTHONDONTWRITEBYTECODE=1 NO_PROXY=localhost,127.0.0.1,::1
+ ---> Running in fc6a045f212d
+ ---> Removed intermediate container fc6a045f212d
+ ---> cb95f2e38f2d
+Step 6/14 : COPY data/baseline.tar.gz data/baseline.sha256 /opt/input/
+ ---> b7b617bb4dff
+Step 7/14 : RUN cd /opt/input && sha256sum -c baseline.sha256 && mkdir -p /opt/baseline && tar -xzf baseline.tar.gz -C /opt/baseline
+ ---> Running in c14e3bc75595
+baseline.tar.gz: OK
+ ---> Removed intermediate container c14e3bc75595
+ ---> 3978c5e75d9f
+Step 8/14 : WORKDIR /opt/baseline
+ ---> Running in 6a2e3bff591a
+ ---> Removed intermediate container 6a2e3bff591a
+ ---> b8db3026b156
+Step 9/14 : RUN uv sync --frozen --group dev && python -c "import prefect, pytest; print(prefect.__version__)"
+ ---> Running in b0f3f827a651
+[91mUsing CPython 3.11.14 interpreter at: /usr/local/bin/python3
+Creating virtual environment at: /opt/venv
+[0m[91m   Building prefect @ file:///opt/baseline
+[0m[91mDownloading pygments (1.2MiB)
+[0m[91mDownloading ast-serialize (1.2MiB)
+[0m[91mDownloading libcst (2.2MiB)
+[0m[91mDownloading pyre-check (45.7MiB)
+[0m[91mDownloading grpcio (6.3MiB)
+[0m[91mDownloading sqlalchemy (3.2MiB)
+[0m[91mDownloading mkdocs (3.7MiB)
+[0m[91mDownloading asyncpg (2.8MiB)
+[0m[91mDownloading mkdocs-material (8.9MiB)
+[0m[91mDownloading numpy (15.9MiB)
+[0m[91mDownloading uv (21.0MiB)
+[0m[91mDownloading mypy (14.4MiB)
+[0m[91mDownloading ruff (10.9MiB)
+[0m[91mDownloading pydantic-core (2.0MiB)
+[0m[91mDownloading pyright (5.9MiB)
+[0m[91mDownloading babel (9.7MiB)
+[0m[91mDownloading burner-redis (1.3MiB)
+[0m[91mDownloading botocore (13.9MiB)
+[0m[91mDownloading ty (9.7MiB)
+[0m[91mDownloading virtualenv (5.1MiB)
+[0m[91mDownloading apprise (1.7MiB)
+[0m[91mDownloading pillow (6.6MiB)
+[0m[91mDownloading cryptography (4.5MiB)
+[0m[91mDownloading jedi (1.5MiB)
+[0m[91mDownloading moto (6.4MiB)
+[0m[91mDownloading beartype (1.3MiB)
+[0m[91m Downloading pygments
+[0m[91m Downloading ast-serialize
+[0m[91m      Built prefect @ file:///opt/baseline
+[0m[91m Downloading beartype
+[0m[91m Downloading burner-redis
+[0m[91m Downloading jedi
+[0m[91m Downloading apprise
+[0m[91m   Building testslide==2.7.1
+[0m[91m Downloading pydantic-core
+[0m[91m Downloading libcst
+[0m[91m Downloading asyncpg
+[0m[91m Downloading sqlalchemy
+[0m[91m      Built testslide==2.7.1
+[0m[91m Downloading mkdocs
+[0m[91m Downloading cryptography
+[0m[91m Downloading virtualenv
+[0m[91m Downloading pyright
+[0m[91m Downloading grpcio
+[0m[91m Downloading moto
+[0m[91m Downloading pillow
+[0m[91m Downloading mkdocs-material
+[0m[91m Downloading babel
+[0m[91m Downloading ty
+[0m[91m Downloading ruff
+[0m[91m Downloading botocore
+[0m[91m Downloading mypy
+[0m[91m Downloading numpy
+[0m[91m Downloading uv
+[0m[91m Downloading pyre-check
+[0m[91mPrepared 222 packages in 56.28s
+[0m[91mInstalled 222 packages in 2.64s
+[0m[91m + aiosqlite==0.22.1
+ + alembic==1.18.5
+ + amplitude-analytics==1.2.3
+ + annotated-doc==0.0.4
+ [0m[91m+ annotated-types==0.7.0
+ +[0m[91m anyio==4.14.2
+ [0m[91m+ apprise==1.13.0[0m[91m
+ +[0m[91m asgi-lifespan==2.1.0
+ + asgiref==3.11.0
+ +[0m[91m ast-serialize==0.6.0
+ + asttokens==[0m[91m3.0.1
+ [0m[91m+ asyncpg==0.31.0
+[0m[91m + attrs[0m[91m==25.4.0[0m[91m
+ + babel==2[0m[91m.17.0
+ + backrefs==6.1
+ + [0m[91mbeartype==0.22.9
+[0m[91m + boto3==1[0m[91m.42.19
+ + botocore==1.42.19
+ + [0m[91mburner-redis==0.1.7
+ [0m[91m+ cachetools==7.1.6[0m[91m
+[0m[91m +[0m[91m cairocffi[0m[91m==1.[0m[91m7.[0m[91m1[0m[91m
+ + [0m[91mcairosvg==[0m[91m2.9.1[0m[91m
+[0m[91m [0m[91m+ certifi[0m[91m==2026.1[0m[91m.4
+ + cffi==[0m[91m2.0.0
+ [0m[91m+ cfgv==3.5.0
+ + charset-normalizer==3.4.4
+ + click==8.4.2
+ + cloudpickle==3.[0m[91m1.2
+ + codespell[0m[91m==2.4.3[0m[91m
+ + colorama[0m[91m==[0m[91m0.4.6
+ + coolname==5[0m[91m.0.0
+ + coverage==7.13.1
+ + cronsim==2.[0m[91m7
+ + cryptography==[0m[91m50.0.0
+ + cssselect2==0.[0m[91m8.0
+ + [0m[91mcyclopts==4.22.2
+ + dataclasses-json==0.5[0m[91m.7
+ + [0m[91mdateparser[0m[91m==1.4.1
+ + decorator[0m[91m==5.2.1[0m[91m
+ [0m[91m+ defusedxml[0m[91m==0.7[0m[91m.1
+ +[0m[91m distlib==0.[0m[91m4.0
+ + docker[0m[91m==7.2.0
+ [0m[91m+ docstring-parser==[0m[91m0.17.0
+ + docutils==0.22.[0m[91m4
+ + exceptiongroup[0m[91m==1.3.1
+ [0m[91m+ execnet==2[0m[91m.1.2
+ +[0m[91m executing[0m[91m==2.2.[0m[91m1
+[0m[91m [0m[91m+ fastapi[0m[91m==0.[0m[91m141.[0m[91m1[0m[91m
+ [0m[91m+ filelock==3.25.2
+ +[0m[91m fsspec==2026.7.0
+[0m[91m + [0m[91mghp-import==2.1.0
+ + googleapis-common-protos==1.72.0[0m[91m
+ + graphviz==0[0m[91m.21
+ + greenlet==3.3.0
+ + griffe==2.1.0[0m[91m
+ + griffecli==2.1.0
+ +[0m[91m griffelib==[0m[91m2.1.0
+ + [0m[91mgrpcio==1[0m[91m.[0m[91m76.0[0m[91m
+ + [0m[91mh11==0.16.0
+ + h2[0m[91m==4.4.1
+ [0m[91m+ hpack[0m[91m==4.2.0[0m[91m
+ +[0m[91m httpcore==[0m[91m1.0.9
+ + httpx==0.28[0m[91m.1
+ + humanize==4.16[0m[91m.0
+ [0m[91m+[0m[91m hyperframe==6[0m[91m.1[0m[91m.0
+[0m[91m +[0m[91m identify==2.6.16
+ + idna==3.15
+ + iniconfig==2[0m[91m.3.0
+ + [0m[91mipython==8.39.0
+[0m[91m + jedi[0m[91m==0.19.2
+ + [0m[91mjinja2==3.1.6
+ + jinja2-humanize-extension==0.4.0
+[0m[91m + jmespath==1.0.1[0m[91m
+ +[0m[91m jsonpatch==[0m[91m1[0m[91m.[0m[91m33[0m[91m
+ +[0m[91m jsonpointer[0m[91m==3[0m[91m.[0m[91m0.0
+ + [0m[91mjsonschema==4.26.0
+ [0m[91m+ jsonschema-specifications==2025[0m[91m.9.1[0m[91m
+ +[0m[91m libcst==1.8.6
+ + [0m[91mlibrt==0[0m[91m.13[0m[91m.0
+ + mako[0m[91m==1.4.2[0m[91m
+[0m[91m + markdown==3[0m[91m.10
+ + markdown-it-py==[0m[91m3.0.0[0m[91m
+ + [0m[91mmarkupsafe==3.0.3
+ + [0m[91mmarshmallow==3.26.2
+ + marshmallow-enum==1.5.1
+ [0m[91m+ matplotlib-inline==0.2.1[0m[91m
+ + mdurl==0.1.2[0m[91m
+ + [0m[91mmergedeep==1.3.4
+ + mkdocs==1.[0m[91m6.1[0m[91m
+ + mkdocs-autorefs==1.4.3
+ [0m[91m+ mkdocs-gen-files==0.6.1
+ [0m[91m+ mkdocs-get-deps==0.2.[0m[91m0
+ + mkdocs-material==9.7.7
+ [0m[91m+ mkdocs-material-extensions==1.3.1
+ + mkdocstrings==1.[0m[91m0.0
+ [0m[91m+ mkdocstrings-python==2.0.1
+ + moto==5.2.2
+ + mypy[0m[91m==2.3.0
+ + mypy-extensions==1.1.0
+ + nodeenv==1.[0m[91m10.0
+ + numpy==2.4.1
+ + [0m[91moauthlib==4.0.0
+ + opentelemetry-api==1.44.0
+ + opentelemetry-distro==0.65b0
+ +[0m[91m opentelemetry-exporter-otlp[0m[91m==1.44.0
+ + opentelemetry-exporter-otlp-proto-common==1.44.0
+ +[0m[91m opentelemetry-exporter-otlp-proto-grpc==1.44.0
+ + [0m[91mopentelemetry-exporter-otlp-proto-http==1.44.0
+ + opentelemetry-instrumentation==0.65b0
+ + opentelemetry-instrumentation-logging==0.65b0
+ + opentelemetry-instrumentation-system-metrics==0.65b0
+ + opentelemetry-proto==[0m[91m1.44.0
+ + opentelemetry-sdk[0m[91m==1.44.0[0m[91m
+ + [0m[91mopentelemetry-semantic-conventions==0[0m[91m.65b0
+ + opentelemetry-test-utils==0[0m[91m.65b0
+ +[0m[91m orjson==3.11.9
+ + packaging==26.3
+ + [0m[91mpaginate==0.5.7
+ + parso[0m[91m==0.8.[0m[91m5[0m[91m
+ +[0m[91m pathspec==1[0m[91m.0.4
+ + pendulum==[0m[91m3.1.0
+[0m[91m +[0m[91m pexpect[0m[91m==4.9.0
+ + pillow==12.3.0
+ + platformdirs==[0m[91m4.5.1
+ + pluggy==[0m[91m1.6.0
+ + pre-commit==4.6.1
+ +[0m[91m prefect==3.6.24+nogit (from [0m[91mfile:///opt/baseline)
+ + prometheus-client==0[0m[91m.26.0
+ + prompt-toolkit==3.0.[0m[91m52
+ + properdocs==1[0m[91m.6.7
+ + protobuf==[0m[91m6.33.5
+ [0m[91m+ psutil==[0m[91m7.2.1
+ + [0m[91mptyprocess==0.7.0
+[0m[91m + pure-eval==0.2.3
+ [0m[91m+ py-key-value-aio[0m[91m==[0m[91m0.[0m[91m3.0[0m[91m
+ + py-key-value-shared==0.3.0
+ [0m[91m+ pycparser[0m[91m==2.23
+[0m[91m [0m[91m+ [0m[91mpydantic[0m[91m==2.[0m[91m13.4[0m[91m
+ + pydantic-core==2.46[0m[91m.4
+ + pydantic-extra-types==2[0m[91m.11.1
+ + pydantic-settings==2.14.2
+ [0m[91m+ pydocket[0m[91m==0.23.1
+ + pygments==2.20[0m[91m.0
+ + pymdown-extensions==11.0.[0m[91m1
+[0m[91m + pyre-check[0m[91m==0.9.23
+ [0m[91m+ pyre-extensions==0.0[0m[91m.32
+ [0m[91m+ pyright==1.1.411
+ + pytest==9.1.1
+ + pytest-asyncio==1.4.0
+ + pytest-cov==7.1.0
+ + pytest-env==1.6.0
+ + pytest-flakefinder==1.1.0
+ + pytest-split==0.11.0
+ + pytest-timeout==[0m[91m2.4.0[0m[91m
+ + pytest-xdist==3.8.0
+ + python-dateutil==2.9.0.post0
+ + python-discovery==1.6.1
+ + python-dotenv==1.2.2
+ + python-json-logger==4.0.0
+ + python-slugify==9.0.0
+ + pytz==2026.3.post1
+ + pyyaml==6.0.3
+ + pyyaml-env-tag==1.1
+ + readchar==4.2.2
+ + redis==8.1.0
+ + referencing==0.37.0
+ + regex==2025.11.3
+ + requests==2.33.0
+ + requests-oauthlib==2.0.0
+ + responses==0.25.8
+ + respx==0.23.1
+ + rfc3339-validator==0.1.4
+ + rich==15.0.0
+ + rich-rst==1.3.2
+ + rpds-py==0.30.0
+ + ruamel-yaml==0.19.1
+ + ruamel-yaml-clib==0.2.15
+ + ruff==0.16.2
+ + s3transfer==0.16.0
+ + semver==3.0.4
+ + setuptools==83.0.0
+ + shellingham==1.5.4
+ + six==1.17.0
+ + sniffio==1.3.1
+ + sqlalchemy==2.0.45
+ + stack-data==0.6.3
+ + starlette==1.3.1
+ +[0m[91m tabulate==0.9.0
+ + testslide==2.7.1
+ + text-unidecode==1.3
+ + time-machine==3.2.0
+ + tinycss2==1.5.1
+ + toml==0.10.2
+ + traitlets==5.14.3
+ + ty==0.0.10
+ + typeguard==2.13.3
+ + typer==0.20.1
+ + types-cachetools==7.0.0.20260713
+ + types-dateparser==1.4.1.20260617
+ + types-pyyaml==6.0.12.20260724
+ + typing-extensions==4.16.0
+ + typing-inspect==0.9.0
+ + typing-inspection==0.4.2
+ + typsht==0.0.1a5
+ + tzdata==2025.3
+ + tzlocal==5.3.1
+ + uncalled-for==0.3.2
+ + urllib3==2.8.0
+ + uv==0.12.0
+ + uvicorn==0.52.0
+ + vale==3.13.0.0
+ + virtualenv==21.7.13
+ + watchdog==6.0.0
+ + watchfiles==1.2.0
+ + wcwidth==0.2.14
+ + webencodings==0.5.1
+ + websockets==16.1.1
+ + werkzeug==3.1.9
+ + whenever==0.10.3
+ + wrapt==1.17.3
+ + xmltodict==1.0.2
+ + yamllint==1.38.[0m[91m0
+[0m3.6.24+nogit
+ ---> Removed intermediate container b0f3f827a651
+ ---> f65bda037423
+Step 10/14 : COPY data/incident/ /opt/incident/
+ ---> 38ad2ff15923
+Step 11/14 : RUN mkdir -p /app/prefect /app/home && cp -a /opt/baseline/. /app/prefect/ && cp -a /opt/incident/. /app/prefect/ && rm -rf /opt/input /opt/incident /opt/baseline
+ ---> Running in 1870436f4c7b
+ ---> Removed intermediate container 1870436f4c7b
+ ---> 784157021b1b
+Step 12/14 : WORKDIR /app/prefect
+ ---> Running in efe6d086ddc3
+ ---> Removed intermediate container efe6d086ddc3
+ ---> 82e7007ef4a9
+Step 13/14 : ENV PREFECT_HOME=/app/home PYTHONPATH=/app/prefect/src
+ ---> Running in a743cc2bfcb4
+ ---> Removed intermediate container a743cc2bfcb4
+ ---> 2ec345d7d68a
+Step 14/14 : RUN git init -q && git config user.name "Task baseline" && git config user.email "baseline@localhost" && git config core.autocrlf false && git add . && git commit -qm "Pinned task baseline and public incident" && touch /app/submission.patch /app/diagnosis.md
+ ---> Running in e13042049da2
+ ---> Removed intermediate container e13042049da2
+ ---> 69956a56c577
+Successfully built 69956a56c577
+Successfully tagged prefect-monitor-agent:local

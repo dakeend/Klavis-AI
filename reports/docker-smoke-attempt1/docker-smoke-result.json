@@ -1,0 +1,7 @@
+{
+  "exit_code": 137,
+  "duration_sec": 250.75,
+  "local_base_override": "python:3.11.14-slim-bookworm",
+  "reason": "Canonical default is digest-pinned; cached image was imported from checksum-verified registry layers to avoid an invalid daemon proxy.",
+  "kind": "Docker smoke; not a Harbor trial"
+}

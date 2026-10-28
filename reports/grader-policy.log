@@ -1,0 +1,11 @@
+test_failure_skip_crash_and_missing_report_cannot_pass (test_grader_policy.PolicyTests.test_failure_skip_crash_and_missing_report_cannot_pass) ... ok
+test_forbidden_patch_headers (test_grader_policy.PolicyTests.test_forbidden_patch_headers) ... ok
+test_no_tests_or_partial_report_cannot_pass (test_grader_policy.PolicyTests.test_no_tests_or_partial_report_cannot_pass) ... ok
+test_normal_production_patch (test_grader_policy.PolicyTests.test_normal_production_patch) ... ok
+test_readonly_source_keeps_executable_helpers (test_grader_policy.PolicyTests.test_readonly_source_keeps_executable_helpers) ... ok
+test_symlink_or_rename_or_binary_rejected (test_grader_policy.PolicyTests.test_symlink_or_rename_or_binary_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.085s
+
+OK

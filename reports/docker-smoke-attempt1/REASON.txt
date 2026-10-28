@@ -1,0 +1,1 @@
+Stopped only this temporary build after confirming it repeated dependency downloads because build network modes differed. Retried with the successful preflight network mode to reuse its cache. This infrastructure cancellation is not an oracle/model semantic failure.

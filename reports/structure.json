@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "scope": "local file structure, syntax and input integrity; not upstream CI",
+  "baseline_sha256": "d384966ac31229dd2bbbbabe82cf05fa03b91085f651ca586ac837167457174b",
+  "total_checks": "required files, TOML, instruction suffix, canary, shell/Python syntax, source hashes, archive separation"
+}

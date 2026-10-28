@@ -1,0 +1,24 @@
+{
+  "mode": "oracle",
+  "kind": "portable behavioral check, not Harbor CI",
+  "python": "E:\\工作\\笔试\\klavis\\sandbox-codex-6.1-sol-max\\.runtime\\venv\\Scripts\\python.exe",
+  "source": "E:\\工作\\笔试\\klavis\\vfy\\package-oracle-221346\\source",
+  "groups": {
+    "behavior": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_tests": 36
+    },
+    "retry": {
+      "exit_code": 1,
+      "passed": false,
+      "expected_tests": 4
+    }
+  },
+  "isolation_verified": false,
+  "reliability": {
+    "passed": false,
+    "error": "Restart phase open exited 1; see restart-open.log"
+  },
+  "all_passed": false
+}

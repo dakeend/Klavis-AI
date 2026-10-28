@@ -1,0 +1,140 @@
++++++++++++++++++++++++++++++++++++ Timeout +++++++++++++++++++++++++++++++++++
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Captured stdout ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Generating test database connection URL from 'sqlite+aiosqlite:///E:/工作/笔试/klavis/vfy/package-oracle-221346/runtime/test.db'
+Running hosted API server on port 62391
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Captured stderr ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+22:19:42.501 | INFO    | uvicorn.error - Started server process [15952]
+22:19:42.529 | INFO    | uvicorn.error - Waiting for application startup.
+22:19:43.615 | DEBUG   | prefect.server - Worker channel configuration: cleanup_queue_storage=prefect.server.worker_communication.cleanup_queue.memory cleanup_lease_seconds=30.0 cleanup_max_delivery_attempts=3 cleanup_completed_idempotency_retention_seconds=None
+22:19:43.647 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: ensure_cancelling_timeout_checks
+22:19:43.648 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: monitor_cancelled_flow_runs
+22:19:43.648 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: monitor_subflow_runs
+22:19:43.649 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: schedule_vacuum_tasks
+22:19:43.649 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: schedule_event_vacuum_tasks
+22:19:43.649 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: schedule_orphan_vacuum_tasks
+22:19:43.650 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: monitor_worker_health
+22:19:43.650 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: monitor_late_runs
+22:19:43.650 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: monitor_expired_pauses
+22:19:43.652 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: schedule_deployments
+22:19:43.653 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: schedule_recent_deployments
+22:19:43.653 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: send_telemetry_heartbeat
+22:19:43.653 | DEBUG   | prefect.server.services.perpetual_services - Skipping disabled perpetual service: evaluate_proactive_triggers_periodic
+22:19:43.654 | DEBUG   | prefect.server.services.perpetual_services - Registered perpetual service: monitor_expired_leases
+22:19:43.654 | DEBUG   | prefect.server.services.perpetual_services - Registered perpetual service: reconcile_cleanup_delivery
+22:19:43.654 | INFO    | prefect.server.services.perpetual_services - Scheduling perpetual service: monitor_expired_leases
+22:19:43.656 | INFO    | prefect.server.services.perpetual_services - Scheduling perpetual service: reconcile_cleanup_delivery
+22:19:43.658 | INFO    | prefect.server.services.perpetual_services - Perpetual services: 2 enabled, 13 disabled, 15 total
+22:19:43.665 | INFO    | uvicorn.error - Application startup complete.
+22:19:43.667 | INFO    | uvicorn.error - Uvicorn running on http://127.0.0.1:62391 (Press CTRL+C to quit)
+~~~~~~~~~~~~~~~~~~~~~~~~~ Stack of asyncio_0 (26796) ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  File "D:\python3.11\Lib\threading.py", line 995, in _bootstrap
+    self._bootstrap_inner()
+  File "D:\python3.11\Lib\threading.py", line 1038, in _bootstrap_inner
+    self.run()
+  File "D:\python3.11\Lib\threading.py", line 975, in run
+    self._target(*self._args, **self._kwargs)
+  File "D:\python3.11\Lib\concurrent\futures\thread.py", line 81, in _worker
+    work_item = work_queue.get(block=True)
+~~~~~~~~~~~~ Stack of Thread-2 (_connection_worker_thread) (36940) ~~~~~~~~~~~~
+  File "D:\python3.11\Lib\threading.py", line 995, in _bootstrap
+    self._bootstrap_inner()
+  File "D:\python3.11\Lib\threading.py", line 1038, in _bootstrap_inner
+    self.run()
+  File "D:\python3.11\Lib\threading.py", line 975, in run
+    self._target(*self._args, **self._kwargs)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\aiosqlite\core.py", line 59, in _connection_worker_thread
+    future, function = tx.get()
+~~~~~~~~~~~~~~~~~~~~~~~~~ Stack of MainThread (31204) ~~~~~~~~~~~~~~~~~~~~~~~~~
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pytest\__main__.py", line 9, in <module>
+    raise SystemExit(_console_main())
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\config\__init__.py", line 253, in _console_main
+    code = _main(prog=_get_prog_name(sys.argv))
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\config\__init__.py", line 229, in _main
+    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\main.py", line 377, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\main.py", line 330, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\main.py", line 384, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\main.py", line 408, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 118, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 132, in runtestprotocol
+    rep = call_and_report(item, "setup", log)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 249, in call_and_report
+    call = CallInfo.from_call(
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 361, in from_call
+    result: TResult | None = func()
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 250, in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 170, in pytest_runtest_setup
+    item.session._setupstate.setup(item)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\runner.py", line 536, in setup
+    col.setup()
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pytest_asyncio\plugin.py", line 558, in setup
+    return super().setup()
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\python.py", line 1710, in setup
+    self._request._fillfixtures()
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\fixtures.py", line 806, in _fillfixtures
+    item.funcargs[argname] = self.getfixturevalue(argname)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\fixtures.py", line 630, in getfixturevalue
+    fixturedef = self._get_active_fixturedef(argname)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\fixtures.py", line 726, in _get_active_fixturedef
+    fixturedef.execute(request=subrequest)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\fixtures.py", line 1232, in execute
+    result: FixtureValue = ihook.pytest_fixture_setup(
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\fixtures.py", line 1328, in pytest_fixture_setup
+    result = call_fixture_func(fixturefunc, request, kwargs)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\_pytest\fixtures.py", line 1005, in call_fixture_func
+    fixture_result = fixturefunc(**kwargs)
+  File "E:\工作\笔试\klavis\sandbox-codex-6.1-sol-max\.runtime\venv\Lib\site-packages\pytest_asyncio\plugin.py", line 407, in _asyncgen_fixture_wrapper
+    result = runner.run(setup(), context=context)
+  File "D:\python3.11\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 637, in run_until_complete
+    self.run_forever()
+  File "D:\python3.11\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 604, in run_forever
+    self._run_once()
+  File "D:\python3.11\Lib\asyncio\base_events.py", line 1873, in _run_once
+    event_list = self._selector.select(timeout)
+  File "D:\python3.11\Lib\asyncio\windows_events.py", line 439, in select
+    self._poll(timeout)
+  File "D:\python3.11\Lib\asyncio\windows_events.py", line 808, in _poll
+    status = _overlapped.GetQueuedCompletionStatus(self._iocp, ms)
++++++++++++++++++++++++++++++++++++ Timeout +++++++++++++++++++++++++++++++++++

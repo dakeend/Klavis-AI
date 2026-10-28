@@ -1,0 +1,5 @@
+# Preserve the frozen source archives, patches, reports and checksums byte-for-byte.
+* -text
+# Retain raw diagnostic output and unified-diff context without whitespace edits.
+reports/** -whitespace
+*.patch -whitespace
