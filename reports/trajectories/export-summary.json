@@ -1,0 +1,24 @@
+[
+  {
+    "trial": "gpt61-sol-xhigh",
+    "records": 105,
+    "kinds": {
+      "assistant_message": 11,
+      "tool_call": 47,
+      "tool_result": 47
+    },
+    "production_files": 7,
+    "secret_redactions": 0
+  },
+  {
+    "trial": "claude-deepseek41-flash-max",
+    "records": 279,
+    "kinds": {
+      "tool_call": 134,
+      "tool_result": 134,
+      "assistant_message": 11
+    },
+    "production_files": 1,
+    "secret_redactions": 0
+  }
+]

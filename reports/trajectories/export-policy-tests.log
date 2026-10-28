@@ -1,0 +1,11 @@
+test_claude_thinking_and_system_messages_are_not_exported (test_export_trial_evidence.EvidencePrivacyTests.test_claude_thinking_and_system_messages_are_not_exported) ... ok
+test_client_instruction_wrappers_are_omitted (test_export_trial_evidence.EvidencePrivacyTests.test_client_instruction_wrappers_are_omitted) ... ok
+test_codex_only_exports_visible_messages_and_allowed_fields (test_export_trial_evidence.EvidencePrivacyTests.test_codex_only_exports_visible_messages_and_allowed_fields) ... ok
+test_generic_skill_results_are_omitted_without_losing_the_call (test_export_trial_evidence.EvidencePrivacyTests.test_generic_skill_results_are_omitted_without_losing_the_call) ... ok
+test_paths_are_removed_at_multiple_json_escape_depths (test_export_trial_evidence.EvidencePrivacyTests.test_paths_are_removed_at_multiple_json_escape_depths) ... ok
+test_secrets_are_removed_and_public_model_is_kept (test_export_trial_evidence.EvidencePrivacyTests.test_secrets_are_removed_and_public_model_is_kept) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.005s
+
+OK

@@ -1,0 +1,44 @@
+[
+  {
+    "path": "src/prefect/server/database/_migrations/MIGRATION-NOTES.md",
+    "baseline_lf_sha256": "396e92fff809e5bad7be4e30d3d12cbc3bb52429c1d4e8c031e9bbef4d35ffff",
+    "candidate_snapshot_sha256": "1b13238f4f605bb6800680e643edcef19ab46bbddbd5124acd0131ca17234dd8",
+    "candidate_lf_sha256": "2adb21d1bf0594634108d807f5cf0ebeafcd10a84e845ea9500f8500953e87c1"
+  },
+  {
+    "path": "src/prefect/server/database/_migrations/versions/postgresql/2026_10_28_000000_91b0e673ca24_add_automation_event_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "cab449941f48a22228dcd9c357ef6b43df192cd08c1446d722d1480a30dda086",
+    "candidate_lf_sha256": "cab449941f48a22228dcd9c357ef6b43df192cd08c1446d722d1480a30dda086"
+  },
+  {
+    "path": "src/prefect/server/database/_migrations/versions/sqlite/2026_10_28_000000_56e7a62c90d1_add_automation_event_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "f2380254ef814fd1d31b9817e4c1f4574f749e8455592d7110c6f3da6112f4b7",
+    "candidate_lf_sha256": "f2380254ef814fd1d31b9817e4c1f4574f749e8455592d7110c6f3da6112f4b7"
+  },
+  {
+    "path": "src/prefect/server/database/interface.py",
+    "baseline_lf_sha256": "3ee69d71cac72ccd754ed1fa7c05a42e9fd274d6cd4456c110010b7fb392190e",
+    "candidate_snapshot_sha256": "f1b597a3f6257d0ac5bd630edb65a0027dbac0b3e11de1183c3401794b2016b2",
+    "candidate_lf_sha256": "a38cb0f22bc0783604d4779e77bfa07529cd1139f94b48b14b60679da045b80c"
+  },
+  {
+    "path": "src/prefect/server/database/orm_models.py",
+    "baseline_lf_sha256": "805fa5f56ac8413da792ba64747763b2f6840be0f27af0b4bab5419fc70e6858",
+    "candidate_snapshot_sha256": "82484a33328a1f3345678b09c6e7b736fefef01a652d56f91199d62e4db4c18f",
+    "candidate_lf_sha256": "d45eca6ec0b66b188713faab20aa83d25403af8813f39d67f96e77a8ce7ee855"
+  },
+  {
+    "path": "src/prefect/server/events/models/automations.py",
+    "baseline_lf_sha256": "0dfeaceedf1c5c852f18a18c9d859082be515bae42126a464e37274a4027fd20",
+    "candidate_snapshot_sha256": "ac954b3c42da30a22d3877a09c44e09d7befb7c3c4f9cca6ebe659432069dcce",
+    "candidate_lf_sha256": "407f5e208e24a13df37cdf659166239efd9a0671aecb7c008f6b34f600361342"
+  },
+  {
+    "path": "src/prefect/server/events/triggers.py",
+    "baseline_lf_sha256": "0adf4facbe56258ad95adc663b8b4669ceb87225e2a9cd8aafcd9bcfcdc54021",
+    "candidate_snapshot_sha256": "a7f9da3a10b2bac37b2d41b2d544c61a14278c7d41dd2afa8b75672a104f7589",
+    "candidate_lf_sha256": "78c257d40e6a1cd4eb56e934c0fee196ee3224387f4f1cfaf6f5013066e05bcd"
+  }
+]

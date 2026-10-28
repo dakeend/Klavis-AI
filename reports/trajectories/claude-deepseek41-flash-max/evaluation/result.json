@@ -1,0 +1,57 @@
+{
+  "label": "claude-deepseek41-flash-max",
+  "model": "deepseek-flash[1m]",
+  "effort": "max",
+  "session_id": "55214eff-0884-4b79-a3a2-b90b27256548",
+  "start_beijing": "16:11:32",
+  "end_beijing": "17:01:49",
+  "duration_minutes": 50.28,
+  "public_replay_passed": true,
+  "historical_behavior_passed": 18,
+  "historical_behavior_failed_raw": 17,
+  "combined_behavior_summary": "17 failed, 19 passed in 166.09s (0:02:46)",
+  "retry_summary": "4 passed, 522 deselected in 37.12s",
+  "retry_counts": {
+    "passed": 4,
+    "deselected": 522
+  },
+  "source_unchanged_since_snapshot": true,
+  "failed_tests": [
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_later_after_events_evaluated_late_keep_the_window_satisfied",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_rolled_window_fires_with_the_carried_expect_event",
+    "tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_a_high_threshold_counts_every_held_event",
+    "tests/events/server/triggers/test_early_expect_events.py::test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_later_expect_event_keeps_an_earlier_one_held_for_a_lost_follower",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_is_still_held_when_a_lost_follower_is_evaluated"
+  ],
+  "formal_tb3_trial": false,
+  "evaluation_version": "historical diagnostic-v1; not packaged 44-check verifier",
+  "complete_verifier": false,
+  "internal_bucket_assertion_needs_review": true,
+  "snapshot_at_utc": "2026-10-28T13:17:56.392390+00:00",
+  "runs": [
+    {
+      "group": "behavior",
+      "exit_code": 1,
+      "elapsed_seconds": 220.77,
+      "log": "behavior.log"
+    },
+    {
+      "group": "retry",
+      "exit_code": 0,
+      "elapsed_seconds": 48.59,
+      "log": "retry.log"
+    }
+  ]
+}

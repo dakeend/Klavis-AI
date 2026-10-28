@@ -1,0 +1,31 @@
+{
+  "base_commit": "71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8",
+  "model": "deepseek-flash",
+  "reasoning_effort": "max",
+  "fresh_conversation": true,
+  "reference_material_copied": false,
+  "previous_solution_copied": false,
+  "upstream_git_history_copied": false,
+  "isolation": "separate source copy and instructions; no container or hard read boundary",
+  "environment_preinstalled": true,
+  "comparison_limitations": [
+    "Exploratory local trial; not Docker/Harbor CI or a complete official benchmark run."
+  ],
+  "formal_tb3_trial": false,
+  "agent_framework": "claude-code",
+  "session_id": "55214eff-0884-4b79-a3a2-b90b27256548",
+  "started_at_utc": "2026-10-28T08:11:32.821302+00:00",
+  "finished_at_utc": "2026-10-28T09:01:49.778449+00:00",
+  "source_observed_export_sha256": "17ecc25f8211cfc8f5a5fa06c2e2a36a95851e12adfc9a15770394d78ff791e3",
+  "input_task_original_sha256": "164ff966bdabad510af73b8ecef53ed7f4a7fa4c293fc6080f06c56d0e55ba48",
+  "reasoning_exported": false,
+  "source_timestamps_preserved": true,
+  "client_version": "2.1.312",
+  "requested_model": "deepseek-flash[1m]",
+  "initialized_model": "deepseek-flash[1m]",
+  "observed_models": [
+    "deepseek-flash"
+  ],
+  "provider_base_url": "https://api.deepseek.com/anthropic",
+  "credential_exported": false
+}

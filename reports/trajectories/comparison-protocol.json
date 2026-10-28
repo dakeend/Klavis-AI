@@ -1,0 +1,10 @@
+{
+  "task_version": "diagnostic-v1",
+  "same_task_after_path_normalization": true,
+  "normalized_task_sha256": "283a48d786c445b67e274803a6eee1c6b2264cd00a3458a2613807655e036d05",
+  "base_commit": "71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8",
+  "trials_per_configuration": 1,
+  "formal_tb3_trial": false,
+  "evaluation_protocol": "../diagnostic-sol-max-trial/evaluation-protocol.json",
+  "raw_internal_bucket_assertion_needs_review": true
+}

@@ -1,0 +1,466 @@
+diff --git a/src/prefect/server/database/_migrations/MIGRATION-NOTES.md b/src/prefect/server/database/_migrations/MIGRATION-NOTES.md
+--- a/src/prefect/server/database/_migrations/MIGRATION-NOTES.md
++++ b/src/prefect/server/database/_migrations/MIGRATION-NOTES.md
+@@ -7,6 +7,15 @@
+ - Revision numbers for sqlite/postgres
+ 
+ This gives us a history of changes and will create merge conflicts if two migrations are made at once, flagging situations where a branch needs to be updated before merging.
++
++# Add proactive automation event watermarks
++SQLite: `56e7a62c90d1`
++Postgres: `91b0e673ca24`
++
++Adds one ordering row per automation, trigger and resource key, with an indexed
++expiry for bounded retention. Existing automation and bucket data is untouched;
++the evaluator seeds ordering state from existing buckets before retiring them.
++Downgrade removes only this new ordering state.
+ 
+ # Add `flow_run(state_type, coalesce(start_time, expected_start_time))` index
+ SQLite: `a3b9c7d2e5f1`
+diff --git a/src/prefect/server/database/_migrations/versions/postgresql/2026_10_28_000000_91b0e673ca24_add_automation_event_watermark.py b/src/prefect/server/database/_migrations/versions/postgresql/2026_10_28_000000_91b0e673ca24_add_automation_event_watermark.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/database/_migrations/versions/postgresql/2026_10_28_000000_91b0e673ca24_add_automation_event_watermark.py
+@@ -0,0 +1,55 @@
++"""Add durable proactive event ordering watermarks.
++
++Revision ID: 91b0e673ca24
++Revises: d4a7e1c93f52
++Create Date: 2026-10-28 00:00:00
++"""
++
++import sqlalchemy as sa
++from alembic import op
++
++from prefect.server.utilities.database import JSON, UUID, GenerateUUID, Timestamp
++
++revision = "91b0e673ca24"
++down_revision = "d4a7e1c93f52"
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    op.create_table(
++        "automation_event_watermark",
++        sa.Column("id", UUID(), primary_key=True, server_default=GenerateUUID()),
++        sa.Column("created", Timestamp(), nullable=False, server_default=sa.func.now()),
++        sa.Column("updated", Timestamp(), nullable=False, server_default=sa.func.now()),
++        sa.Column(
++            "automation_id",
++            UUID(),
++            sa.ForeignKey("automation.id", ondelete="CASCADE"),
++            nullable=False,
++        ),
++        sa.Column("trigger_id", UUID(), nullable=False),
++        sa.Column("bucketing_key", JSON(), nullable=False),
++        sa.Column("occurred", Timestamp(), nullable=True),
++        sa.Column("expires", Timestamp(), nullable=False),
++    )
++    op.create_index(
++        "uq_automation_event_watermark__scope",
++        "automation_event_watermark",
++        ["automation_id", "trigger_id", "bucketing_key"],
++        unique=True,
++    )
++    op.create_index(
++        "ix_automation_event_watermark__expires",
++        "automation_event_watermark",
++        ["expires"],
++    )
++    op.create_index(
++        "ix_automation_event_watermark__updated",
++        "automation_event_watermark",
++        ["updated"],
++    )
++
++
++def downgrade():
++    op.drop_table("automation_event_watermark")
+diff --git a/src/prefect/server/database/_migrations/versions/sqlite/2026_10_28_000000_56e7a62c90d1_add_automation_event_watermark.py b/src/prefect/server/database/_migrations/versions/sqlite/2026_10_28_000000_56e7a62c90d1_add_automation_event_watermark.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/database/_migrations/versions/sqlite/2026_10_28_000000_56e7a62c90d1_add_automation_event_watermark.py
+@@ -0,0 +1,55 @@
++"""Add durable proactive event ordering watermarks.
++
++Revision ID: 56e7a62c90d1
++Revises: a3b9c7d2e5f1
++Create Date: 2026-10-28 00:00:00
++"""
++
++import sqlalchemy as sa
++from alembic import op
++
++from prefect.server.utilities.database import JSON, UUID, GenerateUUID, Timestamp
++
++revision = "56e7a62c90d1"
++down_revision = "a3b9c7d2e5f1"
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    op.create_table(
++        "automation_event_watermark",
++        sa.Column("id", UUID(), primary_key=True, server_default=GenerateUUID()),
++        sa.Column("created", Timestamp(), nullable=False, server_default=sa.func.now()),
++        sa.Column("updated", Timestamp(), nullable=False, server_default=sa.func.now()),
++        sa.Column(
++            "automation_id",
++            UUID(),
++            sa.ForeignKey("automation.id", ondelete="CASCADE"),
++            nullable=False,
++        ),
++        sa.Column("trigger_id", UUID(), nullable=False),
++        sa.Column("bucketing_key", JSON(), nullable=False),
++        sa.Column("occurred", Timestamp(), nullable=True),
++        sa.Column("expires", Timestamp(), nullable=False),
++    )
++    op.create_index(
++        "uq_automation_event_watermark__scope",
++        "automation_event_watermark",
++        ["automation_id", "trigger_id", "bucketing_key"],
++        unique=True,
++    )
++    op.create_index(
++        "ix_automation_event_watermark__expires",
++        "automation_event_watermark",
++        ["expires"],
++    )
++    op.create_index(
++        "ix_automation_event_watermark__updated",
++        "automation_event_watermark",
++        ["updated"],
++    )
++
++
++def downgrade():
++    op.drop_table("automation_event_watermark")
+diff --git a/src/prefect/server/database/interface.py b/src/prefect/server/database/interface.py
+--- a/src/prefect/server/database/interface.py
++++ b/src/prefect/server/database/interface.py
+@@ -322,6 +322,11 @@
+         return orm_models.AutomationBucket
+ 
+     @property
++    def AutomationEventWatermark(self) -> type[orm_models.AutomationEventWatermark]:
++        """Ordering state for proactive event triggers."""
++        return orm_models.AutomationEventWatermark
++
++    @property
+     def AutomationRelatedResource(self) -> type[orm_models.AutomationRelatedResource]:
+         """An automation related resource model"""
+         return orm_models.AutomationRelatedResource
+diff --git a/src/prefect/server/database/orm_models.py b/src/prefect/server/database/orm_models.py
+--- a/src/prefect/server/database/orm_models.py
++++ b/src/prefect/server/database/orm_models.py
+@@ -1339,6 +1339,28 @@
+     last_operation: Mapped[Optional[str]]
+ 
+     triggered_at: Mapped[Optional[DateTime]]
++
++
++class AutomationEventWatermark(Base):
++    """Ordering state retained independently of a proactive trigger's bucket."""
++
++    __table_args__: Any = (
++        sa.Index(
++            "uq_automation_event_watermark__scope",
++            "automation_id",
++            "trigger_id",
++            "bucketing_key",
++            unique=True,
++        ),
++    )
++
++    automation_id: Mapped[uuid.UUID] = mapped_column(
++        sa.ForeignKey("automation.id", ondelete="CASCADE")
++    )
++    trigger_id: Mapped[uuid.UUID]
++    bucketing_key: Mapped[list[str]] = mapped_column(JSON)
++    occurred: Mapped[DateTime | None]
++    expires: Mapped[DateTime] = mapped_column(index=True)
+ 
+ 
+ class AutomationRelatedResource(Base):
+diff --git a/src/prefect/server/events/models/automations.py b/src/prefect/server/events/models/automations.py
+--- a/src/prefect/server/events/models/automations.py
++++ b/src/prefect/server/events/models/automations.py
+@@ -287,6 +287,11 @@
+     # Delete child tables in a consistent order to prevent deadlocks
+     # when multiple automations are deleted concurrently
+     await session.execute(
++        sa.delete(db.AutomationEventWatermark).where(
++            db.AutomationEventWatermark.automation_id == automation_id,
++        )
++    )
++    await session.execute(
+         sa.delete(db.AutomationBucket).where(
+             db.AutomationBucket.automation_id == automation_id,
+         )
+@@ -326,6 +331,7 @@
+ 
+     # Delete child tables in a consistent order to prevent deadlocks
+     # when multiple workspace deletions occur concurrently
++    await session.execute(sa.delete(db.AutomationEventWatermark))
+     await session.execute(sa.delete(db.AutomationBucket))
+     await session.execute(sa.delete(db.AutomationRelatedResource))
+     await session.execute(sa.delete(db.CompositeTriggerChildFiring))
+diff --git a/src/prefect/server/events/triggers.py b/src/prefect/server/events/triggers.py
+--- a/src/prefect/server/events/triggers.py
++++ b/src/prefect/server/events/triggers.py
+@@ -237,6 +237,9 @@
+             and not meets_threshold
+             and trigger.starts_after(triggering_event.event)
+             and trigger.expects(triggering_event.event)
++            and await _can_start_bucket(
++                session, trigger, tuple(bucket.bucketing_key), triggering_event
++            )
+         ):
+             await remove_bucket(session, bucket)
+             return await start_new_bucket(
+@@ -599,7 +602,20 @@
+                 try:
+                     bucket: Optional["ORMAutomationBucket"] = None
+ 
+-                    if trigger.after and trigger.starts_after(event.event):
++                    if trigger.posture == Posture.Proactive and trigger.after:
++                        # This upsert also serializes events for this key across
++                        # consumers. A satisfied bucket may already have been swept.
++                        await _record_proactive_event(
++                            session, trigger, bucketing_key, event
++                        )
++
++                    if (
++                        trigger.after
++                        and trigger.starts_after(event.event)
++                        and await _can_start_bucket(
++                            session, trigger, bucketing_key, event
++                        )
++                    ):
+                         # When an event matches both the after and expect, each event
+                         # can both start a new bucket and increment the bucket that was
+                         # started by the previous event.  Here we offset the bucket to
+@@ -889,11 +905,138 @@
+ 
+ 
+ @db_injector
++async def _record_proactive_event(
++    db: PrefectDBInterface,
++    session: AsyncSession,
++    trigger: EventTrigger,
++    bucketing_key: tuple[str, ...],
++    event: ReceivedEvent,
++) -> None:
++    """Remember satisfied expectations independently of the active bucket.
++
++    A row exists even for starts so the upsert locks the key before changing its
++    bucket. Keep this ordering state after the bucket is satisfied or removed.
++    """
++    watermark = db.AutomationEventWatermark
++    expect_only = trigger.expects(event.event) and not trigger.starts_after(event.event)
++    occurred = event.occurred if expect_only and trigger.threshold <= 1 else None
++    current_time = prefect.types._datetime.now("UTC")
++    insert = db.queries.insert(watermark).values(
++        automation_id=trigger.automation.id,
++        trigger_id=trigger.id,
++        bucketing_key=bucketing_key,
++        occurred=occurred,
++        expires=prefect.types._datetime.from_timestamp(
++            current_time.timestamp()
++            + (trigger.within + PRECEDING_EVENT_LOOKBACK).total_seconds()
++        ),
++    )
++    await session.execute(
++        insert.on_conflict_do_update(
++            index_elements=[
++                watermark.automation_id,
++                watermark.trigger_id,
++                watermark.bucketing_key,
++            ],
++            set_={
++                "occurred": sa.case(
++                    (
++                        sa.or_(
++                            watermark.occurred.is_(None),
++                            insert.excluded.occurred > watermark.occurred,
++                        ),
++                        insert.excluded.occurred,
++                    ),
++                    else_=watermark.occurred,
++                ),
++                "expires": insert.excluded.expires,
++                "updated": current_time,
++            },
++        )
++    )
++    # Read only after the upsert has serialized this key. In particular, SQLite
++    # must acquire its write lock before taking a read snapshot.
++    bucket = await read_bucket(session, trigger, bucketing_key)
++    if bucket:
++        if (
++            expect_only
++            and bucket.start <= event.occurred < bucket.end
++            and bucket.count + 1 >= trigger.threshold
++        ):
++            occurred = event.occurred
++        # Seed buckets from an older server version before they are retired.
++        if (
++            bucket.count >= trigger.threshold
++            and bucket.last_event
++            and trigger.expects(bucket.last_event.event)
++            and not trigger.starts_after(bucket.last_event.event)
++        ):
++            occurred = max(
++                occurred or bucket.last_event.occurred, bucket.last_event.occurred
++            )
++    if occurred is not None:
++        await session.execute(
++            sa.update(watermark)
++            .where(
++                watermark.automation_id == trigger.automation.id,
++                watermark.trigger_id == trigger.id,
++                watermark.bucketing_key == bucketing_key,
++                sa.or_(watermark.occurred.is_(None), watermark.occurred < occurred),
++            )
++            .values(occurred=occurred)
++        )
++
++
++@db_injector
++async def _can_start_bucket(
++    db: PrefectDBInterface,
++    session: AsyncSession,
++    trigger: EventTrigger,
++    bucketing_key: tuple[str, ...],
++    event: ReceivedEvent,
++) -> bool:
++    if trigger.posture != Posture.Proactive or not trigger.after:
++        return True
++    watermark = db.AutomationEventWatermark
++    occurred = await session.scalar(
++        sa.select(watermark.occurred).where(
++            watermark.automation_id == trigger.automation.id,
++            watermark.trigger_id == trigger.id,
++            watermark.bucketing_key == bucketing_key,
++        )
++    )
++    # An expect-only event wins ties: an equal-time start cannot undo completion.
++    return occurred is None or event.occurred > occurred
++
++
++@db_injector
+ async def remove_buckets_exceeding_threshold(
+     db: PrefectDBInterface, session: AsyncSession, trigger: EventTrigger
+ ):
+     """Deletes bucket where the count has already exceeded the threshold"""
+     assert isinstance(trigger, EventTrigger), repr(trigger)
++    if trigger.posture == Posture.Proactive and trigger.after:
++        # Preserve information in pre-upgrade buckets before retiring them.
++        result = await session.execute(
++            sa.select(db.AutomationBucket).where(
++                db.AutomationBucket.automation_id == trigger.automation.id,
++                db.AutomationBucket.trigger_id == trigger.id,
++                db.AutomationBucket.count >= trigger.threshold,
++                ~sa.exists().where(
++                    db.AutomationEventWatermark.automation_id
++                    == db.AutomationBucket.automation_id,
++                    db.AutomationEventWatermark.trigger_id
++                    == db.AutomationBucket.trigger_id,
++                    db.AutomationEventWatermark.bucketing_key
++                    == db.AutomationBucket.bucketing_key,
++                ),
++            )
++        )
++        for bucket in result.scalars():
++            if bucket.last_event and not trigger.starts_after(bucket.last_event.event):
++                await _record_proactive_event(
++                    session, trigger, tuple(bucket.bucketing_key), bucket.last_event
++                )
+     await session.execute(
+         sa.delete(db.AutomationBucket).where(
+             db.AutomationBucket.automation_id == trigger.automation.id,
+@@ -986,9 +1129,11 @@
+     last_event: Optional[ReceivedEvent],
+ ) -> "ORMAutomationBucket":
+     """Adds the given count to the bucket, returning the new bucket"""
+-    additional_updates: dict[str, ReceivedEvent] = (
+-        {"last_event": last_event} if last_event else {}
+-    )
++    additional_updates: dict[str, ReceivedEvent] = {}
++    if last_event and (
++        not bucket.last_event or last_event.occurred >= bucket.last_event.occurred
++    ):
++        additional_updates["last_event"] = last_event
+     await session.execute(
+         db.queries.insert(db.AutomationBucket)
+         .values(
+@@ -998,6 +1143,7 @@
+             start=bucket.start,
+             end=bucket.end,
+             count=count,
++            last_event=last_event,
+             last_operation="increment_bucket[insert]",
+         )
+         .on_conflict_do_update(
+@@ -1102,9 +1248,6 @@
+     """Ensures that a bucket has been started for the given automation and key,
+     returning the current bucket.  Will not modify the existing bucket."""
+     automation = trigger.automation
+-    additional_updates: dict[str, ReceivedEvent] = (
+-        {"last_event": last_event} if last_event else {}
+-    )
+     await session.execute(
+         db.queries.insert(db.AutomationBucket)
+         .values(
+@@ -1126,7 +1269,6 @@
+             set_=dict(
+                 # no-op, but this counts as an update so the query returns a row
+                 count=db.AutomationBucket.count,
+-                **additional_updates,
+             ),
+         )
+     )
+@@ -1161,8 +1303,41 @@
+     session: AsyncSession,
+     older_than: prefect.types._datetime.DateTime,
+ ) -> None:
++    # A periodic sweep can be the first operation after an upgrade. Preserve
++    # expect-only events in legacy buckets before deleting their only copy.
++    result = await session.execute(
++        sa.select(db.AutomationBucket).where(
++            db.AutomationBucket.end <= older_than,
++            ~sa.exists().where(
++                db.AutomationEventWatermark.automation_id
++                == db.AutomationBucket.automation_id,
++                db.AutomationEventWatermark.trigger_id
++                == db.AutomationBucket.trigger_id,
++                db.AutomationEventWatermark.bucketing_key
++                == db.AutomationBucket.bucketing_key,
++            ),
++        )
++    )
++    for bucket in result.scalars():
++        trigger = triggers.get(bucket.trigger_id)
++        if (
++            isinstance(trigger, EventTrigger)
++            and trigger.posture == Posture.Proactive
++            and trigger.after
++            and bucket.last_event
++            and trigger.expects(bucket.last_event.event)
++            and not trigger.starts_after(bucket.last_event.event)
++        ):
++            await _record_proactive_event(
++                session, trigger, tuple(bucket.bucketing_key), bucket.last_event
++            )
+     await session.execute(
+         sa.delete(db.AutomationBucket).where(db.AutomationBucket.end <= older_than)
++    )
++    await session.execute(
++        sa.delete(db.AutomationEventWatermark).where(
++            db.AutomationEventWatermark.expires <= older_than
++        )
+     )
+ 
+ 

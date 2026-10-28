@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Evidence integrity and patch applicability only; no new model/benchmark run",
+  "trials": [
+    {
+      "trial": "gpt61-sol-xhigh",
+      "visible_tool_calls": 47,
+      "paired_tool_results": 47,
+      "records": 105,
+      "production_files_verified": 7,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true
+    },
+    {
+      "trial": "claude-deepseek41-flash-max",
+      "visible_tool_calls": 134,
+      "paired_tool_results": 134,
+      "records": 279,
+      "production_files_verified": 1,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true
+    }
+  ]
+}

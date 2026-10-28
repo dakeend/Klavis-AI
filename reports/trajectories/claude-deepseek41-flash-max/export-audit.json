@@ -1,0 +1,27 @@
+{
+  "exported_at_utc": "2026-10-28T16:19:20.801726+00:00",
+  "source_observed_export_sha256": "17ecc25f8211cfc8f5a5fa06c2e2a36a95851e12adfc9a15770394d78ff791e3",
+  "source_records": 281,
+  "exported_records": 279,
+  "record_kinds": {
+    "tool_call": 134,
+    "tool_result": 134,
+    "assistant_message": 11
+  },
+  "transformations": {
+    "instruction_block_omissions": 0,
+    "path_replacements": 239,
+    "secret_replacements": 0
+  },
+  "excluded": [
+    "private reasoning/thinking",
+    "system/developer messages",
+    "internal metadata",
+    "collaboration message bodies",
+    "local generic skill output",
+    "credential/configuration files",
+    "raw stream/session"
+  ],
+  "candidate_patch": "Production only; sourced from the independent evaluation snapshot; generated metadata excluded; CRLF normalized to LF.",
+  "source_hashes_verified": true
+}

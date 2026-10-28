@@ -1,0 +1,140 @@
+diff --git a/src/prefect/server/events/triggers.py b/src/prefect/server/events/triggers.py
+--- a/src/prefect/server/events/triggers.py
++++ b/src/prefect/server/events/triggers.py
+@@ -85,6 +85,78 @@
+ AUTOMATION_BUCKET_BATCH_SIZE = 500
+ 
+ 
++def _should_record_last_event(
++    trigger: EventTrigger,
++    event: Optional[ReceivedEvent],
++    previous: Optional[ReceivedEvent],
++) -> bool:
++    """Whether ``event`` should become the bucket's recorded ``last_event``.
++
++    The recorded event is kept as the most recent event the bucket has accounted
++    for: it never moves backwards in time, so an out-of-order event cannot make the
++    bucket forget about a newer event that has already been seen.
++
++    When distinct events share an ``occurred`` timestamp, an expected event that
++    does not start a window (a "response", such as a flow run reaching a terminal
++    state) takes precedence over an ``after`` event that simply re-arms the window.
++    This keeps the response recorded regardless of the order in which the events
++    happen to be received.
++    """
++    if event is None:
++        return False
++    if previous is None or event.id == previous.id:
++        return True
++    if event.occurred > previous.occurred:
++        return True
++    if event.occurred < previous.occurred:
++        return False
++    # The events happened at the same instant: prefer a response over an event that
++    # merely re-arms the window.
++    return (
++        trigger.expects(event.event)
++        and not trigger.starts_after(event.event)
++        and trigger.starts_after(previous.event)
++    )
++
++
++def _can_restart_proactive_window(
++    trigger: EventTrigger,
++    triggering_event: ReceivedEvent,
++    previous_last_event: Optional[ReceivedEvent],
++) -> bool:
++    """Whether a proactive window may be restarted at ``triggering_event``.
++
++    An ``after`` event that also matches ``expect`` restarts the window so the
++    trigger waits for the next expected event.  That is only safe when the event is
++    newer than everything the bucket has already seen.  In particular, when an
++    expected event (such as a flow run reaching a terminal state) was observed at
++    the same moment as, or after, this ``after`` event, restarting the window would
++    discard that observation and produce a false positive even though the resource
++    already responded.
++    """
++    if previous_last_event is None:
++        return True
++    if previous_last_event.id == triggering_event.id:
++        return True
++    if not trigger.expects(previous_last_event.event):
++        # The previous event does not satisfy what this trigger is waiting for, so
++        # it does not represent a response that should keep the window from being
++        # restarted.
++        return True
++    if triggering_event.occurred > previous_last_event.occurred:
++        return True
++    if (
++        triggering_event.occurred == previous_last_event.occurred
++        and trigger.starts_after(previous_last_event.event)
++    ):
++        # The previous event was another window-arming event at the same instant, so
++        # there is no response to preserve and the window can be restarted.  A
++        # response at this instant would have been preferred as `last_event` and
++        # would have made the checks above fail instead.
++        return True
++    return False
++
++
+ async def evaluate(
+     session: AsyncSession,
+     trigger: EventTrigger,
+@@ -154,10 +226,21 @@
+         )
+         return bucket
+ 
++    # Remember the most recent event this bucket had already accounted for before
++    # this evaluation.  It may be newer than the triggering event when events arrive
++    # out of order (or at the same instant); in that case it must not be replaced by
++    # the older event, and a proactive window must not be restarted at the older one.
++    previous_last_event = bucket.last_event
++
+     if count and (trigger.immediate or bucket.start <= now < bucket.end):
+         # we are still within the automation time period, so spend the count in the
+         # current bucket
+-        bucket = await increment_bucket(session, bucket, count, triggering_event)
++        last_event = (
++            triggering_event
++            if _should_record_last_event(trigger, triggering_event, previous_last_event)
++            else None
++        )
++        bucket = await increment_bucket(session, bucket, count, last_event)
+         count = 0
+ 
+     # Reactive automations will fire "eagerly", meaning they will fire as _soon_ as the
+@@ -237,6 +320,9 @@
+             and not meets_threshold
+             and trigger.starts_after(triggering_event.event)
+             and trigger.expects(triggering_event.event)
++            and _can_restart_proactive_window(
++                trigger, triggering_event, previous_last_event
++            )
+         ):
+             await remove_bucket(session, bucket)
+             return await start_new_bucket(
+@@ -1102,9 +1188,6 @@
+     """Ensures that a bucket has been started for the given automation and key,
+     returning the current bucket.  Will not modify the existing bucket."""
+     automation = trigger.automation
+-    additional_updates: dict[str, ReceivedEvent] = (
+-        {"last_event": last_event} if last_event else {}
+-    )
+     await session.execute(
+         db.queries.insert(db.AutomationBucket)
+         .values(
+@@ -1124,9 +1207,12 @@
+                 db.AutomationBucket.bucketing_key,
+             ],
+             set_=dict(
+-                # no-op, but this counts as an update so the query returns a row
++                # no-op, but this counts as an update so the query returns a row.
++                # Importantly, an existing bucket is left untouched: its
++                # `last_event` is only advanced by `increment_bucket` (which keeps
++                # the most recent event), so an out-of-order event cannot replace a
++                # newer one that has already been recorded.
+                 count=db.AutomationBucket.count,
+-                **additional_updates,
+             ),
+         )
+     )

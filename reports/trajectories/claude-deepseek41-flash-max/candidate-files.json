@@ -1,0 +1,8 @@
+[
+  {
+    "path": "src/prefect/server/events/triggers.py",
+    "baseline_lf_sha256": "0adf4facbe56258ad95adc663b8b4669ceb87225e2a9cd8aafcd9bcfcdc54021",
+    "candidate_snapshot_sha256": "544f9dde20297e82b30fdb0bdeea89a23eba21db29f1c0bf65b374acda3e6d34",
+    "candidate_lf_sha256": "2721b348aa2fd53ec37a3f1e34130e0de14c4c71fb6f9daa950f390e126cc439"
+  }
+]

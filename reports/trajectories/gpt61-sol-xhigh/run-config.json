@@ -1,0 +1,24 @@
+{
+  "base_commit": "71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "fresh_conversation": true,
+  "reference_material_copied": false,
+  "previous_solution_copied": false,
+  "upstream_git_history_copied": false,
+  "isolation": "separate source copy and instructions; no container or hard read boundary",
+  "environment_preinstalled": true,
+  "comparison_limitations": [
+    "Exploratory local trial; not Docker/Harbor CI or a complete official benchmark run."
+  ],
+  "formal_tb3_trial": false,
+  "agent_framework": "codex-app-subagent",
+  "session_id": "01a18191-47b9-71a1-a13c-29a4bdb90948",
+  "started_at_utc": "2026-10-28T08:12:24.379Z",
+  "finished_at_utc": "2026-10-28T08:53:28.714Z",
+  "source_observed_export_sha256": "c4e0dd921626d0e779b64ddabe78d82d0ca2bb99773f02b7e14d375c7836f742",
+  "input_task_original_sha256": "56f46065667128b87ab0b7d3514986b35423f8946ea196dd73ae59241cb01f2e",
+  "reasoning_exported": false,
+  "source_timestamps_preserved": true,
+  "launch_method": "Codex desktop subagent; configuration verified from recorded session context. No codex CLI/Harbor launch is claimed."
+}

@@ -21,6 +21,9 @@
 | `manifest.json` | 固定版本、输入校验和、测试组与奖励规则 |
 | `authoring/` | 作者侧结构检查、评分边界测试、便携式行为验证工具 |
 | `reports/` | 本次封装的原始日志、结果与待完成项 |
+| `reports/trajectories/` | 两组旧探索试验的脱敏可见轨迹、模型生产补丁、配置和独立验收证据 |
+
+模型试验入口：[GPT-6.1-sol / xhigh 轨迹](reports/trajectories/gpt61-sol-xhigh/trajectory.md)、[Claude Code + DeepSeek 轨迹](reports/trajectories/claude-deepseek41-flash-max/trajectory.md)。这是各一次旧版探索性运行，不能作为当前冻结任务的正式试验次数。
 
 ## 运行
 

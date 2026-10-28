@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "scope": "Publication export checks; not a formal adversarial benchmark",
+  "export_policy_tests": 6,
+  "checked_files": 32,
+  "scan_findings": [],
+  "excluded_private_reasoning_and_raw_sessions": true,
+  "trial_counts_unchanged": true,
+  "new_model_runs": 0
+}

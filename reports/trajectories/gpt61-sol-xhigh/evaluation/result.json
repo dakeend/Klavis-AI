@@ -1,0 +1,49 @@
+{
+  "label": "gpt61-sol-xhigh",
+  "model": "gpt-6.1-sol",
+  "effort": "xhigh",
+  "session_id": "01a18191-47b9-71a1-a13c-29a4bdb90948",
+  "start_beijing": "16:12:24",
+  "end_beijing": "16:53:28",
+  "duration_minutes": 41.07,
+  "public_replay_passed": true,
+  "historical_behavior_passed": 26,
+  "historical_behavior_failed_raw": 9,
+  "combined_behavior_summary": "9 failed, 27 passed in 206.17s (0:03:26)",
+  "retry_summary": "4 passed, 522 deselected in 35.03s",
+  "retry_counts": {
+    "passed": 4,
+    "deselected": 522
+  },
+  "source_unchanged_since_snapshot": true,
+  "failed_tests": [
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_rolled_window_fires_with_the_carried_expect_event",
+    "tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+    "tests/events/server/triggers/test_early_expect_events.py::test_a_high_threshold_counts_every_held_event",
+    "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_is_still_held_when_a_lost_follower_is_evaluated"
+  ],
+  "formal_tb3_trial": false,
+  "evaluation_version": "historical diagnostic-v1; not packaged 44-check verifier",
+  "complete_verifier": false,
+  "internal_bucket_assertion_needs_review": true,
+  "snapshot_at_utc": "2026-10-28T13:17:56.395388+00:00",
+  "runs": [
+    {
+      "group": "behavior",
+      "exit_code": 1,
+      "elapsed_seconds": 260.91,
+      "log": "behavior.log"
+    },
+    {
+      "group": "retry",
+      "exit_code": 0,
+      "elapsed_seconds": 47.48,
+      "log": "retry.log"
+    }
+  ]
+}

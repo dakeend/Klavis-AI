@@ -11,4 +11,11 @@
 
 原验收中有一项内部 bucket 表示断言需审核，本包已移除该中间断言、保留最终动作检查。新增的三个兼容实例和跨进程检查也不在旧模型验收中，因此原始数字不得直接当作本包的成绩，不能据此断言已达到“两组各三次语义失败”。
 
-旧 session 标识为 GPT `01a18191-47b9-71a1-a13c-29a4bdb90948`、Claude Code `55214eff-0884-4b79-a3a2-b90b27256548`。完整旧轨迹保留在原工作区，未把可能含有环境信息的 session 内容或模型凭据复制进提交包。
+旧 session 标识为 GPT `01a18191-47b9-71a1-a13c-29a4bdb90948`、Claude Code `55214eff-0884-4b79-a3a2-b90b27256548`。
+
+2026-10-29 已补充[两组脱敏的可见操作轨迹及证据](trajectories/README.md)：公开消息、工具调用与结果、输入题面、配置、模型自述、最终生产代码补丁及对应独立验收日志。内部推理、原始 session/stream、凭据和本地通用技能正文没有上传。
+
+- [GPT-6.1-sol / xhigh 可见轨迹](trajectories/gpt61-sol-xhigh/trajectory.md)
+- [Claude Code + DeepSeek 可见轨迹](trajectories/claude-deepseek41-flash-max/trajectory.md)
+
+补充证据不等于重新运行正式试验，旧版测试与当前 verifier 的差异仍按上文处理。
