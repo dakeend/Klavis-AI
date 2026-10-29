@@ -1,0 +1,38 @@
+{
+  "base_commit": "71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8",
+  "model": "deepseek-flash[1m]",
+  "reasoning_effort": "max",
+  "fresh_conversation": true,
+  "reference_material_copied": false,
+  "previous_solution_copied": false,
+  "upstream_git_history_copied": false,
+  "isolation": "separate source copy and instructions; no container or hard read boundary",
+  "environment_preinstalled": true,
+  "comparison_limitations": [
+    "Independent local repeat; not a Harbor or container-isolated trial.",
+    "Same diagnostic-v1 source, prompt and historical evaluation as attempt 1."
+  ],
+  "formal_tb3_trial": false,
+  "agent_framework": "claude-code",
+  "attempt": 3,
+  "session_id": "d14d4262-c2a4-4dbf-b3ed-9581a7634eed",
+  "started_at_utc": "2026-10-29T03:22:08.830244+00:00",
+  "finished_at_utc": "2026-10-29T05:01:08.315597+00:00",
+  "client_version": "2.1.312",
+  "requested_model": "deepseek-flash[1m]",
+  "initialized_model": "deepseek-flash[1m]",
+  "observed_models": [
+    "deepseek-flash"
+  ],
+  "exit_code": 0,
+  "source_observed_export_sha256": "2638d8c85e513262cc9d4c21972d5339171451e984f517005196f55a3e2bf539",
+  "input_task_original_sha256": "705f59e5463badbf7e5839bbb71dea1d18eb2a55e71fc0094cae41107aea5fa6",
+  "reasoning_exported": false,
+  "source_timestamps_preserved": true,
+  "input_provenance": "Attempt 1 public input reconstructed with this preparation path; exact original preparation SHA-256 matched.",
+  "launch_method": "Claude Code with DeepSeek Anthropic-compatible API",
+  "client_settings": {
+    "model": "deepseek-flash[1m]",
+    "effortLevel": "max"
+  }
+}

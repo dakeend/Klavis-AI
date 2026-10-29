@@ -1,0 +1,32 @@
+[
+  {
+    "path": "src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_c8d2e3f4a5b6_add_automation_trigger_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "875494ef3a002789663049e4919c9c6de7abf3fee111305fc74755fdd6e6a9a5",
+    "candidate_lf_sha256": "875494ef3a002789663049e4919c9c6de7abf3fee111305fc74755fdd6e6a9a5"
+  },
+  {
+    "path": "src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_b7c1d2e3f4a5_add_automation_trigger_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "4c2d160620c4abce109eaa8f01512fea1b166cbf4e5ec6212e4d2a56c64697ad",
+    "candidate_lf_sha256": "4c2d160620c4abce109eaa8f01512fea1b166cbf4e5ec6212e4d2a56c64697ad"
+  },
+  {
+    "path": "src/prefect/server/database/interface.py",
+    "baseline_lf_sha256": "3ee69d71cac72ccd754ed1fa7c05a42e9fd274d6cd4456c110010b7fb392190e",
+    "candidate_snapshot_sha256": "7b02ee6722de4bf532bbdcb3fa7fc0234dde356f6f525ca8bbf2c80c5febc598",
+    "candidate_lf_sha256": "8bd44345fa85fac944815f260ece89657e4caabb4b99601f9281fc8cb975d306"
+  },
+  {
+    "path": "src/prefect/server/database/orm_models.py",
+    "baseline_lf_sha256": "805fa5f56ac8413da792ba64747763b2f6840be0f27af0b4bab5419fc70e6858",
+    "candidate_snapshot_sha256": "e879ec204fd55ee8fe0b1756bc8a8011a71821e547705edf76673cb495386501",
+    "candidate_lf_sha256": "87fdbcbcf523a23ec3a2df8b90f2db00f8d0e2e10da0f8198ae642ca87597fea"
+  },
+  {
+    "path": "src/prefect/server/events/triggers.py",
+    "baseline_lf_sha256": "0adf4facbe56258ad95adc663b8b4669ceb87225e2a9cd8aafcd9bcfcdc54021",
+    "candidate_snapshot_sha256": "6a8c8a4c0761b950fc2f0a5de56c3d0900164ef273ea911d03829b55775a81a2",
+    "candidate_lf_sha256": "6734b95243cb3ec04e34366d90b9cc23dc4ac478eefa522d44734c781b549000"
+  }
+]

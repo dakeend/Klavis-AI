@@ -1,0 +1,629 @@
+...FFFF...FF...F..FF......F...F.....                                     [100%]
+================================== FAILURES ===================================
+_ test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected] _
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1815: in _execute_context
+    context = constructor(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1528: in _init_compiled
+    d_param = {
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1530: in <dictcomp>
+    flattened_processors[key](compiled_params[key])
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src\prefect\server\utilities\database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   ValueError: Timestamps must have a timezone.
+
+The above exception was the direct cause of the following exception:
+tests\events\server\triggers\test_early_expect_events.py:139: in test_expect_event_outside_the_window_does_not_satisfy_it
+    await receive("B", frozen_time + b_offset)
+tests\events\server\triggers\test_early_expect_events.py:87: in receive
+    await triggers.reactive_evaluation(
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+src\prefect\server\events\ordering\memory.py:198: in event_is_processing
+    yield
+src\prefect\server\events\ordering\memory.py:281: in preceding_event_confirmed
+    yield
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+src\prefect\server\database\configurations.py:614: in begin_transaction
+    yield transaction
+src\prefect\server\database\interface.py:166: in session_context
+    yield session
+src\prefect\server\events\models\automations.py:65: in automations_session
+    yield session
+src\prefect\server\events\triggers.py:654: in reactive_evaluation
+    await _record_watermark(
+src\prefect\server\events\models\automation_bucket_watermark.py:27: in _record_watermark
+    await session.execute(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py:449: in execute
+    result = await greenlet_spawn(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py:1306: in orm_execute_statement
+    result = conn.execute(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1641: in _execute_clauseelement
+    ret = self._execute_context(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1821: in _execute_context
+    self._handle_dbapi_exception(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:2363: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1815: in _execute_context
+    context = constructor(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1528: in _init_compiled
+    d_param = {
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1530: in <dictcomp>
+    flattened_processors[key](compiled_params[key])
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src\prefect\server\utilities\database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   sqlalchemy.exc.StatementError: (builtins.ValueError) Timestamps must have a timezone.
+E   [SQL: INSERT INTO automation_bucket_watermark (automation_id, trigger_id, bucketing_key, occurred, expires, id, created, updated) VALUES (:automation_id, :trigger_id, :bucketing_key, :occurred, :expires, :id, :created, :updated) ON CONFLICT (automation_id, trigger_id, bucketing_key) DO UPDATE SET occurred = :param_1, expires = :param_2, updated = :param_3 WHERE automation_bucket_watermark.occurred < :occurred_1]
+---------------------------- Captured stderr call -----------------------------
+12:03:03.074 | INFO    | prefect.server.events.triggers - Automation bea9d434-0837-48bc-9246-8180407a3f63, trigger e9aff2e8-c988-4dbe-8c81-e4652d13fde9 covers event 'B' (e14a4bd4-921f-4bcf-8bcf-e25c03fc7235) for 'some.resource' at '2026-10-29T04:03:01.876802+00:00'
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation bea9d434-0837-48bc-9246-8180407a3f63, trigger e9aff2e8-c988-4dbe-8c81-e4652d13fde9 covers event 'B' (e14a4bd4-921f-4bcf-8bcf-e25c03fc7235) for 'some.resource' at '2026-10-29T04:03:01.876802+00:00'
+_ test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected] _
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1815: in _execute_context
+    context = constructor(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1528: in _init_compiled
+    d_param = {
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1530: in <dictcomp>
+    flattened_processors[key](compiled_params[key])
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src\prefect\server\utilities\database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   ValueError: Timestamps must have a timezone.
+
+The above exception was the direct cause of the following exception:
+tests\events\server\triggers\test_early_expect_events.py:139: in test_expect_event_outside_the_window_does_not_satisfy_it
+    await receive("B", frozen_time + b_offset)
+tests\events\server\triggers\test_early_expect_events.py:87: in receive
+    await triggers.reactive_evaluation(
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+src\prefect\server\events\ordering\memory.py:198: in event_is_processing
+    yield
+src\prefect\server\events\ordering\memory.py:281: in preceding_event_confirmed
+    yield
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+D:\python3.11\Lib\contextlib.py:222: in __aexit__
+    await self.gen.athrow(typ, value, traceback)
+src\prefect\server\database\configurations.py:614: in begin_transaction
+    yield transaction
+src\prefect\server\database\interface.py:166: in session_context
+    yield session
+src\prefect\server\events\models\automations.py:65: in automations_session
+    yield session
+src\prefect\server\events\triggers.py:654: in reactive_evaluation
+    await _record_watermark(
+src\prefect\server\events\models\automation_bucket_watermark.py:27: in _record_watermark
+    await session.execute(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py:449: in execute
+    result = await greenlet_spawn(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\orm\session.py:2351: in execute
+    return self._execute_internal(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\orm\session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py:1306: in orm_execute_statement
+    result = conn.execute(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1419: in execute
+    return meth(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\sql\elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1641: in _execute_clauseelement
+    ret = self._execute_context(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1821: in _execute_context
+    self._handle_dbapi_exception(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:2363: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\base.py:1815: in _execute_context
+    context = constructor(
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1528: in _init_compiled
+    d_param = {
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\engine\default.py:1530: in <dictcomp>
+    flattened_processors[key](compiled_params[key])
+..\..\..\..\sandbox-xh-r3\.runtime\venv\Lib\site-packages\sqlalchemy\sql\type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src\prefect\server\utilities\database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   sqlalchemy.exc.StatementError: (builtins.ValueError) Timestamps must have a timezone.
+E   [SQL: INSERT INTO automation_bucket_watermark (automation_id, trigger_id, bucketing_key, occurred, expires, id, created, updated) VALUES (:automation_id, :trigger_id, :bucketing_key, :occurred, :expires, :id, :created, :updated) ON CONFLICT (automation_id, trigger_id, bucketing_key) DO UPDATE SET occurred = :param_1, expires = :param_2, updated = :param_3 WHERE automation_bucket_watermark.occurred < :occurred_1]
+---------------------------- Captured stderr call -----------------------------
+12:03:08.329 | INFO    | prefect.server.events.triggers - Automation dfa1049c-42a1-4fcc-9c3b-94abf2327fc0, trigger f7e2260d-1442-429a-8687-3b8edb58f7fe covers event 'B' (2146485b-b7fa-465a-bcd8-e384c818bc68) for 'some.resource' at '2026-10-29T04:03:07.127668+00:00'
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation dfa1049c-42a1-4fcc-9c3b-94abf2327fc0, trigger f7e2260d-1442-429a-8687-3b8edb58f7fe covers event 'B' (2146485b-b7fa-465a-bcd8-e384c818bc68) for 'some.resource' at '2026-10-29T04:03:07.127668+00:00'
+_ test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected] _
+tests\events\server\triggers\test_early_expect_events.py:143: in test_expect_event_outside_the_window_does_not_satisfy_it
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+12:03:11.476 | INFO    | prefect.server.events.triggers - Automation 1b5cd381-1eea-415b-a5c6-9540b5248118, trigger 1c600c8a-4c68-4749-ab3d-4e45ee51f0b1 covers event 'B' (af1a9c6f-6568-4a49-ba67-7fe2a0c14cdc) for 'some.resource' at '2026-10-29T04:04:12.268472+00:00'
+12:03:11.800 | INFO    | prefect.server.events.triggers - Automation 1b5cd381-1eea-415b-a5c6-9540b5248118, trigger 1c600c8a-4c68-4749-ab3d-4e45ee51f0b1 covers event 'A' (13544e1b-a761-446b-8909-ebe3e27d18ae) for 'some.resource' at '2026-10-29T04:03:11.268472+00:00'
+12:03:11.957 | DEBUG   | prefect.server.events.triggers - Evaluating automation 1b5cd381-1eea-415b-a5c6-9540b5248118 trigger 1c600c8a-4c68-4749-ab3d-4e45ee51f0b1 proactively as of 2026-10-29 04:05:11.268472+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 1b5cd381-1eea-415b-a5c6-9540b5248118, trigger 1c600c8a-4c68-4749-ab3d-4e45ee51f0b1 covers event 'B' (af1a9c6f-6568-4a49-ba67-7fe2a0c14cdc) for 'some.resource' at '2026-10-29T04:04:12.268472+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 1b5cd381-1eea-415b-a5c6-9540b5248118, trigger 1c600c8a-4c68-4749-ab3d-4e45ee51f0b1 covers event 'A' (13544e1b-a761-446b-8909-ebe3e27d18ae) for 'some.resource' at '2026-10-29T04:03:11.268472+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation 1b5cd381-1eea-415b-a5c6-9540b5248118 trigger 1c600c8a-4c68-4749-ab3d-4e45ee51f0b1 proactively as of 2026-10-29 04:05:11.268472+00:00 (offset 0.0s)
+_ test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected] _
+tests\events\server\triggers\test_early_expect_events.py:143: in test_expect_event_outside_the_window_does_not_satisfy_it
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+12:03:14.234 | INFO    | prefect.server.events.triggers - Automation 18ef8756-2b70-4c60-a80c-6674b4511030, trigger 8fb55012-397e-40a2-bd52-51613bd64e14 covers event 'B' (ff4651fc-2750-432f-bef9-410364699b37) for 'some.resource' at '2026-10-29T04:04:15.039458+00:00'
+12:03:14.559 | INFO    | prefect.server.events.triggers - Automation 18ef8756-2b70-4c60-a80c-6674b4511030, trigger 8fb55012-397e-40a2-bd52-51613bd64e14 covers event 'A' (f8cbd90b-2481-4a02-b39c-e0d8893024f0) for 'some.resource' at '2026-10-29T04:03:14.039458+00:00'
+12:03:14.718 | DEBUG   | prefect.server.events.triggers - Evaluating automation 18ef8756-2b70-4c60-a80c-6674b4511030 trigger 8fb55012-397e-40a2-bd52-51613bd64e14 proactively as of 2026-10-29 04:05:14.039458+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 18ef8756-2b70-4c60-a80c-6674b4511030, trigger 8fb55012-397e-40a2-bd52-51613bd64e14 covers event 'B' (ff4651fc-2750-432f-bef9-410364699b37) for 'some.resource' at '2026-10-29T04:04:15.039458+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 18ef8756-2b70-4c60-a80c-6674b4511030, trigger 8fb55012-397e-40a2-bd52-51613bd64e14 covers event 'A' (f8cbd90b-2481-4a02-b39c-e0d8893024f0) for 'some.resource' at '2026-10-29T04:03:14.039458+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation 18ef8756-2b70-4c60-a80c-6674b4511030 trigger 8fb55012-397e-40a2-bd52-51613bd64e14 proactively as of 2026-10-29 04:05:14.039458+00:00 (offset 0.0s)
+_ test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected] _
+tests\events\server\triggers\test_early_expect_events.py:186: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <AsyncMock id='2212156145040'>.await_count
+---------------------------- Captured stderr call -----------------------------
+12:03:25.923 | INFO    | prefect.server.events.triggers - Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8, trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b covers event 'B' (737eee49-bba4-4041-9376-708fef44d919) for 'some.resource' at '2026-10-29T04:03:26.704490+00:00'
+12:03:26.215 | INFO    | prefect.server.events.triggers - Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8, trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b covers event 'B' (8bc0a009-c35f-4c22-8720-c7b816494c0a) for 'some.resource' at '2026-10-29T04:03:27.704490+00:00'
+12:03:26.377 | INFO    | prefect.server.events.triggers - Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8, trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b covers event 'A' (6dcd49a5-d22f-46d2-9cbf-c624cd4701a2) for 'some.resource' at '2026-10-29T04:03:25.704490+00:00'
+12:03:26.754 | DEBUG   | prefect.server.events.triggers - Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8 ('after A, expect') trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b has more time for keys (['some.resource'])
+12:03:26.795 | DEBUG   | prefect.server.events.triggers - Evaluating automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8 trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b proactively as of 2026-10-29 04:05:25.704490+00:00 (offset 0.0s)
+12:03:26.964 | DEBUG   | prefect.server.events.triggers - Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8 ('after A, expect') trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b triggered for keys (['some.resource']) proactively, having occurred 0 times between 2026-10-29 04:03:25.704490+00:00 and 2026-10-29 04:04:25.704490+00:00
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8, trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b covers event 'B' (737eee49-bba4-4041-9376-708fef44d919) for 'some.resource' at '2026-10-29T04:03:26.704490+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8, trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b covers event 'B' (8bc0a009-c35f-4c22-8720-c7b816494c0a) for 'some.resource' at '2026-10-29T04:03:27.704490+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8, trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b covers event 'A' (6dcd49a5-d22f-46d2-9cbf-c624cd4701a2) for 'some.resource' at '2026-10-29T04:03:25.704490+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8 ('after A, expect') trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8 trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b proactively as of 2026-10-29 04:05:25.704490+00:00 (offset 0.0s)
+DEBUG    prefect.server.events.triggers:triggers.py:212 Automation e9dcc8d4-2871-41b8-8f3c-5d612fa14af8 ('after A, expect') trigger 637a7cec-3a0f-46b4-b822-c08694ea1e9b triggered for keys (['some.resource']) proactively, having occurred 0 times between 2026-10-29 04:03:25.704490+00:00 and 2026-10-29 04:04:25.704490+00:00
+_ test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected] _
+tests\events\server\triggers\test_early_expect_events.py:186: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <AsyncMock id='2212157530896'>.await_count
+---------------------------- Captured stderr call -----------------------------
+12:03:29.373 | INFO    | prefect.server.events.triggers - Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4, trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 covers event 'B' (3283430b-1b44-4088-8ce2-dc9256f50636) for 'some.resource' at '2026-10-29T04:03:30.177331+00:00'
+12:03:29.657 | INFO    | prefect.server.events.triggers - Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4, trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 covers event 'B' (1ac40538-8913-4287-aaeb-7d23169ad374) for 'some.resource' at '2026-10-29T04:03:31.177331+00:00'
+12:03:29.817 | INFO    | prefect.server.events.triggers - Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4, trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 covers event 'A' (89dbd8cc-b926-44b1-b5f5-9604ed02f084) for 'some.resource' at '2026-10-29T04:03:29.177331+00:00'
+12:03:30.100 | DEBUG   | prefect.server.events.triggers - Evaluating automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4 trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 proactively as of 2026-10-29 04:05:29.177331+00:00 (offset 0.0s)
+12:03:30.269 | DEBUG   | prefect.server.events.triggers - Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4 ('after A, expect') trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 triggered for keys (['some.resource']) proactively, having occurred 0 times between 2026-10-29 04:03:29.177331+00:00 and 2026-10-29 04:04:29.177331+00:00
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4, trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 covers event 'B' (3283430b-1b44-4088-8ce2-dc9256f50636) for 'some.resource' at '2026-10-29T04:03:30.177331+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4, trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 covers event 'B' (1ac40538-8913-4287-aaeb-7d23169ad374) for 'some.resource' at '2026-10-29T04:03:31.177331+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4, trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 covers event 'A' (89dbd8cc-b926-44b1-b5f5-9604ed02f084) for 'some.resource' at '2026-10-29T04:03:29.177331+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4 trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 proactively as of 2026-10-29 04:05:29.177331+00:00 (offset 0.0s)
+DEBUG    prefect.server.events.triggers:triggers.py:212 Automation 414dedda-e8dc-49f6-a718-bfd96bc07ac4 ('after A, expect') trigger b6e68c01-9ae5-4933-896b-3958c72bd7b6 triggered for keys (['some.resource']) proactively, having occurred 0 times between 2026-10-29 04:03:29.177331+00:00 and 2026-10-29 04:04:29.177331+00:00
+___________ test_rolled_window_fires_with_the_carried_expect_event ____________
+tests\events\server\triggers\test_early_expect_events.py:256: in test_rolled_window_fires_with_the_carried_expect_event
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+12:03:42.125 | INFO    | prefect.server.events.triggers - Automation bbdb4b33-5d3a-401f-a320-68c010c66820, trigger a0e5c725-037b-41d8-87fe-de25418e9e6d covers event 'A' (f28d5bae-9bdf-4b18-8152-84031ffb2f58) for 'some.resource' at '2026-10-29T04:03:41.950618+00:00'
+12:03:42.568 | DEBUG   | prefect.server.events.triggers - Automation bbdb4b33-5d3a-401f-a320-68c010c66820 ('after A, expect') trigger a0e5c725-037b-41d8-87fe-de25418e9e6d has more time for keys (['some.resource'])
+12:03:42.604 | INFO    | prefect.server.events.triggers - Automation bbdb4b33-5d3a-401f-a320-68c010c66820, trigger a0e5c725-037b-41d8-87fe-de25418e9e6d covers event 'B' (f9dffc78-a677-467b-842a-12520fb2f8f6) for 'some.resource' at '2026-10-29T04:04:11.950618+00:00'
+12:03:42.824 | DEBUG   | prefect.server.events.triggers - Automation bbdb4b33-5d3a-401f-a320-68c010c66820 ('after A, expect') trigger a0e5c725-037b-41d8-87fe-de25418e9e6d has more time for keys (['some.resource'])
+12:03:42.859 | INFO    | prefect.server.events.triggers - Automation bbdb4b33-5d3a-401f-a320-68c010c66820, trigger a0e5c725-037b-41d8-87fe-de25418e9e6d covers event 'A' (5a6edd01-b8e5-4f17-9d98-d2469ac73def) for 'some.resource' at '2026-10-29T04:04:10.950618+00:00'
+12:03:43.116 | DEBUG   | prefect.server.events.triggers - Automation bbdb4b33-5d3a-401f-a320-68c010c66820 ('after A, expect') trigger a0e5c725-037b-41d8-87fe-de25418e9e6d has more time for keys (['some.resource'])
+12:03:43.184 | DEBUG   | prefect.server.events.triggers - Evaluating automation bbdb4b33-5d3a-401f-a320-68c010c66820 trigger a0e5c725-037b-41d8-87fe-de25418e9e6d proactively as of 2026-10-29 04:05:41.950618+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation bbdb4b33-5d3a-401f-a320-68c010c66820, trigger a0e5c725-037b-41d8-87fe-de25418e9e6d covers event 'A' (f28d5bae-9bdf-4b18-8152-84031ffb2f58) for 'some.resource' at '2026-10-29T04:03:41.950618+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation bbdb4b33-5d3a-401f-a320-68c010c66820 ('after A, expect') trigger a0e5c725-037b-41d8-87fe-de25418e9e6d has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:630 Automation bbdb4b33-5d3a-401f-a320-68c010c66820, trigger a0e5c725-037b-41d8-87fe-de25418e9e6d covers event 'B' (f9dffc78-a677-467b-842a-12520fb2f8f6) for 'some.resource' at '2026-10-29T04:04:11.950618+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation bbdb4b33-5d3a-401f-a320-68c010c66820 ('after A, expect') trigger a0e5c725-037b-41d8-87fe-de25418e9e6d has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:630 Automation bbdb4b33-5d3a-401f-a320-68c010c66820, trigger a0e5c725-037b-41d8-87fe-de25418e9e6d covers event 'A' (5a6edd01-b8e5-4f17-9d98-d2469ac73def) for 'some.resource' at '2026-10-29T04:04:10.950618+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation bbdb4b33-5d3a-401f-a320-68c010c66820 ('after A, expect') trigger a0e5c725-037b-41d8-87fe-de25418e9e6d has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation bbdb4b33-5d3a-401f-a320-68c010c66820 trigger a0e5c725-037b-41d8-87fe-de25418e9e6d proactively as of 2026-10-29 04:05:41.950618+00:00 (offset 0.0s)
+_ test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected] _
+tests\events\server\triggers\test_early_expect_events.py:299: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+12:03:51.067 | INFO    | prefect.server.events.triggers - Automation df37661d-dbb9-4769-ab87-ce3abca49938, trigger 4fab6996-677a-4c98-833d-86b9dd965313 covers event 'A' (3364f3f2-1057-401a-8648-1bda23725fc4) for 'some.resource' at '2026-10-29T04:03:50.891775+00:00'
+12:03:51.505 | DEBUG   | prefect.server.events.triggers - Automation df37661d-dbb9-4769-ab87-ce3abca49938 ('after A, expect') trigger 4fab6996-677a-4c98-833d-86b9dd965313 has more time for keys (['some.resource'])
+12:03:51.538 | INFO    | prefect.server.events.triggers - Automation df37661d-dbb9-4769-ab87-ce3abca49938, trigger 4fab6996-677a-4c98-833d-86b9dd965313 covers event 'B' (7588de03-625a-4674-b246-54a7b734ba9f) for 'some.resource' at '2026-10-29T04:03:51.891775+00:00'
+12:03:51.761 | DEBUG   | prefect.server.events.triggers - Automation df37661d-dbb9-4769-ab87-ce3abca49938 ('after A, expect') trigger 4fab6996-677a-4c98-833d-86b9dd965313 has more time for keys (['some.resource'])
+12:03:51.794 | INFO    | prefect.server.events.triggers - Automation df37661d-dbb9-4769-ab87-ce3abca49938, trigger 4fab6996-677a-4c98-833d-86b9dd965313 covers event 'B' (7588de03-625a-4674-b246-54a7b734ba9f) for 'some.resource' at '2026-10-29T04:03:51.891775+00:00'
+12:03:52.042 | DEBUG   | prefect.server.events.triggers - Automation df37661d-dbb9-4769-ab87-ce3abca49938 ('after A, expect') trigger 4fab6996-677a-4c98-833d-86b9dd965313 has more time for keys (['some.resource'])
+12:03:52.077 | DEBUG   | prefect.server.events.triggers - Evaluating automation df37661d-dbb9-4769-ab87-ce3abca49938 trigger 4fab6996-677a-4c98-833d-86b9dd965313 proactively as of 2026-10-29 04:05:50.891775+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation df37661d-dbb9-4769-ab87-ce3abca49938, trigger 4fab6996-677a-4c98-833d-86b9dd965313 covers event 'A' (3364f3f2-1057-401a-8648-1bda23725fc4) for 'some.resource' at '2026-10-29T04:03:50.891775+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation df37661d-dbb9-4769-ab87-ce3abca49938 ('after A, expect') trigger 4fab6996-677a-4c98-833d-86b9dd965313 has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:630 Automation df37661d-dbb9-4769-ab87-ce3abca49938, trigger 4fab6996-677a-4c98-833d-86b9dd965313 covers event 'B' (7588de03-625a-4674-b246-54a7b734ba9f) for 'some.resource' at '2026-10-29T04:03:51.891775+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation df37661d-dbb9-4769-ab87-ce3abca49938 ('after A, expect') trigger 4fab6996-677a-4c98-833d-86b9dd965313 has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:630 Automation df37661d-dbb9-4769-ab87-ce3abca49938, trigger 4fab6996-677a-4c98-833d-86b9dd965313 covers event 'B' (7588de03-625a-4674-b246-54a7b734ba9f) for 'some.resource' at '2026-10-29T04:03:51.891775+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation df37661d-dbb9-4769-ab87-ce3abca49938 ('after A, expect') trigger 4fab6996-677a-4c98-833d-86b9dd965313 has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation df37661d-dbb9-4769-ab87-ce3abca49938 trigger 4fab6996-677a-4c98-833d-86b9dd965313 proactively as of 2026-10-29 04:05:50.891775+00:00 (offset 0.0s)
+_ test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected] _
+tests\events\server\triggers\test_early_expect_events.py:299: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+12:03:54.094 | INFO    | prefect.server.events.triggers - Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a, trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 covers event 'A' (1d637ddb-1918-4ca0-8e99-85ab27f13cec) for 'some.resource' at '2026-10-29T04:03:53.912843+00:00'
+12:03:54.460 | INFO    | prefect.server.events.triggers - Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a, trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 covers event 'B' (71d8e27a-ce9c-449c-8a01-bf0aa774fb21) for 'some.resource' at '2026-10-29T04:03:54.912843+00:00'
+12:03:54.676 | DEBUG   | prefect.server.events.triggers - Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a ('after A, expect') trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 has more time for keys (['some.resource'])
+12:03:54.711 | INFO    | prefect.server.events.triggers - Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a, trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 covers event 'B' (71d8e27a-ce9c-449c-8a01-bf0aa774fb21) for 'some.resource' at '2026-10-29T04:03:54.912843+00:00'
+12:03:54.965 | DEBUG   | prefect.server.events.triggers - Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a ('after A, expect') trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 has more time for keys (['some.resource'])
+12:03:54.999 | DEBUG   | prefect.server.events.triggers - Evaluating automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 proactively as of 2026-10-29 04:05:53.912843+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a, trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 covers event 'A' (1d637ddb-1918-4ca0-8e99-85ab27f13cec) for 'some.resource' at '2026-10-29T04:03:53.912843+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a, trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 covers event 'B' (71d8e27a-ce9c-449c-8a01-bf0aa774fb21) for 'some.resource' at '2026-10-29T04:03:54.912843+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a ('after A, expect') trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:630 Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a, trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 covers event 'B' (71d8e27a-ce9c-449c-8a01-bf0aa774fb21) for 'some.resource' at '2026-10-29T04:03:54.912843+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:250 Automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a ('after A, expect') trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation dfff9013-96aa-49a1-87e9-be96a5fa1d9a trigger 5ad9a4b2-381b-4e40-a73e-30b427682da2 proactively as of 2026-10-29 04:05:53.912843+00:00 (offset 0.0s)
+________________ test_a_high_threshold_counts_every_held_event ________________
+tests\events\server\triggers\test_early_expect_events.py:360: in test_a_high_threshold_counts_every_held_event
+    act.assert_not_awaited()
+D:\python3.11\Lib\unittest\mock.py:2333: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.
+---------------------------- Captured stderr call -----------------------------
+12:04:12.397 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (252f0b78-0be0-45df-9160-4cf957e195a1) for 'some.resource' at '2026-10-29T04:04:13.219229+00:00'
+12:04:12.650 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e68bdc07-763d-47f4-8f4b-e7c777d87fc6) for 'some.resource' at '2026-10-29T04:04:14.219229+00:00'
+12:04:12.801 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e2e7de27-9ac9-4014-8b46-d1fd09666870) for 'some.resource' at '2026-10-29T04:04:15.219229+00:00'
+12:04:12.958 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d79970e0-fbbd-470c-ae0e-5f87c779b536) for 'some.resource' at '2026-10-29T04:04:16.219229+00:00'
+12:04:13.104 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8374c338-19e1-40f2-b2cf-1e59d48db1c4) for 'some.resource' at '2026-10-29T04:04:17.219229+00:00'
+12:04:13.247 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e9b1918e-402a-4c5e-baf9-f7317e875e5d) for 'some.resource' at '2026-10-29T04:04:18.219229+00:00'
+12:04:13.386 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ee2592b4-8ee0-4a85-80e3-814921ac48fa) for 'some.resource' at '2026-10-29T04:04:19.219229+00:00'
+12:04:13.531 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (28ff43a3-9bac-4e5d-8811-2af93fc8b7c5) for 'some.resource' at '2026-10-29T04:04:20.219229+00:00'
+12:04:13.668 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (7f26aa36-0784-42c6-95e2-374e3f833147) for 'some.resource' at '2026-10-29T04:04:21.219229+00:00'
+12:04:13.810 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b78571fe-b974-4440-8cb0-b233e45bb235) for 'some.resource' at '2026-10-29T04:04:22.219229+00:00'
+12:04:13.967 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (55cd823f-efa8-4bd0-b807-200de4d515e4) for 'some.resource' at '2026-10-29T04:04:23.219229+00:00'
+12:04:14.125 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4db00495-2837-4b87-b669-9643f2a2eaba) for 'some.resource' at '2026-10-29T04:04:24.219229+00:00'
+12:04:14.269 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f9652c7f-ec23-473e-81e0-8c00f92747d5) for 'some.resource' at '2026-10-29T04:04:25.219229+00:00'
+12:04:14.426 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (24274a55-0352-4929-9a0f-1f34c4e28f9a) for 'some.resource' at '2026-10-29T04:04:26.219229+00:00'
+12:04:14.574 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f6b132c0-e524-4a92-9f68-f6c10fefe36f) for 'some.resource' at '2026-10-29T04:04:27.219229+00:00'
+12:04:14.727 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (dcaca5d2-6c67-46ed-9f7e-d99dd46e0275) for 'some.resource' at '2026-10-29T04:04:28.219229+00:00'
+12:04:14.880 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e14494c0-acf2-4013-942a-9699086ae2bc) for 'some.resource' at '2026-10-29T04:04:29.219229+00:00'
+12:04:15.036 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (62d9d119-b1fc-4f37-a3e5-c01fb80bda8d) for 'some.resource' at '2026-10-29T04:04:30.219229+00:00'
+12:04:15.187 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (fa342d84-b725-423a-9568-e74a3c4f9a65) for 'some.resource' at '2026-10-29T04:04:31.219229+00:00'
+12:04:15.342 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (15af69fc-2157-4327-94c9-82e4be81ee7c) for 'some.resource' at '2026-10-29T04:04:32.219229+00:00'
+12:04:15.487 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ba1024fb-d467-407d-a051-3554eb311928) for 'some.resource' at '2026-10-29T04:04:33.219229+00:00'
+12:04:15.632 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (98add3ed-959e-4a8f-ba9c-69f8651d6d13) for 'some.resource' at '2026-10-29T04:04:34.219229+00:00'
+12:04:15.789 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (95b56bf1-bbee-4d3e-b6b0-47df47e4413d) for 'some.resource' at '2026-10-29T04:04:35.219229+00:00'
+12:04:15.943 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0a0c8703-f0b1-433e-bfbf-2d87056f95c8) for 'some.resource' at '2026-10-29T04:04:36.219229+00:00'
+12:04:16.088 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (886e3c5f-0173-4b2d-a34d-e2935eb3db4e) for 'some.resource' at '2026-10-29T04:04:37.219229+00:00'
+12:04:16.235 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (62f2f4c4-6861-4699-b358-1e6e116e4bcb) for 'some.resource' at '2026-10-29T04:04:38.219229+00:00'
+12:04:16.388 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e144f076-f0ef-462f-9861-4496cbbdc277) for 'some.resource' at '2026-10-29T04:04:39.219229+00:00'
+12:04:16.541 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (994b4af3-fe36-4bf5-9265-1f8411e72658) for 'some.resource' at '2026-10-29T04:04:40.219229+00:00'
+12:04:16.685 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (04ab0c99-610b-48e9-ac3d-8ad148ad5aad) for 'some.resource' at '2026-10-29T04:04:41.219229+00:00'
+12:04:16.835 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (955f6379-9cbc-471c-a82e-4fc2273544ff) for 'some.resource' at '2026-10-29T04:04:42.219229+00:00'
+12:04:16.988 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c5d204f5-f94d-4159-b681-2b8cb2cffc3f) for 'some.resource' at '2026-10-29T04:04:43.219229+00:00'
+12:04:17.134 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4c17ad08-2d55-4e5a-a48a-a67ee7bd837e) for 'some.resource' at '2026-10-29T04:04:44.219229+00:00'
+12:04:17.284 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6f30d0ee-a8d3-49ae-8b29-41ca69e3aed0) for 'some.resource' at '2026-10-29T04:04:45.219229+00:00'
+12:04:17.443 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b0e49806-7986-4c30-94da-107750ce192e) for 'some.resource' at '2026-10-29T04:04:46.219229+00:00'
+12:04:17.596 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (a114017c-b092-4696-af8c-01c57350849b) for 'some.resource' at '2026-10-29T04:04:47.219229+00:00'
+12:04:17.749 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (98c2859c-154e-4164-9f9a-4bea2f96617e) for 'some.resource' at '2026-10-29T04:04:48.219229+00:00'
+12:04:17.902 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (cb58e3b3-28f6-4946-b9bc-2c6635291d79) for 'some.resource' at '2026-10-29T04:04:49.219229+00:00'
+12:04:18.059 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (70197def-d276-4ba0-b038-b77e5281c9eb) for 'some.resource' at '2026-10-29T04:04:50.219229+00:00'
+12:04:18.226 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8b5894d9-5cc5-43ec-90f8-505742089684) for 'some.resource' at '2026-10-29T04:04:51.219229+00:00'
+12:04:18.405 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6ce58ad7-aac2-4ce3-a328-31654924150a) for 'some.resource' at '2026-10-29T04:04:52.219229+00:00'
+12:04:18.556 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (2d92831e-0ebf-4860-a32c-93d23bb34418) for 'some.resource' at '2026-10-29T04:04:53.219229+00:00'
+12:04:18.703 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c4c3ff52-7bf2-4697-ab4d-4fe66ed7010c) for 'some.resource' at '2026-10-29T04:04:54.219229+00:00'
+12:04:18.858 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (221c6036-fae3-4089-baaf-5a62cba35af1) for 'some.resource' at '2026-10-29T04:04:55.219229+00:00'
+12:04:19.004 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e9d8e8e8-2621-42c9-b1b1-d9ac7acbc2f0) for 'some.resource' at '2026-10-29T04:04:56.219229+00:00'
+12:04:19.149 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (026406af-e29e-48c7-9ee7-3da678495406) for 'some.resource' at '2026-10-29T04:04:57.219229+00:00'
+12:04:19.299 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9154a43a-7c77-41b4-9b02-91f058acd4d0) for 'some.resource' at '2026-10-29T04:04:58.219229+00:00'
+12:04:19.454 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (7602f34c-d315-4afb-9fcb-d2759f80bbfd) for 'some.resource' at '2026-10-29T04:04:59.219229+00:00'
+12:04:19.610 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5b634d99-1b6d-4c6c-869f-9249d9b5fb3c) for 'some.resource' at '2026-10-29T04:05:00.219229+00:00'
+12:04:19.780 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4f4c06bc-320b-4e41-a112-5af9c2ee61cb) for 'some.resource' at '2026-10-29T04:05:01.219229+00:00'
+12:04:19.933 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f7932b11-6d11-47e8-bd2a-b5c45e0f3156) for 'some.resource' at '2026-10-29T04:05:02.219229+00:00'
+12:04:20.091 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d268762b-40c1-4ec4-9c2a-80475ecb7a56) for 'some.resource' at '2026-10-29T04:05:03.219229+00:00'
+12:04:20.242 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (771535d7-b6f2-4961-a566-eab2c7ca154e) for 'some.resource' at '2026-10-29T04:05:04.219229+00:00'
+12:04:20.392 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e8ff670a-92d3-4c20-8d41-c3c620e984ef) for 'some.resource' at '2026-10-29T04:05:05.219229+00:00'
+12:04:20.540 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (845102df-9332-4dc9-9fc3-5eaee01e72fd) for 'some.resource' at '2026-10-29T04:05:06.219229+00:00'
+12:04:20.689 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (242632c7-57f5-488f-9875-263bac79bd2a) for 'some.resource' at '2026-10-29T04:05:07.219229+00:00'
+12:04:20.837 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (04d75a8b-f2e8-457d-b0f1-e35b913c1b0e) for 'some.resource' at '2026-10-29T04:05:08.219229+00:00'
+12:04:20.986 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (011a726a-391c-40ca-9bd3-450e56125e70) for 'some.resource' at '2026-10-29T04:05:09.219229+00:00'
+12:04:21.128 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (50eae89b-175b-40b8-aeec-6c76b014a952) for 'some.resource' at '2026-10-29T04:05:10.219229+00:00'
+12:04:21.287 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0dd53af6-6bba-40fb-a97d-2edf7b3ad165) for 'some.resource' at '2026-10-29T04:05:11.219229+00:00'
+12:04:21.443 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9439c87d-4e20-4c2e-8577-2063a0c7d91f) for 'some.resource' at '2026-10-29T04:05:12.219229+00:00'
+12:04:21.596 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (823c4f36-d458-4822-bd45-1f765c4ad264) for 'some.resource' at '2026-10-29T04:05:13.219229+00:00'
+12:04:21.747 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8900ead1-c232-415e-8b52-f040895f7859) for 'some.resource' at '2026-10-29T04:05:14.219229+00:00'
+12:04:21.893 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ff6e50b4-9a4a-486e-8ac0-0d4e42c2caf5) for 'some.resource' at '2026-10-29T04:05:15.219229+00:00'
+12:04:22.058 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (cc6ba721-cee5-450b-b1d8-f4b2370878e5) for 'some.resource' at '2026-10-29T04:05:16.219229+00:00'
+12:04:22.211 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (23fe8b6e-384c-4eb2-b7d5-38fc6ab54b27) for 'some.resource' at '2026-10-29T04:05:17.219229+00:00'
+12:04:22.361 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (124f6e0a-a06e-4954-be63-c06f45c40cea) for 'some.resource' at '2026-10-29T04:05:18.219229+00:00'
+12:04:22.512 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ed7db56c-eb98-43be-bda5-417ffb909711) for 'some.resource' at '2026-10-29T04:05:19.219229+00:00'
+12:04:22.659 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (3b5a9696-dd88-4c99-aedb-d6df94170683) for 'some.resource' at '2026-10-29T04:05:20.219229+00:00'
+12:04:22.801 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (289def1f-90f9-4322-8bb6-a6c0a9f40464) for 'some.resource' at '2026-10-29T04:05:21.219229+00:00'
+12:04:22.948 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (52a5b639-a9b8-4a3d-b363-fdb378d2a43e) for 'some.resource' at '2026-10-29T04:05:22.219229+00:00'
+12:04:23.092 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0bc98457-de37-4f1d-9daf-fe05765d6235) for 'some.resource' at '2026-10-29T04:05:23.219229+00:00'
+12:04:23.242 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b6070e44-0c83-4ff8-9435-54f44d8e5989) for 'some.resource' at '2026-10-29T04:05:24.219229+00:00'
+12:04:23.387 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d45e1e30-a47d-4432-9086-5a421afbb160) for 'some.resource' at '2026-10-29T04:05:25.219229+00:00'
+12:04:23.534 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6ac1d029-3117-46d7-9601-f9dcce0acd04) for 'some.resource' at '2026-10-29T04:05:26.219229+00:00'
+12:04:23.687 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9768dcae-ac28-43fd-a161-0714dacdd6fd) for 'some.resource' at '2026-10-29T04:05:27.219229+00:00'
+12:04:23.830 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (84554cdf-e761-471d-a769-3c3961111e25) for 'some.resource' at '2026-10-29T04:05:28.219229+00:00'
+12:04:23.981 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e2d95a81-d9b1-4643-a969-4667f99b0538) for 'some.resource' at '2026-10-29T04:05:29.219229+00:00'
+12:04:24.135 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6890ade1-13fa-41b3-9224-00588790d91f) for 'some.resource' at '2026-10-29T04:05:30.219229+00:00'
+12:04:24.279 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6d22f9ce-b6a6-457e-ad94-c2e3304bd254) for 'some.resource' at '2026-10-29T04:05:31.219229+00:00'
+12:04:24.431 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (81900938-b6e5-4d5f-9744-33d671d832c1) for 'some.resource' at '2026-10-29T04:05:32.219229+00:00'
+12:04:24.577 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e2d703c9-b5bc-4c42-999c-e11a158b8a0b) for 'some.resource' at '2026-10-29T04:05:33.219229+00:00'
+12:04:24.724 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (37f9938b-9d27-4ea1-a64a-2e6e953ef7cb) for 'some.resource' at '2026-10-29T04:05:34.219229+00:00'
+12:04:24.869 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (74487a50-3f45-412f-a08d-baa363bfba6f) for 'some.resource' at '2026-10-29T04:05:35.219229+00:00'
+12:04:25.013 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f4c8e5d3-6135-47e2-bbf7-f11d21f28a93) for 'some.resource' at '2026-10-29T04:05:36.219229+00:00'
+12:04:25.154 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6298a720-7d77-476e-8441-29fca1e162d3) for 'some.resource' at '2026-10-29T04:05:37.219229+00:00'
+12:04:25.295 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f1b68344-b9fe-461c-8308-042139d9cd41) for 'some.resource' at '2026-10-29T04:05:38.219229+00:00'
+12:04:25.433 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5937a579-73f7-47cd-ae07-304ab702b56e) for 'some.resource' at '2026-10-29T04:05:39.219229+00:00'
+12:04:25.573 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (1ac2a6e5-3df5-4ba5-a7a5-1d42e2cc9550) for 'some.resource' at '2026-10-29T04:05:40.219229+00:00'
+12:04:25.721 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9dd19f10-edc7-40e6-9516-ef1944bec6f5) for 'some.resource' at '2026-10-29T04:05:41.219229+00:00'
+12:04:25.861 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (aa33e674-a3fb-407b-a5c4-5fdad376cf8b) for 'some.resource' at '2026-10-29T04:05:42.219229+00:00'
+12:04:26.004 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (1cd91af1-c13c-42d8-888b-ea25d25bc427) for 'some.resource' at '2026-10-29T04:05:43.219229+00:00'
+12:04:26.145 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (94effcad-e0ed-4a12-8d57-a2371181cd70) for 'some.resource' at '2026-10-29T04:05:44.219229+00:00'
+12:04:26.299 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (011b625d-fe60-407b-acf9-e61aaa752d91) for 'some.resource' at '2026-10-29T04:05:45.219229+00:00'
+12:04:26.444 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (79701041-a5aa-4540-9333-9f494197b9fb) for 'some.resource' at '2026-10-29T04:05:46.219229+00:00'
+12:04:26.589 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9323fa59-57d8-4438-b107-ac9ec57f61ff) for 'some.resource' at '2026-10-29T04:05:47.219229+00:00'
+12:04:26.734 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f815bc40-0519-4e8a-8e76-23cb95ea91cc) for 'some.resource' at '2026-10-29T04:05:48.219229+00:00'
+12:04:26.881 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ac4c1098-5cae-498a-a49d-568ae35390c9) for 'some.resource' at '2026-10-29T04:05:49.219229+00:00'
+12:04:27.020 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (bae805ce-60ba-47ba-985d-51ddb99bc5f7) for 'some.resource' at '2026-10-29T04:05:50.219229+00:00'
+12:04:27.163 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d29aa727-aed3-4d84-8fb4-176dcdc0d498) for 'some.resource' at '2026-10-29T04:05:51.219229+00:00'
+12:04:27.304 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f8f5905e-10c3-4254-a80e-fd6cc7dcb405) for 'some.resource' at '2026-10-29T04:05:52.219229+00:00'
+12:04:27.452 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (14efbab6-5073-4a3f-8759-6cfd1d153454) for 'some.resource' at '2026-10-29T04:05:53.219229+00:00'
+12:04:27.594 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (770676df-75dd-445c-bc03-5276e9e00079) for 'some.resource' at '2026-10-29T04:05:54.219229+00:00'
+12:04:27.734 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5ad9963c-a2c8-48d8-b791-47dcb24881c0) for 'some.resource' at '2026-10-29T04:05:55.219229+00:00'
+12:04:27.881 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4ef23853-f399-45ec-b9d6-918442418222) for 'some.resource' at '2026-10-29T04:05:56.219229+00:00'
+12:04:28.020 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (618e019f-82a6-4a66-8b12-a058dfaa31aa) for 'some.resource' at '2026-10-29T04:05:57.219229+00:00'
+12:04:28.163 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ca7cd981-2f4f-4640-900e-e2ac53a755b4) for 'some.resource' at '2026-10-29T04:05:58.219229+00:00'
+12:04:28.302 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e26b4650-282a-462a-9932-1de0383d19de) for 'some.resource' at '2026-10-29T04:05:59.219229+00:00'
+12:04:28.448 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (22a3aca3-8a5a-478a-83ec-b4392edaae8f) for 'some.resource' at '2026-10-29T04:06:00.219229+00:00'
+12:04:28.589 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c7439138-4aff-4ee4-bd9b-38f3ef868956) for 'some.resource' at '2026-10-29T04:06:01.219229+00:00'
+12:04:28.737 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (250a7f99-ee04-47c8-9060-abf81365d646) for 'some.resource' at '2026-10-29T04:06:02.219229+00:00'
+12:04:28.877 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (92c9f8ac-f493-4a77-a5d5-da574b948240) for 'some.resource' at '2026-10-29T04:06:03.219229+00:00'
+12:04:29.020 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f28d0762-f218-488e-97ef-f78948c0dbad) for 'some.resource' at '2026-10-29T04:06:04.219229+00:00'
+12:04:29.172 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ec70ccb2-bc4c-4e3a-a61f-bd3313778e1d) for 'some.resource' at '2026-10-29T04:06:05.219229+00:00'
+12:04:29.310 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (fa1f14ef-e6b0-43f0-b398-bd46111b8a85) for 'some.resource' at '2026-10-29T04:06:06.219229+00:00'
+12:04:29.455 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (fd3e022e-7a67-4f00-b02d-67b1aab67571) for 'some.resource' at '2026-10-29T04:06:07.219229+00:00'
+12:04:29.596 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (27aec79f-a458-47e6-b901-fee6fb3a7d57) for 'some.resource' at '2026-10-29T04:06:08.219229+00:00'
+12:04:29.742 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9f0d0ccb-06f2-4b3c-8102-b40fe4594d24) for 'some.resource' at '2026-10-29T04:06:09.219229+00:00'
+12:04:29.884 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ebf01aa9-58a3-419e-8e4f-ec820dec1569) for 'some.resource' at '2026-10-29T04:06:10.219229+00:00'
+12:04:30.027 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4b6d8142-8630-47ff-8395-db0779067aab) for 'some.resource' at '2026-10-29T04:06:11.219229+00:00'
+12:04:30.165 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8121085e-bb52-4708-8136-58584fae0814) for 'some.resource' at '2026-10-29T04:06:12.219229+00:00'
+12:04:30.304 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0d484153-3d58-4bb8-898f-0194f8ade270) for 'some.resource' at '2026-10-29T04:06:13.219229+00:00'
+12:04:30.450 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4abc59b3-4921-47d0-8079-be15b665e996) for 'some.resource' at '2026-10-29T04:06:14.219229+00:00'
+12:04:30.593 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (cf206ef3-f3c6-4226-be6f-e81fdaccf3a4) for 'some.resource' at '2026-10-29T04:06:15.219229+00:00'
+12:04:30.739 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (246d9d1a-7701-4b98-9fe8-9a954a8e327f) for 'some.resource' at '2026-10-29T04:06:16.219229+00:00'
+12:04:30.883 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (59f416c7-7485-4dc1-aa0c-41ac7900b7f0) for 'some.resource' at '2026-10-29T04:06:17.219229+00:00'
+12:04:31.026 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f2cdf97c-7632-4311-ba70-39da1a779da5) for 'some.resource' at '2026-10-29T04:06:18.219229+00:00'
+12:04:31.172 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (74fe3ad7-2ee0-4713-8a00-4e26f5d1c25a) for 'some.resource' at '2026-10-29T04:06:19.219229+00:00'
+12:04:31.306 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f31eb868-cb43-4b83-a217-e00b77cfbae2) for 'some.resource' at '2026-10-29T04:06:20.219229+00:00'
+12:04:31.441 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (aca2372e-9ed4-4d17-99a3-3f0303c87adb) for 'some.resource' at '2026-10-29T04:06:21.219229+00:00'
+12:04:31.583 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (db53db3d-3826-4599-842e-d387d2d1cc42) for 'some.resource' at '2026-10-29T04:06:22.219229+00:00'
+12:04:31.724 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e0e4928e-2e46-4650-a553-0df7ac435c87) for 'some.resource' at '2026-10-29T04:06:23.219229+00:00'
+12:04:31.862 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c698d061-df65-4626-aab7-ddee8463c629) for 'some.resource' at '2026-10-29T04:06:24.219229+00:00'
+12:04:32.004 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b180761a-7ff5-4269-88e0-adb6751710ed) for 'some.resource' at '2026-10-29T04:06:25.219229+00:00'
+12:04:32.144 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5c1c1363-e941-4c23-ab1c-b4ba99b3a206) for 'some.resource' at '2026-10-29T04:06:26.219229+00:00'
+12:04:32.282 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c533337d-6132-476e-be30-7736bb55ef6b) for 'some.resource' at '2026-10-29T04:06:27.219229+00:00'
+12:04:32.426 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (50fcfcb4-0e73-4486-8abf-b8adb703ec4c) for 'some.resource' at '2026-10-29T04:06:28.219229+00:00'
+12:04:32.559 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (edca12cc-68e0-4a3b-83d0-4aab7cbe107c) for 'some.resource' at '2026-10-29T04:06:29.219229+00:00'
+12:04:32.695 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d3b1a9be-7042-4100-b916-b50c3c7a184f) for 'some.resource' at '2026-10-29T04:06:30.219229+00:00'
+12:04:32.826 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (39e3f688-d692-4116-ad0b-96ecd13b3068) for 'some.resource' at '2026-10-29T04:06:31.219229+00:00'
+12:04:32.965 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ddf942ac-3aaa-4f47-ab9f-bc6bdaaf5e53) for 'some.resource' at '2026-10-29T04:06:32.219229+00:00'
+12:04:33.109 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b7c400d5-1479-4edd-ad65-e3f16e54dd22) for 'some.resource' at '2026-10-29T04:06:33.219229+00:00'
+12:04:33.261 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f12ecc52-3ba9-40b7-b769-fd7d5d56c6f7) for 'some.resource' at '2026-10-29T04:06:34.219229+00:00'
+12:04:33.424 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5cd5fc6c-78de-4257-b21e-60e127e7f46e) for 'some.resource' at '2026-10-29T04:06:35.219229+00:00'
+12:04:33.577 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (95516960-b1cc-45b5-8562-ba759d99f635) for 'some.resource' at '2026-10-29T04:06:36.219229+00:00'
+12:04:33.719 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (23fd7d79-4c0c-4c73-94f7-d162fed9c1a2) for 'some.resource' at '2026-10-29T04:06:37.219229+00:00'
+12:04:33.858 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (30345fa1-9de9-4502-a608-80b38adde024) for 'some.resource' at '2026-10-29T04:06:38.219229+00:00'
+12:04:34.011 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ddc0dc8f-1772-4c17-be42-0cb4817e0735) for 'some.resource' at '2026-10-29T04:06:39.219229+00:00'
+12:04:34.158 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (93249986-baa1-4e2d-8940-633e75d270d5) for 'some.resource' at '2026-10-29T04:06:40.219229+00:00'
+12:04:34.328 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5aca0fd3-fda4-43a5-8326-8b943e75de69) for 'some.resource' at '2026-10-29T04:06:41.219229+00:00'
+12:04:34.482 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (bee1691b-b721-48d4-8bf4-2175352768b8) for 'some.resource' at '2026-10-29T04:06:42.219229+00:00'
+12:04:34.648 | INFO    | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'A' (3bbce2b2-1687-4c14-9399-d5c298840ac3) for 'some.resource' at '2026-10-29T04:04:12.219229+00:00'
+12:04:34.951 | DEBUG   | prefect.server.events.triggers - Evaluating automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 proactively as of 2026-10-29 04:09:14.219229+00:00 (offset 0.0s)
+12:04:35.104 | DEBUG   | prefect.server.events.triggers - Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c ('after A, expect') trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 triggered for keys (['some.resource']) proactively, having occurred 0 times between 2026-10-29 04:04:12.219229+00:00 and 2026-10-29 04:06:43.219229+00:00
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (252f0b78-0be0-45df-9160-4cf957e195a1) for 'some.resource' at '2026-10-29T04:04:13.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e68bdc07-763d-47f4-8f4b-e7c777d87fc6) for 'some.resource' at '2026-10-29T04:04:14.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e2e7de27-9ac9-4014-8b46-d1fd09666870) for 'some.resource' at '2026-10-29T04:04:15.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d79970e0-fbbd-470c-ae0e-5f87c779b536) for 'some.resource' at '2026-10-29T04:04:16.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8374c338-19e1-40f2-b2cf-1e59d48db1c4) for 'some.resource' at '2026-10-29T04:04:17.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e9b1918e-402a-4c5e-baf9-f7317e875e5d) for 'some.resource' at '2026-10-29T04:04:18.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ee2592b4-8ee0-4a85-80e3-814921ac48fa) for 'some.resource' at '2026-10-29T04:04:19.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (28ff43a3-9bac-4e5d-8811-2af93fc8b7c5) for 'some.resource' at '2026-10-29T04:04:20.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (7f26aa36-0784-42c6-95e2-374e3f833147) for 'some.resource' at '2026-10-29T04:04:21.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b78571fe-b974-4440-8cb0-b233e45bb235) for 'some.resource' at '2026-10-29T04:04:22.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (55cd823f-efa8-4bd0-b807-200de4d515e4) for 'some.resource' at '2026-10-29T04:04:23.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4db00495-2837-4b87-b669-9643f2a2eaba) for 'some.resource' at '2026-10-29T04:04:24.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f9652c7f-ec23-473e-81e0-8c00f92747d5) for 'some.resource' at '2026-10-29T04:04:25.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (24274a55-0352-4929-9a0f-1f34c4e28f9a) for 'some.resource' at '2026-10-29T04:04:26.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f6b132c0-e524-4a92-9f68-f6c10fefe36f) for 'some.resource' at '2026-10-29T04:04:27.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (dcaca5d2-6c67-46ed-9f7e-d99dd46e0275) for 'some.resource' at '2026-10-29T04:04:28.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e14494c0-acf2-4013-942a-9699086ae2bc) for 'some.resource' at '2026-10-29T04:04:29.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (62d9d119-b1fc-4f37-a3e5-c01fb80bda8d) for 'some.resource' at '2026-10-29T04:04:30.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (fa342d84-b725-423a-9568-e74a3c4f9a65) for 'some.resource' at '2026-10-29T04:04:31.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (15af69fc-2157-4327-94c9-82e4be81ee7c) for 'some.resource' at '2026-10-29T04:04:32.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ba1024fb-d467-407d-a051-3554eb311928) for 'some.resource' at '2026-10-29T04:04:33.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (98add3ed-959e-4a8f-ba9c-69f8651d6d13) for 'some.resource' at '2026-10-29T04:04:34.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (95b56bf1-bbee-4d3e-b6b0-47df47e4413d) for 'some.resource' at '2026-10-29T04:04:35.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0a0c8703-f0b1-433e-bfbf-2d87056f95c8) for 'some.resource' at '2026-10-29T04:04:36.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (886e3c5f-0173-4b2d-a34d-e2935eb3db4e) for 'some.resource' at '2026-10-29T04:04:37.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (62f2f4c4-6861-4699-b358-1e6e116e4bcb) for 'some.resource' at '2026-10-29T04:04:38.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e144f076-f0ef-462f-9861-4496cbbdc277) for 'some.resource' at '2026-10-29T04:04:39.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (994b4af3-fe36-4bf5-9265-1f8411e72658) for 'some.resource' at '2026-10-29T04:04:40.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (04ab0c99-610b-48e9-ac3d-8ad148ad5aad) for 'some.resource' at '2026-10-29T04:04:41.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (955f6379-9cbc-471c-a82e-4fc2273544ff) for 'some.resource' at '2026-10-29T04:04:42.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c5d204f5-f94d-4159-b681-2b8cb2cffc3f) for 'some.resource' at '2026-10-29T04:04:43.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4c17ad08-2d55-4e5a-a48a-a67ee7bd837e) for 'some.resource' at '2026-10-29T04:04:44.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6f30d0ee-a8d3-49ae-8b29-41ca69e3aed0) for 'some.resource' at '2026-10-29T04:04:45.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b0e49806-7986-4c30-94da-107750ce192e) for 'some.resource' at '2026-10-29T04:04:46.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (a114017c-b092-4696-af8c-01c57350849b) for 'some.resource' at '2026-10-29T04:04:47.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (98c2859c-154e-4164-9f9a-4bea2f96617e) for 'some.resource' at '2026-10-29T04:04:48.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (cb58e3b3-28f6-4946-b9bc-2c6635291d79) for 'some.resource' at '2026-10-29T04:04:49.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (70197def-d276-4ba0-b038-b77e5281c9eb) for 'some.resource' at '2026-10-29T04:04:50.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8b5894d9-5cc5-43ec-90f8-505742089684) for 'some.resource' at '2026-10-29T04:04:51.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6ce58ad7-aac2-4ce3-a328-31654924150a) for 'some.resource' at '2026-10-29T04:04:52.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (2d92831e-0ebf-4860-a32c-93d23bb34418) for 'some.resource' at '2026-10-29T04:04:53.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c4c3ff52-7bf2-4697-ab4d-4fe66ed7010c) for 'some.resource' at '2026-10-29T04:04:54.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (221c6036-fae3-4089-baaf-5a62cba35af1) for 'some.resource' at '2026-10-29T04:04:55.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e9d8e8e8-2621-42c9-b1b1-d9ac7acbc2f0) for 'some.resource' at '2026-10-29T04:04:56.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (026406af-e29e-48c7-9ee7-3da678495406) for 'some.resource' at '2026-10-29T04:04:57.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9154a43a-7c77-41b4-9b02-91f058acd4d0) for 'some.resource' at '2026-10-29T04:04:58.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (7602f34c-d315-4afb-9fcb-d2759f80bbfd) for 'some.resource' at '2026-10-29T04:04:59.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5b634d99-1b6d-4c6c-869f-9249d9b5fb3c) for 'some.resource' at '2026-10-29T04:05:00.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4f4c06bc-320b-4e41-a112-5af9c2ee61cb) for 'some.resource' at '2026-10-29T04:05:01.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f7932b11-6d11-47e8-bd2a-b5c45e0f3156) for 'some.resource' at '2026-10-29T04:05:02.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d268762b-40c1-4ec4-9c2a-80475ecb7a56) for 'some.resource' at '2026-10-29T04:05:03.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (771535d7-b6f2-4961-a566-eab2c7ca154e) for 'some.resource' at '2026-10-29T04:05:04.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e8ff670a-92d3-4c20-8d41-c3c620e984ef) for 'some.resource' at '2026-10-29T04:05:05.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (845102df-9332-4dc9-9fc3-5eaee01e72fd) for 'some.resource' at '2026-10-29T04:05:06.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (242632c7-57f5-488f-9875-263bac79bd2a) for 'some.resource' at '2026-10-29T04:05:07.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (04d75a8b-f2e8-457d-b0f1-e35b913c1b0e) for 'some.resource' at '2026-10-29T04:05:08.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (011a726a-391c-40ca-9bd3-450e56125e70) for 'some.resource' at '2026-10-29T04:05:09.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (50eae89b-175b-40b8-aeec-6c76b014a952) for 'some.resource' at '2026-10-29T04:05:10.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0dd53af6-6bba-40fb-a97d-2edf7b3ad165) for 'some.resource' at '2026-10-29T04:05:11.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9439c87d-4e20-4c2e-8577-2063a0c7d91f) for 'some.resource' at '2026-10-29T04:05:12.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (823c4f36-d458-4822-bd45-1f765c4ad264) for 'some.resource' at '2026-10-29T04:05:13.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8900ead1-c232-415e-8b52-f040895f7859) for 'some.resource' at '2026-10-29T04:05:14.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ff6e50b4-9a4a-486e-8ac0-0d4e42c2caf5) for 'some.resource' at '2026-10-29T04:05:15.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (cc6ba721-cee5-450b-b1d8-f4b2370878e5) for 'some.resource' at '2026-10-29T04:05:16.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (23fe8b6e-384c-4eb2-b7d5-38fc6ab54b27) for 'some.resource' at '2026-10-29T04:05:17.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (124f6e0a-a06e-4954-be63-c06f45c40cea) for 'some.resource' at '2026-10-29T04:05:18.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ed7db56c-eb98-43be-bda5-417ffb909711) for 'some.resource' at '2026-10-29T04:05:19.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (3b5a9696-dd88-4c99-aedb-d6df94170683) for 'some.resource' at '2026-10-29T04:05:20.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (289def1f-90f9-4322-8bb6-a6c0a9f40464) for 'some.resource' at '2026-10-29T04:05:21.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (52a5b639-a9b8-4a3d-b363-fdb378d2a43e) for 'some.resource' at '2026-10-29T04:05:22.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0bc98457-de37-4f1d-9daf-fe05765d6235) for 'some.resource' at '2026-10-29T04:05:23.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b6070e44-0c83-4ff8-9435-54f44d8e5989) for 'some.resource' at '2026-10-29T04:05:24.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d45e1e30-a47d-4432-9086-5a421afbb160) for 'some.resource' at '2026-10-29T04:05:25.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6ac1d029-3117-46d7-9601-f9dcce0acd04) for 'some.resource' at '2026-10-29T04:05:26.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9768dcae-ac28-43fd-a161-0714dacdd6fd) for 'some.resource' at '2026-10-29T04:05:27.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (84554cdf-e761-471d-a769-3c3961111e25) for 'some.resource' at '2026-10-29T04:05:28.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e2d95a81-d9b1-4643-a969-4667f99b0538) for 'some.resource' at '2026-10-29T04:05:29.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6890ade1-13fa-41b3-9224-00588790d91f) for 'some.resource' at '2026-10-29T04:05:30.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6d22f9ce-b6a6-457e-ad94-c2e3304bd254) for 'some.resource' at '2026-10-29T04:05:31.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (81900938-b6e5-4d5f-9744-33d671d832c1) for 'some.resource' at '2026-10-29T04:05:32.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e2d703c9-b5bc-4c42-999c-e11a158b8a0b) for 'some.resource' at '2026-10-29T04:05:33.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (37f9938b-9d27-4ea1-a64a-2e6e953ef7cb) for 'some.resource' at '2026-10-29T04:05:34.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (74487a50-3f45-412f-a08d-baa363bfba6f) for 'some.resource' at '2026-10-29T04:05:35.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f4c8e5d3-6135-47e2-bbf7-f11d21f28a93) for 'some.resource' at '2026-10-29T04:05:36.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (6298a720-7d77-476e-8441-29fca1e162d3) for 'some.resource' at '2026-10-29T04:05:37.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f1b68344-b9fe-461c-8308-042139d9cd41) for 'some.resource' at '2026-10-29T04:05:38.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5937a579-73f7-47cd-ae07-304ab702b56e) for 'some.resource' at '2026-10-29T04:05:39.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (1ac2a6e5-3df5-4ba5-a7a5-1d42e2cc9550) for 'some.resource' at '2026-10-29T04:05:40.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9dd19f10-edc7-40e6-9516-ef1944bec6f5) for 'some.resource' at '2026-10-29T04:05:41.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (aa33e674-a3fb-407b-a5c4-5fdad376cf8b) for 'some.resource' at '2026-10-29T04:05:42.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (1cd91af1-c13c-42d8-888b-ea25d25bc427) for 'some.resource' at '2026-10-29T04:05:43.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (94effcad-e0ed-4a12-8d57-a2371181cd70) for 'some.resource' at '2026-10-29T04:05:44.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (011b625d-fe60-407b-acf9-e61aaa752d91) for 'some.resource' at '2026-10-29T04:05:45.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (79701041-a5aa-4540-9333-9f494197b9fb) for 'some.resource' at '2026-10-29T04:05:46.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9323fa59-57d8-4438-b107-ac9ec57f61ff) for 'some.resource' at '2026-10-29T04:05:47.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f815bc40-0519-4e8a-8e76-23cb95ea91cc) for 'some.resource' at '2026-10-29T04:05:48.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ac4c1098-5cae-498a-a49d-568ae35390c9) for 'some.resource' at '2026-10-29T04:05:49.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (bae805ce-60ba-47ba-985d-51ddb99bc5f7) for 'some.resource' at '2026-10-29T04:05:50.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d29aa727-aed3-4d84-8fb4-176dcdc0d498) for 'some.resource' at '2026-10-29T04:05:51.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f8f5905e-10c3-4254-a80e-fd6cc7dcb405) for 'some.resource' at '2026-10-29T04:05:52.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (14efbab6-5073-4a3f-8759-6cfd1d153454) for 'some.resource' at '2026-10-29T04:05:53.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (770676df-75dd-445c-bc03-5276e9e00079) for 'some.resource' at '2026-10-29T04:05:54.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5ad9963c-a2c8-48d8-b791-47dcb24881c0) for 'some.resource' at '2026-10-29T04:05:55.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4ef23853-f399-45ec-b9d6-918442418222) for 'some.resource' at '2026-10-29T04:05:56.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (618e019f-82a6-4a66-8b12-a058dfaa31aa) for 'some.resource' at '2026-10-29T04:05:57.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ca7cd981-2f4f-4640-900e-e2ac53a755b4) for 'some.resource' at '2026-10-29T04:05:58.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e26b4650-282a-462a-9932-1de0383d19de) for 'some.resource' at '2026-10-29T04:05:59.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (22a3aca3-8a5a-478a-83ec-b4392edaae8f) for 'some.resource' at '2026-10-29T04:06:00.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c7439138-4aff-4ee4-bd9b-38f3ef868956) for 'some.resource' at '2026-10-29T04:06:01.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (250a7f99-ee04-47c8-9060-abf81365d646) for 'some.resource' at '2026-10-29T04:06:02.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (92c9f8ac-f493-4a77-a5d5-da574b948240) for 'some.resource' at '2026-10-29T04:06:03.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f28d0762-f218-488e-97ef-f78948c0dbad) for 'some.resource' at '2026-10-29T04:06:04.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ec70ccb2-bc4c-4e3a-a61f-bd3313778e1d) for 'some.resource' at '2026-10-29T04:06:05.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (fa1f14ef-e6b0-43f0-b398-bd46111b8a85) for 'some.resource' at '2026-10-29T04:06:06.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (fd3e022e-7a67-4f00-b02d-67b1aab67571) for 'some.resource' at '2026-10-29T04:06:07.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (27aec79f-a458-47e6-b901-fee6fb3a7d57) for 'some.resource' at '2026-10-29T04:06:08.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (9f0d0ccb-06f2-4b3c-8102-b40fe4594d24) for 'some.resource' at '2026-10-29T04:06:09.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ebf01aa9-58a3-419e-8e4f-ec820dec1569) for 'some.resource' at '2026-10-29T04:06:10.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4b6d8142-8630-47ff-8395-db0779067aab) for 'some.resource' at '2026-10-29T04:06:11.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (8121085e-bb52-4708-8136-58584fae0814) for 'some.resource' at '2026-10-29T04:06:12.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (0d484153-3d58-4bb8-898f-0194f8ade270) for 'some.resource' at '2026-10-29T04:06:13.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (4abc59b3-4921-47d0-8079-be15b665e996) for 'some.resource' at '2026-10-29T04:06:14.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (cf206ef3-f3c6-4226-be6f-e81fdaccf3a4) for 'some.resource' at '2026-10-29T04:06:15.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (246d9d1a-7701-4b98-9fe8-9a954a8e327f) for 'some.resource' at '2026-10-29T04:06:16.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (59f416c7-7485-4dc1-aa0c-41ac7900b7f0) for 'some.resource' at '2026-10-29T04:06:17.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f2cdf97c-7632-4311-ba70-39da1a779da5) for 'some.resource' at '2026-10-29T04:06:18.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (74fe3ad7-2ee0-4713-8a00-4e26f5d1c25a) for 'some.resource' at '2026-10-29T04:06:19.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f31eb868-cb43-4b83-a217-e00b77cfbae2) for 'some.resource' at '2026-10-29T04:06:20.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (aca2372e-9ed4-4d17-99a3-3f0303c87adb) for 'some.resource' at '2026-10-29T04:06:21.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (db53db3d-3826-4599-842e-d387d2d1cc42) for 'some.resource' at '2026-10-29T04:06:22.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (e0e4928e-2e46-4650-a553-0df7ac435c87) for 'some.resource' at '2026-10-29T04:06:23.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c698d061-df65-4626-aab7-ddee8463c629) for 'some.resource' at '2026-10-29T04:06:24.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b180761a-7ff5-4269-88e0-adb6751710ed) for 'some.resource' at '2026-10-29T04:06:25.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5c1c1363-e941-4c23-ab1c-b4ba99b3a206) for 'some.resource' at '2026-10-29T04:06:26.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (c533337d-6132-476e-be30-7736bb55ef6b) for 'some.resource' at '2026-10-29T04:06:27.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (50fcfcb4-0e73-4486-8abf-b8adb703ec4c) for 'some.resource' at '2026-10-29T04:06:28.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (edca12cc-68e0-4a3b-83d0-4aab7cbe107c) for 'some.resource' at '2026-10-29T04:06:29.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (d3b1a9be-7042-4100-b916-b50c3c7a184f) for 'some.resource' at '2026-10-29T04:06:30.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (39e3f688-d692-4116-ad0b-96ecd13b3068) for 'some.resource' at '2026-10-29T04:06:31.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ddf942ac-3aaa-4f47-ab9f-bc6bdaaf5e53) for 'some.resource' at '2026-10-29T04:06:32.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (b7c400d5-1479-4edd-ad65-e3f16e54dd22) for 'some.resource' at '2026-10-29T04:06:33.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (f12ecc52-3ba9-40b7-b769-fd7d5d56c6f7) for 'some.resource' at '2026-10-29T04:06:34.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5cd5fc6c-78de-4257-b21e-60e127e7f46e) for 'some.resource' at '2026-10-29T04:06:35.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (95516960-b1cc-45b5-8562-ba759d99f635) for 'some.resource' at '2026-10-29T04:06:36.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (23fd7d79-4c0c-4c73-94f7-d162fed9c1a2) for 'some.resource' at '2026-10-29T04:06:37.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (30345fa1-9de9-4502-a608-80b38adde024) for 'some.resource' at '2026-10-29T04:06:38.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (ddc0dc8f-1772-4c17-be42-0cb4817e0735) for 'some.resource' at '2026-10-29T04:06:39.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (93249986-baa1-4e2d-8940-633e75d270d5) for 'some.resource' at '2026-10-29T04:06:40.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (5aca0fd3-fda4-43a5-8326-8b943e75de69) for 'some.resource' at '2026-10-29T04:06:41.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'B' (bee1691b-b721-48d4-8bf4-2175352768b8) for 'some.resource' at '2026-10-29T04:06:42.219229+00:00'
+INFO     prefect.server.events.triggers:triggers.py:630 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c, trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 covers event 'A' (3bbce2b2-1687-4c14-9399-d5c298840ac3) for 'some.resource' at '2026-10-29T04:04:12.219229+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1428 Evaluating automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 proactively as of 2026-10-29 04:09:14.219229+00:00 (offset 0.0s)
+DEBUG    prefect.server.events.triggers:triggers.py:212 Automation 00eb34f6-dcc5-4c87-8dc8-6308e218510c ('after A, expect') trigger 8324a262-70e6-4f1e-94cd-e3204b16cb50 triggered for keys (['some.resource']) proactively, having occurred 0 times between 2026-10-29 04:04:12.219229+00:00 and 2026-10-29 04:06:43.219229+00:00
+______ test_expect_event_is_still_held_when_a_lost_follower_is_evaluated ______
+tests\events\server\triggers\test_early_expect_events.py:430: in test_expect_event_is_still_held_when_a_lost_follower_is_evaluated
+    assert bucket is not None
+E   assert None is not None
+---------------------------- Captured stderr call -----------------------------
+12:05:20.215 | INFO    | prefect.server.events.triggers - Automation bc715aac-aa04-407c-8759-77b56c9c81de, trigger 8167bf16-9b3e-4aed-8a21-44c3a25d16a6 covers event 'B' (61982c9b-251f-4b77-a915-c5ef93edf10f) for 'some.resource' at '2026-10-29T04:05:21.210231+00:00'
+12:05:20.571 | INFO    | prefect.server.events.ordering.memory - Event 'A' (0ad4758c-f10a-438f-b41d-a607d25fd9ea) for 'some.resource' arrived before the event it follows 0a323f5d-3428-4674-a1d3-86108848d640
+12:05:20.574 | DEBUG   | prefect.server.events.triggers - Running periodic evaluation as of 2026-10-29 04:21:19.850181+00:00 (offset -0.3600499629974365s)
+12:05:20.675 | INFO    | prefect.server.events.triggers - Automation bc715aac-aa04-407c-8759-77b56c9c81de, trigger 8167bf16-9b3e-4aed-8a21-44c3a25d16a6 covers event 'A' (0ad4758c-f10a-438f-b41d-a607d25fd9ea) for 'some.resource' at '2026-10-29T04:05:20.210231+00:00'
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:630 Automation bc715aac-aa04-407c-8759-77b56c9c81de, trigger 8167bf16-9b3e-4aed-8a21-44c3a25d16a6 covers event 'B' (61982c9b-251f-4b77-a915-c5ef93edf10f) for 'some.resource' at '2026-10-29T04:05:21.210231+00:00'
+INFO     prefect.server.events.ordering.memory:memory.py:303 Event 'A' (0ad4758c-f10a-438f-b41d-a607d25fd9ea) for 'some.resource' arrived before the event it follows 0a323f5d-3428-4674-a1d3-86108848d640
+DEBUG    prefect.server.events.triggers:triggers.py:763 Running periodic evaluation as of 2026-10-29 04:21:19.850181+00:00 (offset -0.3600499629974365s)
+INFO     prefect.server.events.triggers:triggers.py:630 Automation bc715aac-aa04-407c-8759-77b56c9c81de, trigger 8167bf16-9b3e-4aed-8a21-44c3a25d16a6 covers event 'A' (0ad4758c-f10a-438f-b41d-a607d25fd9ea) for 'some.resource' at '2026-10-29T04:05:20.210231+00:00'
+=========================== short test summary info ===========================
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_rolled_window_fires_with_the_carried_expect_event
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_a_high_threshold_counts_every_held_event
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_is_still_held_when_a_lost_follower_is_evaluated
+11 failed, 25 passed in 190.57s (0:03:10)

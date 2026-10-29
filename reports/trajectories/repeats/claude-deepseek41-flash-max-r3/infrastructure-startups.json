@@ -1,0 +1,16 @@
+[
+  {
+    "archive": "infrastructure-startup-1",
+    "category": "infrastructure_connection_failure",
+    "counted_as_solver_attempt": false,
+    "reason": "Sandbox socket access denied (WinError 10013); Claude reported ECONNREFUSED before any tokens/tools.",
+    "retry_changes": "Run with authorized host network access and existing per-process system proxy only.",
+    "preserved_at_utc": "2026-10-29T03:22:08.508725+00:00",
+    "status": "execution_error",
+    "session_id": "8f6b5c7d-f442-4db8-8ef6-212da9e333d6",
+    "exit_code": 1,
+    "tool_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0
+  }
+]

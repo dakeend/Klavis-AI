@@ -1,0 +1,553 @@
+diff --git a/src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_d37e8a159f20_add_automation_bucket_state.py b/src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_d37e8a159f20_add_automation_bucket_state.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_d37e8a159f20_add_automation_bucket_state.py
+@@ -0,0 +1,74 @@
++"""Retain proactive trigger ordering after bucket removal.
++
++Revision ID: d37e8a159f20
++Revises: d4a7e1c93f52
++Create Date: 2026-10-29 00:00:00.000000
++"""
++
++import sqlalchemy as sa
++from alembic import op
++
++from prefect.server.utilities.database import JSON, UUID, GenerateUUID, Timestamp
++
++revision = "d37e8a159f20"
++down_revision = "d4a7e1c93f52"
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    # Additive: existing automations and active buckets are left intact. Ordering
++    # state is populated lazily from surviving buckets by the evaluator.
++    op.create_table(
++        "automation_bucket_state",
++        sa.Column("id", UUID(), server_default=GenerateUUID(), nullable=False),
++        sa.Column(
++            "created",
++            Timestamp(timezone=True),
++            server_default=sa.func.now(),
++            nullable=False,
++        ),
++        sa.Column(
++            "updated",
++            Timestamp(timezone=True),
++            server_default=sa.func.now(),
++            nullable=False,
++        ),
++        sa.Column("automation_id", UUID(), nullable=False),
++        sa.Column("trigger_id", UUID(), nullable=False),
++        sa.Column("bucketing_key", JSON(), server_default="[]", nullable=False),
++        sa.Column("last_expected_at", Timestamp(timezone=True), nullable=True),
++        sa.Column("resolved_at", Timestamp(timezone=True), nullable=True),
++        sa.Column(
++            "retain_until",
++            Timestamp(timezone=True),
++            server_default=sa.func.now(),
++            nullable=False,
++        ),
++        sa.ForeignKeyConstraint(
++            ["automation_id"],
++            ["automation.id"],
++            name=op.f("fk_automation_bucket_state__automation_id__automation"),
++            ondelete="CASCADE",
++        ),
++        sa.PrimaryKeyConstraint("id", name=op.f("pk_automation_bucket_state")),
++    )
++    op.create_index(
++        "uq_automation_bucket_state__trigger_key",
++        "automation_bucket_state",
++        ["automation_id", "trigger_id", "bucketing_key"],
++        unique=True,
++    )
++    op.create_index(
++        "ix_automation_bucket_state__updated", "automation_bucket_state", ["updated"]
++    )
++
++    op.create_index(
++        "ix_automation_bucket_state__retain_until",
++        "automation_bucket_state",
++        ["retain_until"],
++    )
++
++
++def downgrade():
++    op.drop_table("automation_bucket_state")
+diff --git a/src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_b6d8f32a910c_add_automation_bucket_state.py b/src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_b6d8f32a910c_add_automation_bucket_state.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_b6d8f32a910c_add_automation_bucket_state.py
+@@ -0,0 +1,74 @@
++"""Retain proactive trigger ordering after bucket removal.
++
++Revision ID: b6d8f32a910c
++Revises: a3b9c7d2e5f1
++Create Date: 2026-10-29 00:00:00.000000
++"""
++
++import sqlalchemy as sa
++from alembic import op
++
++from prefect.server.utilities.database import JSON, UUID, GenerateUUID, Timestamp
++
++revision = "b6d8f32a910c"
++down_revision = "a3b9c7d2e5f1"
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    # Additive: existing automations and active buckets are left intact. Ordering
++    # state is populated lazily from surviving buckets by the evaluator.
++    op.create_table(
++        "automation_bucket_state",
++        sa.Column("id", UUID(), server_default=GenerateUUID(), nullable=False),
++        sa.Column(
++            "created",
++            Timestamp(timezone=True),
++            server_default=sa.func.now(),
++            nullable=False,
++        ),
++        sa.Column(
++            "updated",
++            Timestamp(timezone=True),
++            server_default=sa.func.now(),
++            nullable=False,
++        ),
++        sa.Column("automation_id", UUID(), nullable=False),
++        sa.Column("trigger_id", UUID(), nullable=False),
++        sa.Column("bucketing_key", JSON(), server_default="[]", nullable=False),
++        sa.Column("last_expected_at", Timestamp(timezone=True), nullable=True),
++        sa.Column("resolved_at", Timestamp(timezone=True), nullable=True),
++        sa.Column(
++            "retain_until",
++            Timestamp(timezone=True),
++            server_default=sa.func.now(),
++            nullable=False,
++        ),
++        sa.ForeignKeyConstraint(
++            ["automation_id"],
++            ["automation.id"],
++            name=op.f("fk_automation_bucket_state__automation_id__automation"),
++            ondelete="CASCADE",
++        ),
++        sa.PrimaryKeyConstraint("id", name=op.f("pk_automation_bucket_state")),
++    )
++    op.create_index(
++        "uq_automation_bucket_state__trigger_key",
++        "automation_bucket_state",
++        ["automation_id", "trigger_id", "bucketing_key"],
++        unique=True,
++    )
++    op.create_index(
++        "ix_automation_bucket_state__updated", "automation_bucket_state", ["updated"]
++    )
++
++    op.create_index(
++        "ix_automation_bucket_state__retain_until",
++        "automation_bucket_state",
++        ["retain_until"],
++    )
++
++
++def downgrade():
++    op.drop_table("automation_bucket_state")
+diff --git a/src/prefect/server/database/interface.py b/src/prefect/server/database/interface.py
+--- a/src/prefect/server/database/interface.py
++++ b/src/prefect/server/database/interface.py
+@@ -322,6 +322,11 @@
+         return orm_models.AutomationBucket
+ 
+     @property
++    def AutomationBucketState(self) -> type[orm_models.AutomationBucketState]:
++        """Ordering information for proactive automation buckets."""
++        return orm_models.AutomationBucketState
++
++    @property
+     def AutomationRelatedResource(self) -> type[orm_models.AutomationRelatedResource]:
+         """An automation related resource model"""
+         return orm_models.AutomationRelatedResource
+diff --git a/src/prefect/server/database/orm_models.py b/src/prefect/server/database/orm_models.py
+--- a/src/prefect/server/database/orm_models.py
++++ b/src/prefect/server/database/orm_models.py
+@@ -1339,6 +1339,33 @@
+     last_operation: Mapped[Optional[str]]
+ 
+     triggered_at: Mapped[Optional[DateTime]]
++
++
++class AutomationBucketState(Base):
++    """Ordering information retained after a proactive bucket has been removed."""
++
++    __table_args__: Any = (
++        sa.Index(
++            "uq_automation_bucket_state__trigger_key",
++            "automation_id",
++            "trigger_id",
++            "bucketing_key",
++            unique=True,
++        ),
++    )
++
++    automation_id: Mapped[uuid.UUID] = mapped_column(
++        sa.ForeignKey("automation.id", ondelete="CASCADE")
++    )
++    trigger_id: Mapped[uuid.UUID]
++    bucketing_key: Mapped[list[str]] = mapped_column(
++        JSON, server_default="[]", default=list
++    )
++    last_expected_at: Mapped[DateTime | None]
++    resolved_at: Mapped[DateTime | None]
++    retain_until: Mapped[DateTime] = mapped_column(
++        index=True, server_default=sa.func.now()
++    )
+ 
+ 
+ class AutomationRelatedResource(Base):
+diff --git a/src/prefect/server/events/models/automations.py b/src/prefect/server/events/models/automations.py
+--- a/src/prefect/server/events/models/automations.py
++++ b/src/prefect/server/events/models/automations.py
+@@ -61,7 +61,12 @@
+ async def automations_session(
+     db: PrefectDBInterface, begin_transaction: bool = False
+ ) -> AsyncGenerator[AsyncSession, None]:
+-    async with db.session_context(begin_transaction=begin_transaction) as session:
++    # Evaluators read after acquiring ordering locks and then write buckets. On
++    # SQLite, start with the writer lock so a deferred read cannot fail to upgrade
++    # while another evaluator is writing. PostgreSQL retains its row-level locks.
++    async with db.session_context(
++        begin_transaction=begin_transaction, with_for_update=begin_transaction
++    ) as session:
+         yield session
+ 
+ 
+@@ -287,6 +292,11 @@
+     # Delete child tables in a consistent order to prevent deadlocks
+     # when multiple automations are deleted concurrently
+     await session.execute(
++        sa.delete(db.AutomationBucketState).where(
++            db.AutomationBucketState.automation_id == automation_id,
++        )
++    )
++    await session.execute(
+         sa.delete(db.AutomationBucket).where(
+             db.AutomationBucket.automation_id == automation_id,
+         )
+@@ -326,6 +336,7 @@
+ 
+     # Delete child tables in a consistent order to prevent deadlocks
+     # when multiple workspace deletions occur concurrently
++    await session.execute(sa.delete(db.AutomationBucketState))
+     await session.execute(sa.delete(db.AutomationBucket))
+     await session.execute(sa.delete(db.AutomationRelatedResource))
+     await session.execute(sa.delete(db.CompositeTriggerChildFiring))
+diff --git a/src/prefect/server/events/triggers.py b/src/prefect/server/events/triggers.py
+--- a/src/prefect/server/events/triggers.py
++++ b/src/prefect/server/events/triggers.py
+@@ -70,7 +70,10 @@
+ if TYPE_CHECKING:
+     import logging
+ 
+-    from prefect.server.database.orm_models import ORMAutomationBucket
++    from prefect.server.database.orm_models import (
++        AutomationBucketState,
++        ORMAutomationBucket,
++    )
+ 
+ 
+ logger: "logging.Logger" = get_logger(__name__)
+@@ -83,6 +86,7 @@
+ 
+ 
+ AUTOMATION_BUCKET_BATCH_SIZE = 500
++_BUCKET_STATE_SWEEP_CUTOFF = "automation_bucket_state_sweep_cutoff"
+ 
+ 
+ async def evaluate(
+@@ -238,6 +242,18 @@
+             and trigger.starts_after(triggering_event.event)
+             and trigger.expects(triggering_event.event)
+         ):
++            state = await _lock_bucket_state(
++                session, trigger, tuple(bucket.bucketing_key), triggering_event.occurred
++            )
++            if (
++                state.last_expected_at is not None
++                and triggering_event.occurred <= state.last_expected_at
++            ):
++                # An expect-only event at the same (or a later) event time takes
++                # precedence over a delayed starting event. Still count the event
++                # above, which matters for thresholds greater than one.
++                _remember_bucket_resolution(state, trigger, bucket)
++                return bucket
+             await remove_bucket(session, bucket)
+             return await start_new_bucket(
+                 session,
+@@ -598,6 +614,45 @@
+             async with automations_session(begin_transaction=True) as session:
+                 try:
+                     bucket: Optional["ORMAutomationBucket"] = None
++                    state = None
++                    if trigger.posture == Posture.Proactive and trigger.after:
++                        state = await _lock_bucket_state(
++                            session, trigger, bucketing_key, event.occurred
++                        )
++                        bucket = await read_bucket(session, trigger, bucketing_key)
++                        if (
++                            not bucket
++                            and trigger.starts_after(event.event)
++                            and await _bucket_window_was_swept(
++                                session, event.occurred + trigger.within
++                            )
++                        ):
++                            continue
++                        if bucket:
++                            # Also handles buckets written by an older server before
++                            # ordering state was introduced.
++                            _remember_bucket_resolution(state, trigger, bucket)
++                        if (
++                            trigger.starts_after(event.event)
++                            and state.resolved_at is not None
++                            and event.occurred <= state.resolved_at
++                        ):
++                            continue
++                        if bucket and event.occurred < bucket.start:
++                            # Validate event time before ensure_bucket can replace
++                            # last_event, which is used in proactive action metadata.
++                            continue
++                        if trigger.expects(event.event) and not trigger.starts_after(
++                            event.event
++                        ):
++                            if (
++                                state.last_expected_at is None
++                                or event.occurred > state.last_expected_at
++                            ):
++                                state.last_expected_at = event.occurred
++                            if trigger.threshold == 1:
++                                state.resolved_at = state.last_expected_at
++                            await session.flush()
+ 
+                     if trigger.after and trigger.starts_after(event.event):
+                         # When an event matches both the after and expect, each event
+@@ -659,13 +714,15 @@
+                         if not bucket:
+                             continue
+ 
+-                    await evaluate(
++                    next_bucket = await evaluate(
+                         session,
+                         trigger,
+                         bucket,
+                         event.occurred,
+                         triggering_event=event,
+                     )
++                    if state and next_bucket:
++                        _remember_bucket_resolution(state, trigger, next_bucket)
+                 finally:
+                     await session.commit()
+ 
+@@ -692,7 +749,7 @@
+     for event in await get_lost_followers():
+         await reactive_evaluation(event)
+ 
+-    async with automations_session() as session:
++    async with automations_session(begin_transaction=True) as session:
+         await sweep_closed_buckets(
+             session,
+             as_of - PREFECT_EVENTS_EXPIRED_BUCKET_BUFFER.value(),
+@@ -889,11 +946,125 @@
+ 
+ 
+ @db_injector
++async def _lock_bucket_state(
++    db: PrefectDBInterface,
++    session: AsyncSession,
++    trigger: EventTrigger,
++    bucketing_key: tuple[str, ...],
++    as_of: prefect.types._datetime.DateTime | None = None,
++) -> "AutomationBucketState":
++    """Serialize updates to a proactive key and load its durable ordering state.
++
++    The upsert takes a database write lock even when a bucket no longer exists.
++    This works on SQLite as well as across PostgreSQL server processes.
++    """
++    retain_until = (
++        prefect.types._datetime.create_datetime_instance(
++            max(
++                prefect.types._datetime.now("UTC"),
++                as_of or prefect.types._datetime.now("UTC"),
++            )
++        )
++        + trigger.within
++    )
++    await session.execute(
++        db.queries.insert(db.AutomationBucketState)
++        .values(
++            automation_id=trigger.automation.id,
++            trigger_id=trigger.id,
++            bucketing_key=bucketing_key,
++            retain_until=retain_until,
++        )
++        .on_conflict_do_update(
++            index_elements=[
++                db.AutomationBucketState.automation_id,
++                db.AutomationBucketState.trigger_id,
++                db.AutomationBucketState.bucketing_key,
++            ],
++            set_={
++                "updated": prefect.types._datetime.now("UTC"),
++            },
++        )
++    )
++    state = await session.scalar(
++        sa.select(db.AutomationBucketState)
++        .where(
++            db.AutomationBucketState.automation_id == trigger.automation.id,
++            db.AutomationBucketState.trigger_id == trigger.id,
++            db.AutomationBucketState.bucketing_key == bucketing_key,
++        )
++        .execution_options(populate_existing=True)
++    )
++    assert state is not None
++    if retain_until > state.retain_until:
++        state.retain_until = retain_until
++        await session.flush()
++    return state
++
++
++@db_injector
++async def _bucket_window_was_swept(
++    db: PrefectDBInterface,
++    session: AsyncSession,
++    end: prefect.types._datetime.DateTime,
++) -> bool:
++    # Read directly so another server's sweep is visible without a process-local
++    # Configuration cache. The single durable cutoff prevents old starts from
++    # recreating windows after their per-key ordering records have been pruned.
++    value = await session.scalar(
++        sa.select(db.Configuration.value).where(
++            db.Configuration.key == _BUCKET_STATE_SWEEP_CUTOFF
++        )
++    )
++    return value is not None and end.timestamp() <= value["cutoff"]
++
++
++def _remember_bucket_resolution(
++    state: "AutomationBucketState", trigger: EventTrigger, bucket: "ORMAutomationBucket"
++) -> None:
++    """Remember expect-only events before a fulfilled bucket can be discarded."""
++    event = bucket.last_event
++    if (
++        event is not None
++        and trigger.expects(event.event)
++        and not trigger.starts_after(event.event)
++        and (state.last_expected_at is None or event.occurred > state.last_expected_at)
++    ):
++        state.last_expected_at = event.occurred
++        state.retain_until = max(state.retain_until, event.occurred + trigger.within)
++    if (
++        bucket.count >= trigger.threshold
++        and state.last_expected_at is not None
++        and (state.resolved_at is None or state.last_expected_at > state.resolved_at)
++    ):
++        state.resolved_at = state.last_expected_at
++
++
++@db_injector
+ async def remove_buckets_exceeding_threshold(
+     db: PrefectDBInterface, session: AsyncSession, trigger: EventTrigger
+ ):
+     """Deletes bucket where the count has already exceeded the threshold"""
+     assert isinstance(trigger, EventTrigger), repr(trigger)
++    if trigger.posture == Posture.Proactive and trigger.after:
++        # Preserve ordering information from pre-upgrade fulfilled buckets too.
++        fulfilled = await session.scalars(
++            sa.select(db.AutomationBucket).where(
++                db.AutomationBucket.automation_id == trigger.automation.id,
++                db.AutomationBucket.trigger_id == trigger.id,
++                db.AutomationBucket.count >= trigger.threshold,
++            )
++        )
++        for bucket in fulfilled:
++            state = await _lock_bucket_state(
++                session, trigger, tuple(bucket.bucketing_key)
++            )
++            current_bucket = await read_bucket(
++                session, trigger, tuple(bucket.bucketing_key)
++            )
++            if current_bucket:
++                _remember_bucket_resolution(state, trigger, current_bucket)
++        await session.flush()
+     await session.execute(
+         sa.delete(db.AutomationBucket).where(
+             db.AutomationBucket.automation_id == trigger.automation.id,
+@@ -1161,6 +1332,34 @@
+     session: AsyncSession,
+     older_than: prefect.types._datetime.DateTime,
+ ) -> None:
++    cutoff = (older_than - PRECEDING_EVENT_LOOKBACK).timestamp()
++    await session.execute(
++        db.queries.insert(db.Configuration)
++        .values(key=_BUCKET_STATE_SWEEP_CUTOFF, value={"cutoff": cutoff})
++        .on_conflict_do_update(
++            index_elements=[db.Configuration.key],
++            set_={"value": {"cutoff": cutoff}},
++            where=db.Configuration.value["cutoff"].as_float() < cutoff,
++        )
++    )
++    # One small record per recently active trigger/key, rather than an unbounded
++    # event history. Keep it through the causal ordering lookback, even after the
++    # associated bucket has been removed, and never sweep a live bucket's state.
++    await session.execute(
++        sa.delete(db.AutomationBucketState).where(
++            db.AutomationBucketState.retain_until
++            <= older_than - PRECEDING_EVENT_LOOKBACK,
++            ~sa.exists().where(
++                db.AutomationBucket.automation_id
++                == db.AutomationBucketState.automation_id,
++                db.AutomationBucket.trigger_id == db.AutomationBucketState.trigger_id,
++                db.AutomationBucket.bucketing_key
++                == db.AutomationBucketState.bucketing_key,
++            ),
++        )
++    )
++    # Take state locks before bucket locks, as the evaluators do. State for a
++    # bucket deleted here can be reclaimed on the next sweep.
+     await session.execute(
+         sa.delete(db.AutomationBucket).where(db.AutomationBucket.end <= older_than)
+     )
+@@ -1326,9 +1525,11 @@
+     # may be sooner based on the state of the buckets
+     run_again_at = as_of + trigger.within
+ 
+-    async with automations_session() as session:
++    async with automations_session(begin_transaction=True) as session:
+         try:
+             if not trigger.for_each:
++                if trigger.after:
++                    await _lock_bucket_state(session, trigger, (), as_of)
+                 await ensure_bucket(
+                     session,
+                     trigger,
+@@ -1343,6 +1544,17 @@
+             await remove_buckets_exceeding_threshold(session, trigger)
+ 
+             async for bucket in read_buckets_for_automation(session, trigger):
++                if trigger.after:
++                    await _lock_bucket_state(
++                        session, trigger, tuple(bucket.bucketing_key), as_of
++                    )
++                    # An event handler may have changed or removed the bucket while
++                    # this evaluator waited for the per-key lock.
++                    bucket = await read_bucket(
++                        session, trigger, tuple(bucket.bucketing_key)
++                    )
++                    if bucket is None:
++                        continue
+                 next_bucket = await evaluate(
+                     session, trigger, bucket, as_of, triggering_event=None
+                 )

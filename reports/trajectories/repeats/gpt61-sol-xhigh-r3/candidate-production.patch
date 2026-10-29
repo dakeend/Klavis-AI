@@ -1,0 +1,481 @@
+diff --git a/src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_7f46a920ce31_automation_bucket_watermark.py b/src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_7f46a920ce31_automation_bucket_watermark.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_7f46a920ce31_automation_bucket_watermark.py
+@@ -0,0 +1,57 @@
++"""Retain ordering for satisfied proactive automation buckets.
++
++Revision ID: 7f46a920ce31
++Revises: d4a7e1c93f52
++Create Date: 2026-10-29 00:00:00.000000
++"""
++
++import sqlalchemy as sa
++from alembic import op
++
++from prefect.server.utilities.database import JSON, UUID, GenerateUUID, Timestamp
++
++revision = "7f46a920ce31"
++down_revision = "d4a7e1c93f52"
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    op.create_table(
++        "automation_bucket_watermark",
++        sa.Column("id", UUID(), server_default=GenerateUUID(), nullable=False),
++        sa.Column("created", Timestamp(), server_default=sa.func.now(), nullable=False),
++        sa.Column("updated", Timestamp(), server_default=sa.func.now(), nullable=False),
++        sa.Column("automation_id", UUID(), nullable=False),
++        sa.Column("trigger_id", UUID(), nullable=False),
++        sa.Column("bucketing_key", JSON(), nullable=False),
++        sa.Column("occurred", Timestamp(), nullable=False),
++        sa.Column("expires", Timestamp(), nullable=False),
++        sa.ForeignKeyConstraint(
++            ["automation_id"],
++            ["automation.id"],
++            name="fk_automation_bucket_watermark__automation_id__automation",
++            ondelete="CASCADE",
++        ),
++        sa.PrimaryKeyConstraint("id", name="pk_automation_bucket_watermark"),
++    )
++    op.create_index(
++        "uq_automation_bucket_watermark__key",
++        "automation_bucket_watermark",
++        ["automation_id", "trigger_id", "bucketing_key"],
++        unique=True,
++    )
++    op.create_index(
++        "ix_automation_bucket_watermark__expires",
++        "automation_bucket_watermark",
++        ["expires"],
++    )
++    op.create_index(
++        "ix_automation_bucket_watermark__updated",
++        "automation_bucket_watermark",
++        ["updated"],
++    )
++
++
++def downgrade():
++    op.drop_table("automation_bucket_watermark")
+diff --git a/src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_be17c8d9e204_automation_bucket_watermark.py b/src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_be17c8d9e204_automation_bucket_watermark.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_be17c8d9e204_automation_bucket_watermark.py
+@@ -0,0 +1,57 @@
++"""Retain ordering for satisfied proactive automation buckets.
++
++Revision ID: be17c8d9e204
++Revises: a3b9c7d2e5f1
++Create Date: 2026-10-29 00:00:00.000000
++"""
++
++import sqlalchemy as sa
++from alembic import op
++
++from prefect.server.utilities.database import JSON, UUID, GenerateUUID, Timestamp
++
++revision = "be17c8d9e204"
++down_revision = "a3b9c7d2e5f1"
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    op.create_table(
++        "automation_bucket_watermark",
++        sa.Column("id", UUID(), server_default=GenerateUUID(), nullable=False),
++        sa.Column("created", Timestamp(), server_default=sa.func.now(), nullable=False),
++        sa.Column("updated", Timestamp(), server_default=sa.func.now(), nullable=False),
++        sa.Column("automation_id", UUID(), nullable=False),
++        sa.Column("trigger_id", UUID(), nullable=False),
++        sa.Column("bucketing_key", JSON(), nullable=False),
++        sa.Column("occurred", Timestamp(), nullable=False),
++        sa.Column("expires", Timestamp(), nullable=False),
++        sa.ForeignKeyConstraint(
++            ["automation_id"],
++            ["automation.id"],
++            name="fk_automation_bucket_watermark__automation_id__automation",
++            ondelete="CASCADE",
++        ),
++        sa.PrimaryKeyConstraint("id", name="pk_automation_bucket_watermark"),
++    )
++    op.create_index(
++        "uq_automation_bucket_watermark__key",
++        "automation_bucket_watermark",
++        ["automation_id", "trigger_id", "bucketing_key"],
++        unique=True,
++    )
++    op.create_index(
++        "ix_automation_bucket_watermark__expires",
++        "automation_bucket_watermark",
++        ["expires"],
++    )
++    op.create_index(
++        "ix_automation_bucket_watermark__updated",
++        "automation_bucket_watermark",
++        ["updated"],
++    )
++
++
++def downgrade():
++    op.drop_table("automation_bucket_watermark")
+diff --git a/src/prefect/server/database/interface.py b/src/prefect/server/database/interface.py
+--- a/src/prefect/server/database/interface.py
++++ b/src/prefect/server/database/interface.py
+@@ -322,6 +322,11 @@
+         return orm_models.AutomationBucket
+ 
+     @property
++    def AutomationBucketWatermark(self) -> type[orm_models.AutomationBucketWatermark]:
++        """Ordering information for satisfied proactive buckets."""
++        return orm_models.AutomationBucketWatermark
++
++    @property
+     def AutomationRelatedResource(self) -> type[orm_models.AutomationRelatedResource]:
+         """An automation related resource model"""
+         return orm_models.AutomationRelatedResource
+diff --git a/src/prefect/server/database/orm_models.py b/src/prefect/server/database/orm_models.py
+--- a/src/prefect/server/database/orm_models.py
++++ b/src/prefect/server/database/orm_models.py
+@@ -1339,6 +1339,28 @@
+     last_operation: Mapped[Optional[str]]
+ 
+     triggered_at: Mapped[Optional[DateTime]]
++
++
++class AutomationBucketWatermark(Base):
++    """Event-time ordering retained after a proactive bucket is satisfied."""
++
++    __table_args__: Any = (
++        sa.Index(
++            "uq_automation_bucket_watermark__key",
++            "automation_id",
++            "trigger_id",
++            "bucketing_key",
++            unique=True,
++        ),
++    )
++
++    automation_id: Mapped[uuid.UUID] = mapped_column(
++        sa.ForeignKey("automation.id", ondelete="CASCADE")
++    )
++    trigger_id: Mapped[uuid.UUID]
++    bucketing_key: Mapped[list[str]] = mapped_column(JSON)
++    occurred: Mapped[DateTime]
++    expires: Mapped[DateTime] = mapped_column(index=True)
+ 
+ 
+ class AutomationRelatedResource(Base):
+diff --git a/src/prefect/server/events/models/automation_bucket_watermark.py b/src/prefect/server/events/models/automation_bucket_watermark.py
+new file mode 100644
+--- /dev/null
++++ b/src/prefect/server/events/models/automation_bucket_watermark.py
+@@ -0,0 +1,73 @@
++"""Retain satisfied-window ordering independently of active bucket lifetime."""
++
++import sqlalchemy as sa
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from prefect.server.database import PrefectDBInterface, db_injector
++from prefect.server.events.ordering import PRECEDING_EVENT_LOOKBACK
++from prefect.server.events.schemas.automations import EventTrigger
++from prefect.server.events.schemas.events import ReceivedEvent
++from prefect.types._datetime import DateTime, now
++
++
++@db_injector
++async def _record_watermark(
++    db: PrefectDBInterface,
++    session: AsyncSession,
++    trigger: EventTrigger,
++    bucketing_key: tuple[str, ...],
++    event: ReceivedEvent,
++) -> None:
++    # Retain ordering for a complete window plus the causal ordering lookback.
++    # Include received time so a late closing event gets the same protection.
++    expires = (
++        max(event.occurred, event.received) + trigger.within + PRECEDING_EVENT_LOOKBACK
++    )
++    model = db.AutomationBucketWatermark
++    await session.execute(
++        db.queries.insert(model)
++        .values(
++            automation_id=trigger.automation.id,
++            trigger_id=trigger.id,
++            bucketing_key=bucketing_key,
++            occurred=event.occurred,
++            expires=expires,
++        )
++        .on_conflict_do_update(
++            index_elements=[model.automation_id, model.trigger_id, model.bucketing_key],
++            set_={
++                "occurred": event.occurred,
++                "expires": expires,
++                "updated": now("UTC"),
++            },
++            where=model.occurred < event.occurred,
++        )
++    )
++
++
++@db_injector
++async def _read_watermark(
++    db: PrefectDBInterface,
++    session: AsyncSession,
++    trigger: EventTrigger,
++    bucketing_key: tuple[str, ...],
++) -> DateTime | None:
++    model = db.AutomationBucketWatermark
++    return await session.scalar(
++        sa.select(model.occurred).where(
++            model.automation_id == trigger.automation.id,
++            model.trigger_id == trigger.id,
++            model.bucketing_key == bucketing_key,
++        )
++    )
++
++
++@db_injector
++async def _sweep_watermarks(
++    db: PrefectDBInterface, session: AsyncSession, older_than: DateTime
++) -> None:
++    await session.execute(
++        sa.delete(db.AutomationBucketWatermark).where(
++            db.AutomationBucketWatermark.expires <= older_than
++        )
++    )
+diff --git a/src/prefect/server/events/triggers.py b/src/prefect/server/events/triggers.py
+--- a/src/prefect/server/events/triggers.py
++++ b/src/prefect/server/events/triggers.py
+@@ -30,6 +30,11 @@
+ from prefect.server.database import PrefectDBInterface, db_injector
+ from prefect.server.events import messaging
+ from prefect.server.events.actions import ServerActionTypes
++from prefect.server.events.models.automation_bucket_watermark import (
++    _read_watermark,
++    _record_watermark,
++    _sweep_watermarks,
++)
+ from prefect.server.events.models.automations import (
+     AUTOMATION_CHANGES_CHANNEL,
+     AutomationChangeEvent,
+@@ -139,6 +144,13 @@
+     # either in the currently open bucket or in the next time period's bucket
+     count = 1 if triggering_event else 0
+ 
++    if not triggering_event and trigger.posture == Posture.Proactive and trigger.after:
++        watermark = await _read_watermark(session, trigger, tuple(bucket.bucketing_key))
++        if watermark is not None and bucket.start <= watermark:
++            # Another evaluator may have created this bucket while a closing event
++            # was committing. Check the durable ordering again before acting.
++            return await remove_bucket(session, bucket)
++
+     if now < bucket.start:
+         # This is an older out-of-order message or a redundant event for a reactive
+         # trigger that has has already fired, so it should not should not affect the
+@@ -157,7 +169,20 @@
+     if count and (trigger.immediate or bucket.start <= now < bucket.end):
+         # we are still within the automation time period, so spend the count in the
+         # current bucket
+-        bucket = await increment_bucket(session, bucket, count, triggering_event)
++        context_event = triggering_event
++        if (
++            triggering_event
++            and trigger.posture == Posture.Proactive
++            and trigger.after
++            and bucket.last_event
++            and triggering_event.occurred == bucket.last_event.occurred
++            and trigger.starts_after(triggering_event.event)
++            and not trigger.starts_after(bucket.last_event.event)
++        ):
++            # A closing expectation wins ties with a starting event, regardless
++            # of delivery order, while both events still contribute to the count.
++            context_event = bucket.last_event
++        bucket = await increment_bucket(session, bucket, count, context_event)
+         count = 0
+ 
+     # Reactive automations will fire "eagerly", meaning they will fire as _soon_ as the
+@@ -171,6 +196,17 @@
+ 
+     ready_to_fire = trigger.posture == Posture.Reactive or bucket.end <= now
+     meets_threshold = trigger.meets_threshold(bucket.count)
++
++    if (
++        triggering_event
++        and trigger.posture == Posture.Proactive
++        and trigger.after
++        and not meets_threshold
++        and not trigger.starts_after(triggering_event.event)
++    ):
++        await _record_watermark(
++            session, trigger, tuple(bucket.bucketing_key), triggering_event
++        )
+ 
+     if ready_to_fire and meets_threshold:
+         logger.debug(
+@@ -238,15 +274,23 @@
+             and trigger.starts_after(triggering_event.event)
+             and trigger.expects(triggering_event.event)
+         ):
++            restart_event = bucket.last_event or triggering_event
++            if not trigger.starts_after(restart_event.event):
++                # An older starting event may have supplied the final count for
++                # a window whose newest event already closed it.
++                await _record_watermark(
++                    session, trigger, tuple(bucket.bucketing_key), restart_event
++                )
++                return bucket
+             await remove_bucket(session, bucket)
+             return await start_new_bucket(
+                 session,
+                 trigger,
+                 bucketing_key=bucket.bucketing_key,
+-                start=triggering_event.occurred,
+-                end=triggering_event.occurred + trigger.within,
++                start=restart_event.occurred,
++                end=restart_event.occurred + trigger.within,
+                 count=0,
+-                last_event=triggering_event,
++                last_event=restart_event,
+             )
+ 
+         return bucket
+@@ -599,6 +643,39 @@
+                 try:
+                     bucket: Optional["ORMAutomationBucket"] = None
+ 
++                    if trigger.posture == Posture.Proactive and trigger.after:
++                        bucket = await read_bucket(session, trigger, bucketing_key)
++                        if (
++                            trigger.threshold == 1
++                            and trigger.expects(event.event)
++                            and not trigger.starts_after(event.event)
++                        ):
++                            # Closing events also matter before a start is seen.
++                            await _record_watermark(
++                                session, trigger, bucketing_key, event
++                            )
++                        if bucket and event.occurred < bucket.start:
++                            # Do this before ensure_bucket can replace last_event.
++                            continue
++
++                        # Also recover ordering from buckets written by older servers.
++                        if (
++                            bucket
++                            and bucket.count >= trigger.threshold
++                            and bucket.last_event
++                            and not trigger.starts_after(bucket.last_event.event)
++                        ):
++                            await _record_watermark(
++                                session, trigger, bucketing_key, bucket.last_event
++                            )
++
++                        if trigger.starts_after(event.event):
++                            watermark = await _read_watermark(
++                                session, trigger, bucketing_key
++                            )
++                            if watermark is not None and event.occurred <= watermark:
++                                continue
++
+                     if trigger.after and trigger.starts_after(event.event):
+                         # When an event matches both the after and expect, each event
+                         # can both start a new bucket and increment the bucket that was
+@@ -616,15 +693,16 @@
+                         #
+                         # https://github.com/PrefectHQ/nebula/issues/4201
+                         initial_count = -1 if trigger.expects(event.event) else 0
+-                        bucket = await ensure_bucket(
+-                            session,
+-                            trigger,
+-                            bucketing_key,
+-                            start=event.occurred,
+-                            end=event.occurred + trigger.within,
+-                            last_event=event,
+-                            initial_count=initial_count,
+-                        )
++                        if bucket is None or not trigger.expects(event.event):
++                            bucket = await ensure_bucket(
++                                session,
++                                trigger,
++                                bucketing_key,
++                                start=event.occurred,
++                                end=event.occurred + trigger.within,
++                                last_event=event,
++                                initial_count=initial_count,
++                            )
+ 
+                     if (
+                         not bucket
+@@ -693,6 +771,11 @@
+         await reactive_evaluation(event)
+ 
+     async with automations_session() as session:
++        # On upgrade, satisfied buckets may predate durable watermarks. Preserve
++        # their ordering before the generic expiration sweep can remove them.
++        for trigger in list(triggers.values()):
++            if trigger.posture == Posture.Proactive and trigger.after:
++                await remove_buckets_exceeding_threshold(session, trigger)
+         await sweep_closed_buckets(
+             session,
+             as_of - PREFECT_EVENTS_EXPIRED_BUCKET_BUFFER.value(),
+@@ -894,6 +977,29 @@
+ ):
+     """Deletes bucket where the count has already exceeded the threshold"""
+     assert isinstance(trigger, EventTrigger), repr(trigger)
++    if trigger.posture == Posture.Proactive and trigger.after:
++        # Preserve ordering from existing data when upgrading an older server.
++        result = await session.scalars(
++            sa.select(db.AutomationBucket).where(
++                db.AutomationBucket.automation_id == trigger.automation.id,
++                db.AutomationBucket.trigger_id == trigger.id,
++                db.AutomationBucket.count >= trigger.threshold,
++                ~sa.exists().where(
++                    db.AutomationBucketWatermark.automation_id
++                    == db.AutomationBucket.automation_id,
++                    db.AutomationBucketWatermark.trigger_id
++                    == db.AutomationBucket.trigger_id,
++                    db.AutomationBucketWatermark.bucketing_key
++                    == db.AutomationBucket.bucketing_key,
++                    db.AutomationBucketWatermark.occurred >= db.AutomationBucket.start,
++                ),
++            )
++        )
++        for bucket in result:
++            if bucket.last_event and not trigger.starts_after(bucket.last_event.event):
++                await _record_watermark(
++                    session, trigger, tuple(bucket.bucketing_key), bucket.last_event
++                )
+     await session.execute(
+         sa.delete(db.AutomationBucket).where(
+             db.AutomationBucket.automation_id == trigger.automation.id,
+@@ -987,7 +1093,10 @@
+ ) -> "ORMAutomationBucket":
+     """Adds the given count to the bucket, returning the new bucket"""
+     additional_updates: dict[str, ReceivedEvent] = (
+-        {"last_event": last_event} if last_event else {}
++        {"last_event": last_event}
++        if last_event
++        and (not bucket.last_event or last_event.occurred >= bucket.last_event.occurred)
++        else {}
+     )
+     await session.execute(
+         db.queries.insert(db.AutomationBucket)
+@@ -998,6 +1107,7 @@
+             start=bucket.start,
+             end=bucket.end,
+             count=count,
++            last_event=last_event,
+             last_operation="increment_bucket[insert]",
+         )
+         .on_conflict_do_update(
+@@ -1164,6 +1274,7 @@
+     await session.execute(
+         sa.delete(db.AutomationBucket).where(db.AutomationBucket.end <= older_than)
+     )
++    await _sweep_watermarks(session, older_than)
+ 
+ 
+ async def reset() -> None:

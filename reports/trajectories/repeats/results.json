@@ -1,0 +1,330 @@
+{
+  "protocol": "diagnostic-v1; attempt 1 retained, two new independent sessions per configuration",
+  "formal_harbor_trial": false,
+  "model_runs": 6,
+  "newly_launched_model_runs": 4,
+  "unified_evaluation": "Current packaged verifier; immutable offline Docker image; author-extracted production patches",
+  "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+  "historical_raw_bucket_assertion_needs_review": true,
+  "summary": {
+    "gpt61-sol-xhigh": {
+      "completed_model_runs": 3,
+      "retained": 1,
+      "new": 2,
+      "public_replay_passed": 3,
+      "complete_verifier_passed": 0
+    },
+    "claude-deepseek41-flash-max": {
+      "completed_model_runs": 3,
+      "retained": 1,
+      "new": 2,
+      "public_replay_passed": 3,
+      "complete_verifier_passed": 0
+    }
+  },
+  "runs": [
+    {
+      "label": "gpt61-sol-xhigh",
+      "model": "GPT-6.1-sol / xhigh",
+      "attempt": 1,
+      "retained_previous_run": true,
+      "session_id": "01a18191-47b9-71a1-a13c-29a4bdb90948",
+      "started_at_utc": "2026-10-28T08:12:24.379Z",
+      "finished_at_utc": "2026-10-28T08:53:28.714Z",
+      "solver_minutes": 41.07,
+      "public_replay_passed": true,
+      "current_expected_checks": 44,
+      "current_reported_checks": 44,
+      "historical_behavior_passed": 26,
+      "historical_behavior_failed_raw": 9,
+      "current_checks": {
+        "tests": 44,
+        "passed": 35,
+        "failed": 9,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1793244403587,
+        "stop": 1793244598811
+      },
+      "reward": 0,
+      "restart_expected_action_resources": [
+        "some.duplicate",
+        "some.silent"
+      ],
+      "restart_observed_action_resources": [
+        "some.completed",
+        "some.duplicate",
+        "some.silent"
+      ],
+      "external_action_failure_confirmed": true,
+      "current_failed_tests": [
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_a_high_threshold_counts_every_held_event",
+        "verifier.integrity_or_reliability"
+      ],
+      "evidence_path": "gpt61-sol-xhigh",
+      "current_evaluation_path": "unified-evaluation/gpt61-sol-xhigh"
+    },
+    {
+      "label": "gpt61-sol-xhigh-r2",
+      "model": "GPT-6.1-sol / xhigh",
+      "attempt": 2,
+      "retained_previous_run": false,
+      "session_id": "01a185a9-07fa-73b3-86b8-d86cd84ac520",
+      "started_at_utc": "2026-10-29T03:16:49.789Z",
+      "finished_at_utc": "2026-10-29T03:58:51.574Z",
+      "solver_minutes": 42.03,
+      "public_replay_passed": true,
+      "current_expected_checks": 44,
+      "current_reported_checks": 44,
+      "historical_behavior_passed": 26,
+      "historical_behavior_failed_raw": 9,
+      "current_checks": {
+        "tests": 44,
+        "passed": 35,
+        "failed": 9,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1793246725554,
+        "stop": 1793246884374
+      },
+      "reward": 0,
+      "restart_expected_action_resources": [
+        "some.duplicate",
+        "some.silent"
+      ],
+      "restart_observed_action_resources": [
+        "some.completed",
+        "some.duplicate",
+        "some.silent"
+      ],
+      "external_action_failure_confirmed": true,
+      "current_failed_tests": [
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_a_high_threshold_counts_every_held_event",
+        "verifier.integrity_or_reliability"
+      ],
+      "evidence_path": "repeats/gpt61-sol-xhigh-r2",
+      "current_evaluation_path": "unified-evaluation/gpt61-sol-xhigh-r2"
+    },
+    {
+      "label": "gpt61-sol-xhigh-r3",
+      "model": "GPT-6.1-sol / xhigh",
+      "attempt": 3,
+      "retained_previous_run": false,
+      "session_id": "01a185a9-38e8-7c12-8b37-6ff5047c2030",
+      "started_at_utc": "2026-10-29T03:17:02.314Z",
+      "finished_at_utc": "2026-10-29T04:01:03.292Z",
+      "solver_minutes": 44.02,
+      "public_replay_passed": true,
+      "current_expected_checks": 44,
+      "current_reported_checks": 44,
+      "historical_behavior_passed": 24,
+      "historical_behavior_failed_raw": 11,
+      "current_checks": {
+        "tests": 44,
+        "passed": 33,
+        "failed": 11,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1793246888750,
+        "stop": 1793247025598
+      },
+      "reward": 0,
+      "restart_expected_action_resources": [
+        "some.duplicate",
+        "some.silent"
+      ],
+      "restart_observed_action_resources": [
+        "some.completed",
+        "some.duplicate",
+        "some.silent"
+      ],
+      "external_action_failure_confirmed": true,
+      "current_failed_tests": [
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_a_high_threshold_counts_every_held_event",
+        "verifier.integrity_or_reliability"
+      ],
+      "evidence_path": "repeats/gpt61-sol-xhigh-r3",
+      "current_evaluation_path": "unified-evaluation/gpt61-sol-xhigh-r3"
+    },
+    {
+      "label": "claude-deepseek41-flash-max",
+      "model": "Claude Code + DeepSeek / max",
+      "attempt": 1,
+      "retained_previous_run": true,
+      "session_id": "55214eff-0884-4b79-a3a2-b90b27256548",
+      "started_at_utc": "2026-10-28T08:11:32.821302+00:00",
+      "finished_at_utc": "2026-10-28T09:01:49.778449+00:00",
+      "solver_minutes": 50.28,
+      "public_replay_passed": true,
+      "current_expected_checks": 44,
+      "current_reported_checks": 44,
+      "historical_behavior_passed": 18,
+      "historical_behavior_failed_raw": 17,
+      "current_checks": {
+        "tests": 44,
+        "passed": 26,
+        "failed": 18,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1793244604097,
+        "stop": 1793244810458
+      },
+      "reward": 0,
+      "restart_expected_action_resources": [
+        "some.duplicate",
+        "some.silent"
+      ],
+      "restart_observed_action_resources": [
+        "some.completed",
+        "some.duplicate",
+        "some.silent"
+      ],
+      "external_action_failure_confirmed": true,
+      "current_failed_tests": [
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_later_after_events_evaluated_late_keep_the_window_satisfied",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_a_high_threshold_counts_every_held_event",
+        "tests.events.server.triggers.test_early_expect_events.test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_later_expect_event_keeps_an_earlier_one_held_for_a_lost_follower",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_is_still_held_when_a_lost_follower_is_evaluated",
+        "verifier.integrity_or_reliability"
+      ],
+      "evidence_path": "claude-deepseek41-flash-max",
+      "current_evaluation_path": "unified-evaluation/claude-deepseek41-flash-max"
+    },
+    {
+      "label": "claude-deepseek41-flash-max-r2",
+      "model": "Claude Code + DeepSeek / max",
+      "attempt": 2,
+      "retained_previous_run": false,
+      "session_id": "73cf70fe-9eea-49e4-859a-19f850e0b6c3",
+      "started_at_utc": "2026-10-29T03:22:08.772578+00:00",
+      "finished_at_utc": "2026-10-29T05:09:37.521401+00:00",
+      "solver_minutes": 107.48,
+      "public_replay_passed": true,
+      "current_expected_checks": 44,
+      "current_reported_checks": 44,
+      "historical_behavior_passed": 25,
+      "historical_behavior_failed_raw": 10,
+      "current_checks": {
+        "tests": 44,
+        "passed": 34,
+        "failed": 10,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1793251294870,
+        "stop": 1793251411456
+      },
+      "reward": 0,
+      "restart_expected_action_resources": [
+        "some.duplicate",
+        "some.silent"
+      ],
+      "restart_observed_action_resources": [
+        "some.silent"
+      ],
+      "external_action_failure_confirmed": true,
+      "current_failed_tests": [
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "verifier.integrity_or_reliability"
+      ],
+      "evidence_path": "repeats/claude-deepseek41-flash-max-r2",
+      "current_evaluation_path": "unified-evaluation/claude-deepseek41-flash-max-r2"
+    },
+    {
+      "label": "claude-deepseek41-flash-max-r3",
+      "model": "Claude Code + DeepSeek / max",
+      "attempt": 3,
+      "retained_previous_run": false,
+      "session_id": "d14d4262-c2a4-4dbf-b3ed-9581a7634eed",
+      "started_at_utc": "2026-10-29T03:22:08.830244+00:00",
+      "finished_at_utc": "2026-10-29T05:01:08.315597+00:00",
+      "solver_minutes": 98.99,
+      "public_replay_passed": true,
+      "current_expected_checks": 44,
+      "current_reported_checks": 44,
+      "historical_behavior_passed": 25,
+      "historical_behavior_failed_raw": 10,
+      "current_checks": {
+        "tests": 44,
+        "passed": 34,
+        "failed": 10,
+        "skipped": 0,
+        "pending": 0,
+        "other": 0,
+        "start": 1793250399947,
+        "stop": 1793250532402
+      },
+      "reward": 0,
+      "restart_expected_action_resources": [
+        "some.duplicate",
+        "some.silent"
+      ],
+      "restart_observed_action_resources": [
+        "some.silent"
+      ],
+      "external_action_failure_confirmed": true,
+      "current_failed_tests": [
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "verifier.integrity_or_reliability"
+      ],
+      "evidence_path": "repeats/claude-deepseek41-flash-max-r3",
+      "current_evaluation_path": "unified-evaluation/claude-deepseek41-flash-max-r3"
+    }
+  ]
+}

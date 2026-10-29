@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "label": "gpt61-sol-xhigh-r2",
+      "normalized_prompt_sha256": "352a6a18976407d88bdfa0992f83da1103d4245ade3a83ac3f20e9eaa7f43584",
+      "fresh_baseline_without_reference_fix": true
+    },
+    {
+      "label": "gpt61-sol-xhigh-r3",
+      "normalized_prompt_sha256": "352a6a18976407d88bdfa0992f83da1103d4245ade3a83ac3f20e9eaa7f43584",
+      "fresh_baseline_without_reference_fix": true
+    },
+    {
+      "label": "claude-deepseek41-flash-max-r2",
+      "normalized_prompt_sha256": "352a6a18976407d88bdfa0992f83da1103d4245ade3a83ac3f20e9eaa7f43584",
+      "fresh_baseline_without_reference_fix": true
+    },
+    {
+      "label": "claude-deepseek41-flash-max-r3",
+      "normalized_prompt_sha256": "352a6a18976407d88bdfa0992f83da1103d4245ade3a83ac3f20e9eaa7f43584",
+      "fresh_baseline_without_reference_fix": true
+    }
+  ]
+}

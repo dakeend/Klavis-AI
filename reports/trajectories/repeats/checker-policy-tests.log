@@ -1,0 +1,9 @@
+test_complete_all_pass_and_zero_pass_public_failure (test_trajectory_evidence.PublicVerifierTests.test_complete_all_pass_and_zero_pass_public_failure) ... ok
+test_current_integrity_and_tamper_rejections (test_trajectory_evidence.PublicVerifierTests.test_current_integrity_and_tamper_rejections) ... ok
+test_errors_and_incomplete_reports_are_unscored (test_trajectory_evidence.PublicVerifierTests.test_errors_and_incomplete_reports_are_unscored) ... ok
+test_unsafe_path_rejected (test_trajectory_evidence.PublicVerifierTests.test_unsafe_path_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.128s
+
+OK

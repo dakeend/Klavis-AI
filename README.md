@@ -21,9 +21,9 @@
 | `manifest.json` | 固定版本、输入校验和、测试组与奖励规则 |
 | `authoring/` | 作者侧结构检查、评分边界测试、便携式行为验证工具 |
 | `reports/` | 本次封装的原始日志、结果与待完成项 |
-| `reports/trajectories/` | 两组旧探索试验的脱敏可见轨迹、模型生产补丁、配置和独立验收证据 |
+| `reports/trajectories/` | 两组各三次求解的脱敏轨迹、生产补丁、配置、原始日志和统一 Docker 验收 |
 
-模型试验入口：[GPT-6.1-sol / xhigh 轨迹](reports/trajectories/gpt61-sol-xhigh/trajectory.md)、[Claude Code + DeepSeek 轨迹](reports/trajectories/claude-deepseek41-flash-max/trajectory.md)。这是各一次旧版探索性运行，不能作为当前冻结任务的正式试验次数。
+模型试验入口：[每组各三次结果汇总](reports/trajectories/repeats/RESULTS.md)、[机器可读结果](reports/trajectories/repeats/results.json)、[完整证据索引](reports/trajectories/README.md)。保留此前各一次结果，新增各两次独立会话，并将六次最终补丁交给同一个当前 Docker 验证器复核；没有把重新验收计作新的模型求解。这些本地运行与直接 Docker 验证不冒充正式 Harbor `/run` 或 `/cheat`。
 
 ## 运行
 
@@ -63,7 +63,7 @@ python authoring/check_local.py --mode oracle --python /absolute/path/to/locked/
 python authoring/check_local.py --mode nop --python /absolute/path/to/locked/venv/bin/python
 ```
 
-标准模型与对抗试验必须按雇主确认的当前配置运行并保留全部日志。招聘通知与当前上游默认模型名称存在差异；此包没有擅自替换或声称已完成这些试验。
+已按招聘方后续要求记录 GPT-6.1-sol/xhigh 与 Claude Code + DeepSeek/max 各三次本地求解，完整配置和运行边界见结果汇总。正式 Harbor 与对抗试验状态仍见 `reports/STATUS.md`。
 
 ## 提交物与评分
 

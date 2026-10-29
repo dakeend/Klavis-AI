@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="36" time="34.844" timestamp="2026-10-29T04:08:17.579332+00:00" hostname="f23e114cbd6c"><testcase classname="tests.events.server.triggers.test_incident_completed_run" name="test_completed_run_incident" time="16.213" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-also-expected]" time="0.248" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-not-expected]" time="0.220" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected]" time="0.199"><failure message="sqlalchemy.exc.StatementError: (builtins.ValueError) Timestamps must have a timezone.&#10;[SQL: INSERT INTO automation_bucket_watermark (automation_id, trigger_id, bucketing_key, occurred, expires, id, created, updated) VALUES (:automation_id, :trigger_id, :bucketing_key, :occurred, :expires, :id, :created, :updated) ON CONFLICT (automation_id, trigger_id, bucketing_key) DO UPDATE SET occurred = :param_1, expires = :param_2, updated = :param_3 WHERE automation_bucket_watermark.occurred &lt; :occurred_1]">/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1815: in _execute_context
+    context = constructor(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1528: in _init_compiled
+    d_param = {
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1530: in &lt;dictcomp&gt;
+    flattened_processors[key](compiled_params[key])
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/sql/type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src/prefect/server/utilities/database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   ValueError: Timestamps must have a timezone.
+
+The above exception was the direct cause of the following exception:
+tests/events/server/triggers/test_early_expect_events.py:140: in test_expect_event_outside_the_window_does_not_satisfy_it
+    await receive("B", frozen_time + b_offset)
+tests/events/server/triggers/test_early_expect_events.py:88: in receive
+    await triggers.reactive_evaluation(
+src/prefect/server/events/triggers.py:654: in reactive_evaluation
+    await _record_watermark(
+src/prefect/server/events/models/automation_bucket_watermark.py:27: in _record_watermark
+    await session.execute(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py:449: in execute
+    result = await greenlet_spawn(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:2351: in execute
+    return self._execute_internal(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/orm/bulk_persistence.py:1306: in orm_execute_statement
+    result = conn.execute(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1419: in execute
+    return meth(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1641: in _execute_clauseelement
+    ret = self._execute_context(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1821: in _execute_context
+    self._handle_dbapi_exception(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:2363: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1815: in _execute_context
+    context = constructor(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1528: in _init_compiled
+    d_param = {
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1530: in &lt;dictcomp&gt;
+    flattened_processors[key](compiled_params[key])
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/sql/type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src/prefect/server/utilities/database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   sqlalchemy.exc.StatementError: (builtins.ValueError) Timestamps must have a timezone.
+E   [SQL: INSERT INTO automation_bucket_watermark (automation_id, trigger_id, bucketing_key, occurred, expires, id, created, updated) VALUES (:automation_id, :trigger_id, :bucketing_key, :occurred, :expires, :id, :created, :updated) ON CONFLICT (automation_id, trigger_id, bucketing_key) DO UPDATE SET occurred = :param_1, expires = :param_2, updated = :param_3 WHERE automation_bucket_watermark.occurred &lt; :occurred_1]</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected]" time="0.195"><failure message="sqlalchemy.exc.StatementError: (builtins.ValueError) Timestamps must have a timezone.&#10;[SQL: INSERT INTO automation_bucket_watermark (automation_id, trigger_id, bucketing_key, occurred, expires, id, created, updated) VALUES (:automation_id, :trigger_id, :bucketing_key, :occurred, :expires, :id, :created, :updated) ON CONFLICT (automation_id, trigger_id, bucketing_key) DO UPDATE SET occurred = :param_1, expires = :param_2, updated = :param_3 WHERE automation_bucket_watermark.occurred &lt; :occurred_1]">/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1815: in _execute_context
+    context = constructor(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1528: in _init_compiled
+    d_param = {
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1530: in &lt;dictcomp&gt;
+    flattened_processors[key](compiled_params[key])
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/sql/type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src/prefect/server/utilities/database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   ValueError: Timestamps must have a timezone.
+
+The above exception was the direct cause of the following exception:
+tests/events/server/triggers/test_early_expect_events.py:140: in test_expect_event_outside_the_window_does_not_satisfy_it
+    await receive("B", frozen_time + b_offset)
+tests/events/server/triggers/test_early_expect_events.py:88: in receive
+    await triggers.reactive_evaluation(
+src/prefect/server/events/triggers.py:654: in reactive_evaluation
+    await _record_watermark(
+src/prefect/server/events/models/automation_bucket_watermark.py:27: in _record_watermark
+    await session.execute(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py:449: in execute
+    result = await greenlet_spawn(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py:190: in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:2351: in execute
+    return self._execute_internal(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py:2249: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/orm/bulk_persistence.py:1306: in orm_execute_statement
+    result = conn.execute(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1419: in execute
+    return meth(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py:527: in _execute_on_connection
+    return connection._execute_clauseelement(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1641: in _execute_clauseelement
+    ret = self._execute_context(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1821: in _execute_context
+    self._handle_dbapi_exception(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:2363: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py:1815: in _execute_context
+    context = constructor(
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1528: in _init_compiled
+    d_param = {
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py:1530: in &lt;dictcomp&gt;
+    flattened_processors[key](compiled_params[key])
+/opt/venv/lib/python3.11/site-packages/sqlalchemy/sql/type_api.py:2103: in process
+    fixed_process_param(value, dialect)
+src/prefect/server/utilities/database.py:165: in process_bind_param
+    raise ValueError("Timestamps must have a timezone.")
+E   sqlalchemy.exc.StatementError: (builtins.ValueError) Timestamps must have a timezone.
+E   [SQL: INSERT INTO automation_bucket_watermark (automation_id, trigger_id, bucketing_key, occurred, expires, id, created, updated) VALUES (:automation_id, :trigger_id, :bucketing_key, :occurred, :expires, :id, :created, :updated) ON CONFLICT (automation_id, trigger_id, bucketing_key) DO UPDATE SET occurred = :param_1, expires = :param_2, updated = :param_3 WHERE automation_bucket_watermark.occurred &lt; :occurred_1]</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]" time="0.229"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests/events/server/triggers/test_early_expect_events.py:144: in test_expect_event_outside_the_window_does_not_satisfy_it
+    act.assert_awaited_once()
+/usr/local/lib/python3.11/unittest/mock.py:2283: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]" time="0.221"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests/events/server/triggers/test_early_expect_events.py:144: in test_expect_event_outside_the_window_does_not_satisfy_it
+    act.assert_awaited_once()
+/usr/local/lib/python3.11/unittest/mock.py:2283: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_later_after_events_evaluated_late_keep_the_window_satisfied" time="0.247" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected]" time="0.265" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected]" time="0.273" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]" time="0.272"><failure message="AssertionError: assert 1 == 0&#10; +  where 1 = &lt;AsyncMock id='140497953884624'&gt;.await_count">tests/events/server/triggers/test_early_expect_events.py:187: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 1 == 0
+E    +  where 1 = &lt;AsyncMock id='140497953884624'&gt;.await_count</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]" time="0.277"><failure message="AssertionError: assert 1 == 0&#10; +  where 1 = &lt;AsyncMock id='140497943832592'&gt;.await_count">tests/events/server/triggers/test_early_expect_events.py:187: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 1 == 0
+E    +  where 1 = &lt;AsyncMock id='140497943832592'&gt;.await_count</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_counted_in_a_window_carries_into_a_late_roll" time="0.294" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_counted_in_a_window_carries_into_a_late_roll_in_any_order" time="0.322" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_every_expect_event_counted_in_a_window_carries_into_a_late_roll" time="0.304" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_rolled_window_fires_with_the_carried_expect_event" time="0.294"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests/events/server/triggers/test_early_expect_events.py:257: in test_rolled_window_fires_with_the_carried_expect_event
+    act.assert_awaited_once()
+/usr/local/lib/python3.11/unittest/mock.py:2283: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected]" time="0.330" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected]" time="0.403" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]" time="0.458"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests/events/server/triggers/test_early_expect_events.py:300: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+/usr/local/lib/python3.11/unittest/mock.py:2283: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]" time="0.414"><failure message="AssertionError: Expected mock to have been awaited once. Awaited 0 times.">tests/events/server/triggers/test_early_expect_events.py:300: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+/usr/local/lib/python3.11/unittest/mock.py:2283: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-also-expected]" time="0.326" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-not-expected]" time="0.432" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[a-first-after-is-also-expected]" time="0.368" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_at_the_same_instant_as_after_counts_in_either_order[a-first-after-is-not-expected]" time="0.366" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-also-expected]" time="0.324" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-not-expected]" time="0.289" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_a_high_threshold_counts_every_held_event" time="1.989"><failure message="AssertionError: Expected mock to not have been awaited. Awaited 1 times.">tests/events/server/triggers/test_early_expect_events.py:361: in test_a_high_threshold_counts_every_held_event
+    act.assert_not_awaited()
+/usr/local/lib/python3.11/unittest/mock.py:2378: in assert_not_awaited
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to not have been awaited. Awaited 1 times.</failure></testcase><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-also-expected]" time="1.775" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-not-expected]" time="1.849" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_later_expect_event_keeps_an_earlier_one_held_for_a_lost_follower" time="0.261" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_is_still_held_when_a_lost_follower_is_evaluated" time="0.261" /><testcase classname="tests.events.server.triggers.test_early_expect_events" name="test_expect_event_carries_into_a_late_roll_of_a_window_longer_than_the_retention" time="0.357" /><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_zombie_flow_detection_does_not_fire_when_flow_completes" time="0.381" /><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_zombie_flow_detection_does_not_fire_when_heartbeat_races_terminal" time="0.387" /><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_after_event_following_an_expect_event_re_arms_the_window" time="0.332" /><testcase classname="tests.events.server.triggers.test_proactive_terminal_events" name="test_flow_run_timeout_enforcer_does_not_fire_when_run_completes" time="1.500" /></testsuite></testsuites>

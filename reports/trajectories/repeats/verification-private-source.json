@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "scope": "Evidence integrity only; no model or pytest reruns; raw failures are not semantic scores.",
+  "trials": [
+    {
+      "trial": "gpt61-sol-xhigh-r2",
+      "verified": true,
+      "records": 142,
+      "paired_tool_calls": 65,
+      "production_files": 6,
+      "patch_applies_and_reproduces_hashes": true,
+      "source_and_sanitized_logs_match": true,
+      "normalized_prompt_matches_attempt1": true,
+      "raw_evaluation_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      }
+    },
+    {
+      "trial": "gpt61-sol-xhigh-r3",
+      "verified": true,
+      "records": 168,
+      "paired_tool_calls": 78,
+      "production_files": 6,
+      "patch_applies_and_reproduces_hashes": true,
+      "source_and_sanitized_logs_match": true,
+      "normalized_prompt_matches_attempt1": true,
+      "raw_evaluation_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      }
+    },
+    {
+      "trial": "claude-deepseek41-flash-max-r2",
+      "verified": true,
+      "records": 507,
+      "paired_tool_calls": 245,
+      "production_files": 6,
+      "patch_applies_and_reproduces_hashes": true,
+      "source_and_sanitized_logs_match": true,
+      "normalized_prompt_matches_attempt1": true,
+      "raw_evaluation_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      }
+    },
+    {
+      "trial": "claude-deepseek41-flash-max-r3",
+      "verified": true,
+      "records": 500,
+      "paired_tool_calls": 242,
+      "production_files": 5,
+      "patch_applies_and_reproduces_hashes": true,
+      "source_and_sanitized_logs_match": true,
+      "normalized_prompt_matches_attempt1": true,
+      "raw_evaluation_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      }
+    }
+  ]
+}

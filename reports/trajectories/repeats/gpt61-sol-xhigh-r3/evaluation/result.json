@@ -1,0 +1,70 @@
+{
+  "label": "gpt61-sol-xhigh-r3",
+  "formal_tb3_trial": false,
+  "complete_verifier": false,
+  "evaluation_version": "historical diagnostic-v1; 36 behavior including public replay + 4 retry; not packaged 44-check verifier",
+  "internal_bucket_assertion_needs_review": true,
+  "snapshot_at_utc": "2026-10-29T04:02:04.587210+00:00",
+  "candidate_production_unchanged_since_snapshot": true,
+  "public_replay_passed": true,
+  "public_replay_inference": "Identified failure node or absence from exhaustive FAILED summary of completed 36-test group; null when unestablished.",
+  "historical_behavior_passed": 24,
+  "historical_behavior_failed_raw": 11,
+  "historical_behavior_denominator": 35,
+  "runs": [
+    {
+      "group": "behavior",
+      "exit_code": 1,
+      "elapsed_seconds": 217.27,
+      "log": "behavior.log",
+      "summary": "11 failed, 25 passed in 190.57s (0:03:10)",
+      "counts": {
+        "failed": 11,
+        "passed": 25
+      },
+      "failed_tests": [
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_rolled_window_fires_with_the_carried_expect_event",
+        "tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "tests/events/server/triggers/test_early_expect_events.py::test_a_high_threshold_counts_every_held_event",
+        "tests/events/server/triggers/test_early_expect_events.py::test_expect_event_is_still_held_when_a_lost_follower_is_evaluated"
+      ],
+      "error_tests": [],
+      "expected_tests": 36,
+      "completed_expected_checks": true,
+      "execution_classification": "completed_test_run",
+      "semantic_failure_count": null,
+      "interpretation": "Counts are raw pytest outcomes; no automatic semantic failure classification."
+    },
+    {
+      "group": "retry",
+      "exit_code": 0,
+      "elapsed_seconds": 54.25,
+      "log": "retry.log",
+      "summary": "4 passed, 522 deselected in 40.43s",
+      "counts": {
+        "passed": 4,
+        "deselected": 522
+      },
+      "failed_tests": [],
+      "error_tests": [],
+      "expected_tests": 4,
+      "completed_expected_checks": true,
+      "execution_classification": "completed_test_run",
+      "semantic_failure_count": null,
+      "interpretation": "Counts are raw pytest outcomes; no automatic semantic failure classification."
+    }
+  ],
+  "historical_evaluation_lf_sha256": {
+    "tests/events/server/triggers/test_incident_completed_run.py": "3da140226a0864622fa43231c11a9b9650437732a3e6061f9ce513b4bf56f658",
+    "tests/events/server/triggers/test_early_expect_events.py": "ee605ab8d26698c8e37eec2e8c0646fd5bb3a6a6854600c29ef5ce17228ee45c",
+    "tests/events/server/triggers/test_proactive_terminal_events.py": "d70aa5661421c5b1aeb38baa54f2896a3ea0b97c7199e5d409d6775200b92241",
+    "tests/events/server/triggers/incident_completed_run.json": "a39742016dac1290c3b4d343be141165275442b99502afc029cb8f8480df854a"
+  }
+}

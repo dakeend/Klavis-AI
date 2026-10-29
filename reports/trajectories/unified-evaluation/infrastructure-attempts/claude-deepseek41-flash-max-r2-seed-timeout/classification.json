@@ -1,0 +1,8 @@
+{
+  "classification": "baseline_seed_timeout",
+  "counted_as_semantic_restart_failure": false,
+  "original_execution_preserved": true,
+  "model_rerun": false,
+  "behavior_group_contains_real_failures": true,
+  "retry_policy": "One verification rerun using unchanged frozen patch and same immutable image; preserve both executions."
+}

@@ -1,6 +1,21 @@
-# 两组模型的探索性求解证据
+# 两组模型各三次求解证据
 
-运行日期：2026-10-28；公开导出日期：2026-10-29。每组仅一次，本目录不是正式 Harbor `/run`、`/cheat` 或当前 44 项 verifier 的模型成绩。
+**先看 [六次结果汇总](repeats/RESULTS.md)**，包含当前同一个 Docker 验证器下的六次成绩，以及每次轨迹和日志链接。也可下载 [JSON](repeats/results.json) 或 [CSV](repeats/results.csv)。
+
+2026-10-29 按招聘方追补要求，保留此前每组一次结果，新增各两次独立求解。模型总次数为每组三次；补丁统一重验不是新模型运行。启动与隔离边界见 [运行协议](repeats/PROTOCOL.md) 和 [新增启动记录](repeats/launch-record.md)。这些是本地 agent 运行和直接 Docker 复核，不是正式 Harbor `/run` 或 `/cheat`。
+
+验证六次公开证据的调用配对、日志计数、补丁重现和当前 Docker 记录：
+
+```sh
+python authoring/verify_trajectories.py --include-current
+python -m unittest discover -s authoring -p 'test_trajectory_evidence.py' -v
+```
+
+检查记录见 [verification-public.json](repeats/verification-public.json)。中英文回复草稿见 [中文](repeats/recruiter-reply-zh.md)、[English](repeats/recruiter-reply-en.md)。
+
+## 2026-10-28 的原始两次运行
+
+以下部分保留最初每组一次的历史记录及其原有验收口径；当前同口径成绩请看上面的六次汇总。
 
 | 模型/客户端 | 可见轨迹 | 配置 | 模型最终生产补丁 | 独立验收 |
 |---|---|---|---|---|

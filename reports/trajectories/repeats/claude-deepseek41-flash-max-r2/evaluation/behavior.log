@@ -1,0 +1,178 @@
+.....FF.FF.....FFFFF..........F.....                                     [100%]
+================================== FAILURES ===================================
+_ test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected] _
+tests\events\server\triggers\test_early_expect_events.py:143: in test_expect_event_outside_the_window_does_not_satisfy_it
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:19.224 | INFO    | prefect.server.events.triggers - Automation 928b63df-05d7-4296-a70b-5664769ac452, trigger 9e01009c-1069-4264-a411-2a55055a2220 covers event 'B' (9906a8e2-8162-43a6-b8be-6e712e4b7bc3) for 'some.resource' at '2026-10-29T05:12:20.077089+00:00'
+13:11:19.467 | INFO    | prefect.server.events.triggers - Automation 928b63df-05d7-4296-a70b-5664769ac452, trigger 9e01009c-1069-4264-a411-2a55055a2220 covers event 'A' (25074394-2617-4462-b679-81a1102470b9) for 'some.resource' at '2026-10-29T05:11:19.077089+00:00'
+13:11:19.587 | DEBUG   | prefect.server.events.triggers - Evaluating automation 928b63df-05d7-4296-a70b-5664769ac452 trigger 9e01009c-1069-4264-a411-2a55055a2220 proactively as of 2026-10-29 05:13:19.077089+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 928b63df-05d7-4296-a70b-5664769ac452, trigger 9e01009c-1069-4264-a411-2a55055a2220 covers event 'B' (9906a8e2-8162-43a6-b8be-6e712e4b7bc3) for 'some.resource' at '2026-10-29T05:12:20.077089+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 928b63df-05d7-4296-a70b-5664769ac452, trigger 9e01009c-1069-4264-a411-2a55055a2220 covers event 'A' (25074394-2617-4462-b679-81a1102470b9) for 'some.resource' at '2026-10-29T05:11:19.077089+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation 928b63df-05d7-4296-a70b-5664769ac452 trigger 9e01009c-1069-4264-a411-2a55055a2220 proactively as of 2026-10-29 05:13:19.077089+00:00 (offset 0.0s)
+_ test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected] _
+tests\events\server\triggers\test_early_expect_events.py:143: in test_expect_event_outside_the_window_does_not_satisfy_it
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:22.920 | INFO    | prefect.server.events.triggers - Automation 79bcced7-d50f-4065-96e2-b0ae3362f0a9, trigger 740d3b07-d8aa-4ced-9e07-93916371c9b2 covers event 'B' (27b59f08-c83d-42e6-9222-54b081d22d4f) for 'some.resource' at '2026-10-29T05:12:23.770156+00:00'
+13:11:23.156 | INFO    | prefect.server.events.triggers - Automation 79bcced7-d50f-4065-96e2-b0ae3362f0a9, trigger 740d3b07-d8aa-4ced-9e07-93916371c9b2 covers event 'A' (f48e2e6f-2c7b-400d-88bf-59e7f775159b) for 'some.resource' at '2026-10-29T05:11:22.770156+00:00'
+13:11:23.277 | DEBUG   | prefect.server.events.triggers - Evaluating automation 79bcced7-d50f-4065-96e2-b0ae3362f0a9 trigger 740d3b07-d8aa-4ced-9e07-93916371c9b2 proactively as of 2026-10-29 05:13:22.770156+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 79bcced7-d50f-4065-96e2-b0ae3362f0a9, trigger 740d3b07-d8aa-4ced-9e07-93916371c9b2 covers event 'B' (27b59f08-c83d-42e6-9222-54b081d22d4f) for 'some.resource' at '2026-10-29T05:12:23.770156+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 79bcced7-d50f-4065-96e2-b0ae3362f0a9, trigger 740d3b07-d8aa-4ced-9e07-93916371c9b2 covers event 'A' (f48e2e6f-2c7b-400d-88bf-59e7f775159b) for 'some.resource' at '2026-10-29T05:11:22.770156+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation 79bcced7-d50f-4065-96e2-b0ae3362f0a9 trigger 740d3b07-d8aa-4ced-9e07-93916371c9b2 proactively as of 2026-10-29 05:13:22.770156+00:00 (offset 0.0s)
+_ test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected] _
+tests\events\server\triggers\test_early_expect_events.py:186: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 0 == 1
+E    +  where 0 = <AsyncMock id='2429541857488'>.await_count
+---------------------------- Captured stderr call -----------------------------
+13:11:27.243 | INFO    | prefect.server.events.triggers - Automation b2372852-8ef4-4923-9b70-58aa53f112fc, trigger 6f873472-7708-4b0a-831f-c9197fada6f6 covers event 'B' (07a56b3f-7283-4a91-8bc2-369de11fbba2) for 'some.resource' at '2026-10-29T05:11:28.096679+00:00'
+13:11:27.488 | INFO    | prefect.server.events.triggers - Automation b2372852-8ef4-4923-9b70-58aa53f112fc, trigger 6f873472-7708-4b0a-831f-c9197fada6f6 covers event 'A' (6c685a72-3729-4a09-a687-3be2261b3a66) for 'some.resource' at '2026-10-29T05:11:27.096679+00:00'
+13:11:27.608 | DEBUG   | prefect.server.events.triggers - Evaluating automation b2372852-8ef4-4923-9b70-58aa53f112fc trigger 6f873472-7708-4b0a-831f-c9197fada6f6 proactively as of 2026-10-29 05:13:27.096679+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation b2372852-8ef4-4923-9b70-58aa53f112fc, trigger 6f873472-7708-4b0a-831f-c9197fada6f6 covers event 'B' (07a56b3f-7283-4a91-8bc2-369de11fbba2) for 'some.resource' at '2026-10-29T05:11:28.096679+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation b2372852-8ef4-4923-9b70-58aa53f112fc, trigger 6f873472-7708-4b0a-831f-c9197fada6f6 covers event 'A' (6c685a72-3729-4a09-a687-3be2261b3a66) for 'some.resource' at '2026-10-29T05:11:27.096679+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation b2372852-8ef4-4923-9b70-58aa53f112fc trigger 6f873472-7708-4b0a-831f-c9197fada6f6 proactively as of 2026-10-29 05:13:27.096679+00:00 (offset 0.0s)
+_ test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected] _
+tests\events\server\triggers\test_early_expect_events.py:186: in test_expect_events_evaluated_early_count_toward_the_threshold
+    assert act.await_count == (1 if fires else 0)
+E   AssertionError: assert 0 == 1
+E    +  where 0 = <AsyncMock id='2429510510992'>.await_count
+---------------------------- Captured stderr call -----------------------------
+13:11:29.229 | INFO    | prefect.server.events.triggers - Automation 259f3ed8-ef2e-4f1f-a0c9-aca3360df2cd, trigger 45c5c52a-fa9b-4119-836c-62a6e8ec3501 covers event 'B' (6829b230-796a-463c-95b4-dc36d87e2f2b) for 'some.resource' at '2026-10-29T05:11:30.082470+00:00'
+13:11:29.473 | INFO    | prefect.server.events.triggers - Automation 259f3ed8-ef2e-4f1f-a0c9-aca3360df2cd, trigger 45c5c52a-fa9b-4119-836c-62a6e8ec3501 covers event 'A' (e8307420-1cfc-4887-8569-7fe3a927e96a) for 'some.resource' at '2026-10-29T05:11:29.082470+00:00'
+13:11:29.594 | DEBUG   | prefect.server.events.triggers - Evaluating automation 259f3ed8-ef2e-4f1f-a0c9-aca3360df2cd trigger 45c5c52a-fa9b-4119-836c-62a6e8ec3501 proactively as of 2026-10-29 05:13:29.082470+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 259f3ed8-ef2e-4f1f-a0c9-aca3360df2cd, trigger 45c5c52a-fa9b-4119-836c-62a6e8ec3501 covers event 'B' (6829b230-796a-463c-95b4-dc36d87e2f2b) for 'some.resource' at '2026-10-29T05:11:30.082470+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 259f3ed8-ef2e-4f1f-a0c9-aca3360df2cd, trigger 45c5c52a-fa9b-4119-836c-62a6e8ec3501 covers event 'A' (e8307420-1cfc-4887-8569-7fe3a927e96a) for 'some.resource' at '2026-10-29T05:11:29.082470+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation 259f3ed8-ef2e-4f1f-a0c9-aca3360df2cd trigger 45c5c52a-fa9b-4119-836c-62a6e8ec3501 proactively as of 2026-10-29 05:13:29.082470+00:00 (offset 0.0s)
+___________ test_rolled_window_fires_with_the_carried_expect_event ____________
+tests\events\server\triggers\test_early_expect_events.py:256: in test_rolled_window_fires_with_the_carried_expect_event
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:44.032 | INFO    | prefect.server.events.triggers - Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99, trigger 4937aba8-27a0-42c6-8a5a-77933c4697de covers event 'A' (c8436275-4f09-405c-843a-33534e0ee037) for 'some.resource' at '2026-10-29T05:11:43.877786+00:00'
+13:11:44.405 | DEBUG   | prefect.server.events.triggers - Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 ('after A, expect') trigger 4937aba8-27a0-42c6-8a5a-77933c4697de has more time for keys (['some.resource'])
+13:11:44.435 | INFO    | prefect.server.events.triggers - Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99, trigger 4937aba8-27a0-42c6-8a5a-77933c4697de covers event 'B' (0fc56f5e-3a21-4be8-97ac-4cb0288cd2a7) for 'some.resource' at '2026-10-29T05:12:13.877786+00:00'
+13:11:44.687 | DEBUG   | prefect.server.events.triggers - Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 ('after A, expect') trigger 4937aba8-27a0-42c6-8a5a-77933c4697de has more time for keys (['some.resource'])
+13:11:44.718 | INFO    | prefect.server.events.triggers - Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99, trigger 4937aba8-27a0-42c6-8a5a-77933c4697de covers event 'A' (aeef5103-9525-495c-b461-3ece5b7ad959) for 'some.resource' at '2026-10-29T05:12:12.877786+00:00'
+13:11:44.941 | DEBUG   | prefect.server.events.triggers - Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 ('after A, expect') trigger 4937aba8-27a0-42c6-8a5a-77933c4697de has more time for keys (['some.resource'])
+13:11:44.970 | DEBUG   | prefect.server.events.triggers - Evaluating automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 trigger 4937aba8-27a0-42c6-8a5a-77933c4697de proactively as of 2026-10-29 05:13:43.877786+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99, trigger 4937aba8-27a0-42c6-8a5a-77933c4697de covers event 'A' (c8436275-4f09-405c-843a-33534e0ee037) for 'some.resource' at '2026-10-29T05:11:43.877786+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 ('after A, expect') trigger 4937aba8-27a0-42c6-8a5a-77933c4697de has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:597 Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99, trigger 4937aba8-27a0-42c6-8a5a-77933c4697de covers event 'B' (0fc56f5e-3a21-4be8-97ac-4cb0288cd2a7) for 'some.resource' at '2026-10-29T05:12:13.877786+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 ('after A, expect') trigger 4937aba8-27a0-42c6-8a5a-77933c4697de has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:597 Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99, trigger 4937aba8-27a0-42c6-8a5a-77933c4697de covers event 'A' (aeef5103-9525-495c-b461-3ece5b7ad959) for 'some.resource' at '2026-10-29T05:12:12.877786+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 ('after A, expect') trigger 4937aba8-27a0-42c6-8a5a-77933c4697de has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation eeca529c-67f6-4b97-ad45-1fed8cfa4a99 trigger 4937aba8-27a0-42c6-8a5a-77933c4697de proactively as of 2026-10-29 05:13:43.877786+00:00 (offset 0.0s)
+__ test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected] __
+tests\events\server\triggers\test_early_expect_events.py:279: in test_one_expect_event_evaluated_twice_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:46.677 | INFO    | prefect.server.events.triggers - Automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678, trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b covers event 'B' (c3ae739d-9267-41bb-b286-c7da5464d218) for 'some.resource' at '2026-10-29T05:11:47.524214+00:00'
+13:11:46.917 | INFO    | prefect.server.events.triggers - Automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678, trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b covers event 'A' (fa298274-59ab-4f80-a073-1d69f0dd66ef) for 'some.resource' at '2026-10-29T05:11:46.524214+00:00'
+13:11:47.039 | INFO    | prefect.server.events.triggers - Automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678, trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b covers event 'B' (c3ae739d-9267-41bb-b286-c7da5464d218) for 'some.resource' at '2026-10-29T05:11:47.524214+00:00'
+13:11:47.160 | DEBUG   | prefect.server.events.triggers - Evaluating automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678 trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b proactively as of 2026-10-29 05:13:46.524214+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678, trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b covers event 'B' (c3ae739d-9267-41bb-b286-c7da5464d218) for 'some.resource' at '2026-10-29T05:11:47.524214+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678, trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b covers event 'A' (fa298274-59ab-4f80-a073-1d69f0dd66ef) for 'some.resource' at '2026-10-29T05:11:46.524214+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678, trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b covers event 'B' (c3ae739d-9267-41bb-b286-c7da5464d218) for 'some.resource' at '2026-10-29T05:11:47.524214+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation 5c7ae669-e87b-4b1e-8fee-e4c467ff1678 trigger bfb7e0e1-e7ee-4244-b805-6d0cecc5913b proactively as of 2026-10-29 05:13:46.524214+00:00 (offset 0.0s)
+__ test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected] ___
+tests\events\server\triggers\test_early_expect_events.py:279: in test_one_expect_event_evaluated_twice_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:48.866 | INFO    | prefect.server.events.triggers - Automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f, trigger ec594849-69ed-4542-97e2-f692ca839b47 covers event 'B' (19286c60-6dde-418a-bffe-237f2cea2d9a) for 'some.resource' at '2026-10-29T05:11:49.708461+00:00'
+13:11:49.119 | INFO    | prefect.server.events.triggers - Automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f, trigger ec594849-69ed-4542-97e2-f692ca839b47 covers event 'A' (161d23c5-4919-4cee-b51c-79694055cb9c) for 'some.resource' at '2026-10-29T05:11:48.708461+00:00'
+13:11:49.242 | INFO    | prefect.server.events.triggers - Automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f, trigger ec594849-69ed-4542-97e2-f692ca839b47 covers event 'B' (19286c60-6dde-418a-bffe-237f2cea2d9a) for 'some.resource' at '2026-10-29T05:11:49.708461+00:00'
+13:11:49.363 | DEBUG   | prefect.server.events.triggers - Evaluating automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f trigger ec594849-69ed-4542-97e2-f692ca839b47 proactively as of 2026-10-29 05:13:48.708461+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f, trigger ec594849-69ed-4542-97e2-f692ca839b47 covers event 'B' (19286c60-6dde-418a-bffe-237f2cea2d9a) for 'some.resource' at '2026-10-29T05:11:49.708461+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f, trigger ec594849-69ed-4542-97e2-f692ca839b47 covers event 'A' (161d23c5-4919-4cee-b51c-79694055cb9c) for 'some.resource' at '2026-10-29T05:11:48.708461+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f, trigger ec594849-69ed-4542-97e2-f692ca839b47 covers event 'B' (19286c60-6dde-418a-bffe-237f2cea2d9a) for 'some.resource' at '2026-10-29T05:11:49.708461+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation 9b1d5bb9-d6ec-448e-b2e3-9824f907108f trigger ec594849-69ed-4542-97e2-f692ca839b47 proactively as of 2026-10-29 05:13:48.708461+00:00 (offset 0.0s)
+_ test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected] _
+tests\events\server\triggers\test_early_expect_events.py:299: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:51.241 | INFO    | prefect.server.events.triggers - Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce, trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 covers event 'A' (b9bce890-3120-409b-99bb-bdc52841c371) for 'some.resource' at '2026-10-29T05:11:51.094868+00:00'
+13:11:51.920 | DEBUG   | prefect.server.events.triggers - Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce ('after A, expect') trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 has more time for keys (['some.resource'])
+13:11:51.967 | INFO    | prefect.server.events.triggers - Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce, trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 covers event 'B' (de5357a0-e59f-4578-9318-203ab7b7f560) for 'some.resource' at '2026-10-29T05:11:52.094868+00:00'
+13:11:52.245 | DEBUG   | prefect.server.events.triggers - Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce ('after A, expect') trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 has more time for keys (['some.resource'])
+13:11:52.275 | INFO    | prefect.server.events.triggers - Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce, trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 covers event 'B' (de5357a0-e59f-4578-9318-203ab7b7f560) for 'some.resource' at '2026-10-29T05:11:52.094868+00:00'
+13:11:52.494 | DEBUG   | prefect.server.events.triggers - Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce ('after A, expect') trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 has more time for keys (['some.resource'])
+13:11:52.524 | DEBUG   | prefect.server.events.triggers - Evaluating automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 proactively as of 2026-10-29 05:13:51.094868+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce, trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 covers event 'A' (b9bce890-3120-409b-99bb-bdc52841c371) for 'some.resource' at '2026-10-29T05:11:51.094868+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce ('after A, expect') trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:597 Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce, trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 covers event 'B' (de5357a0-e59f-4578-9318-203ab7b7f560) for 'some.resource' at '2026-10-29T05:11:52.094868+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce ('after A, expect') trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:597 Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce, trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 covers event 'B' (de5357a0-e59f-4578-9318-203ab7b7f560) for 'some.resource' at '2026-10-29T05:11:52.094868+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce ('after A, expect') trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation ebbca2a8-ebaa-4b36-a221-e2053ac4c3ce trigger a91d004e-e017-45f2-8340-19a6b14d4ac8 proactively as of 2026-10-29 05:13:51.094868+00:00 (offset 0.0s)
+_ test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected] _
+tests\events\server\triggers\test_early_expect_events.py:299: in test_one_expect_event_evaluated_twice_in_an_open_window_counts_once
+    act.assert_awaited_once()
+D:\python3.11\Lib\unittest\mock.py:2238: in assert_awaited_once
+    raise AssertionError(msg)
+E   AssertionError: Expected mock to have been awaited once. Awaited 0 times.
+---------------------------- Captured stderr call -----------------------------
+13:11:54.211 | INFO    | prefect.server.events.triggers - Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb, trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 covers event 'A' (f2235c66-5c93-4f84-ac82-58c08e527a4d) for 'some.resource' at '2026-10-29T05:11:54.050158+00:00'
+13:11:54.485 | INFO    | prefect.server.events.triggers - Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb, trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 covers event 'B' (2ed46486-ee18-44cb-a53c-2ff74f3711bf) for 'some.resource' at '2026-10-29T05:11:55.050158+00:00'
+13:11:54.730 | DEBUG   | prefect.server.events.triggers - Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb ('after A, expect') trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 has more time for keys (['some.resource'])
+13:11:54.759 | INFO    | prefect.server.events.triggers - Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb, trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 covers event 'B' (2ed46486-ee18-44cb-a53c-2ff74f3711bf) for 'some.resource' at '2026-10-29T05:11:55.050158+00:00'
+13:11:54.976 | DEBUG   | prefect.server.events.triggers - Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb ('after A, expect') trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 has more time for keys (['some.resource'])
+13:11:55.005 | DEBUG   | prefect.server.events.triggers - Evaluating automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 proactively as of 2026-10-29 05:13:54.050158+00:00 (offset 0.0s)
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb, trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 covers event 'A' (f2235c66-5c93-4f84-ac82-58c08e527a4d) for 'some.resource' at '2026-10-29T05:11:54.050158+00:00'
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb, trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 covers event 'B' (2ed46486-ee18-44cb-a53c-2ff74f3711bf) for 'some.resource' at '2026-10-29T05:11:55.050158+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb ('after A, expect') trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 has more time for keys (['some.resource'])
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb, trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 covers event 'B' (2ed46486-ee18-44cb-a53c-2ff74f3711bf) for 'some.resource' at '2026-10-29T05:11:55.050158+00:00'
+DEBUG    prefect.server.events.triggers:triggers.py:224 Automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb ('after A, expect') trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 has more time for keys (['some.resource'])
+DEBUG    prefect.server.events.triggers:triggers.py:1481 Evaluating automation 5017e4bc-a29d-4177-8f1b-c5c2b632ddeb trigger 1a3fd647-06e1-4483-bf8f-2729ac25e362 proactively as of 2026-10-29 05:13:54.050158+00:00 (offset 0.0s)
+______ test_expect_event_is_still_held_when_a_lost_follower_is_evaluated ______
+tests\events\server\triggers\test_early_expect_events.py:430: in test_expect_event_is_still_held_when_a_lost_follower_is_evaluated
+    assert bucket is not None
+E   assert None is not None
+---------------------------- Captured stderr call -----------------------------
+13:13:04.185 | INFO    | prefect.server.events.triggers - Automation 746a05c1-95c6-436e-8943-11d776ee5222, trigger cbbd4f41-a13c-4cc2-8232-9bd9c3fe0f57 covers event 'B' (51ef6014-3ff0-4d16-bf52-03e0f8d680d6) for 'some.resource' at '2026-10-29T05:13:05.182170+00:00'
+13:13:04.422 | INFO    | prefect.server.events.ordering.memory - Event 'A' (fd74951f-a08b-4dbe-94f1-d1cd6bc9271d) for 'some.resource' arrived before the event it follows 4cef6c34-d3a2-4ef3-a2e0-f2c9ff8cac04
+13:13:04.424 | DEBUG   | prefect.server.events.triggers - Running periodic evaluation as of 2026-10-29 05:29:03.941520+00:00 (offset -0.24065017700195312s)
+13:13:04.485 | INFO    | prefect.server.events.triggers - Automation 746a05c1-95c6-436e-8943-11d776ee5222, trigger cbbd4f41-a13c-4cc2-8232-9bd9c3fe0f57 covers event 'A' (fd74951f-a08b-4dbe-94f1-d1cd6bc9271d) for 'some.resource' at '2026-10-29T05:13:04.182170+00:00'
+------------------------------ Captured log call ------------------------------
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 746a05c1-95c6-436e-8943-11d776ee5222, trigger cbbd4f41-a13c-4cc2-8232-9bd9c3fe0f57 covers event 'B' (51ef6014-3ff0-4d16-bf52-03e0f8d680d6) for 'some.resource' at '2026-10-29T05:13:05.182170+00:00'
+INFO     prefect.server.events.ordering.memory:memory.py:303 Event 'A' (fd74951f-a08b-4dbe-94f1-d1cd6bc9271d) for 'some.resource' arrived before the event it follows 4cef6c34-d3a2-4ef3-a2e0-f2c9ff8cac04
+DEBUG    prefect.server.events.triggers:triggers.py:741 Running periodic evaluation as of 2026-10-29 05:29:03.941520+00:00 (offset -0.24065017700195312s)
+INFO     prefect.server.events.triggers:triggers.py:597 Automation 746a05c1-95c6-436e-8943-11d776ee5222, trigger cbbd4f41-a13c-4cc2-8232-9bd9c3fe0f57 covers event 'A' (fd74951f-a08b-4dbe-94f1-d1cd6bc9271d) for 'some.resource' at '2026-10-29T05:13:04.182170+00:00'
+=========================== short test summary info ===========================
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_rolled_window_fires_with_the_carried_expect_event
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]
+FAILED tests/events/server/triggers/test_early_expect_events.py::test_expect_event_is_still_held_when_a_lost_follower_is_evaluated
+10 failed, 26 passed in 153.01s (0:02:33)

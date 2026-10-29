@@ -1,0 +1,2 @@
+Command: Claude Code executable --version
+2.1.312 (Claude Code)

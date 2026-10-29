@@ -1,0 +1,163 @@
+{
+  "passed": true,
+  "scope": "Submitted evidence integrity and patch applicability; no model or benchmark rerun; raw failures are not semantic scores.",
+  "include_current": true,
+  "trials": [
+    {
+      "trial": "gpt61-sol-xhigh",
+      "visible_tool_calls": 47,
+      "paired_tool_results": 47,
+      "records": 105,
+      "production_files_verified": 7,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true,
+      "historical_execution_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      },
+      "current": {
+        "patch_sha256": "d415de8f3e243570634a4578649c3b41387ecbc76701dfcf8b812466d83161a6",
+        "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+        "reward": 0,
+        "tests": 44,
+        "passed": 35,
+        "failed": 9,
+        "complete_44_check_report": true,
+        "execution_classification": "recorded_verifier_error",
+        "semantic_failure_count": null,
+        "verifier_files_sha256_verified": 6
+      },
+      "verified": true
+    },
+    {
+      "trial": "claude-deepseek41-flash-max",
+      "visible_tool_calls": 134,
+      "paired_tool_results": 134,
+      "records": 279,
+      "production_files_verified": 1,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true,
+      "historical_execution_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      },
+      "current": {
+        "patch_sha256": "a65e3132f26fd158232b4b108d460849d9705e1d68457cdc69f6b9b0fa637c29",
+        "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+        "reward": 0,
+        "tests": 44,
+        "passed": 26,
+        "failed": 18,
+        "complete_44_check_report": true,
+        "execution_classification": "recorded_verifier_error",
+        "semantic_failure_count": null,
+        "verifier_files_sha256_verified": 6
+      },
+      "verified": true
+    },
+    {
+      "trial": "gpt61-sol-xhigh-r2",
+      "visible_tool_calls": 65,
+      "paired_tool_results": 65,
+      "records": 142,
+      "production_files_verified": 6,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true,
+      "historical_execution_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      },
+      "current": {
+        "patch_sha256": "bcb5d8656cf59f5c777139a5bfbafc4aa1f934910477744963d4fd7abe374e04",
+        "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+        "reward": 0,
+        "tests": 44,
+        "passed": 35,
+        "failed": 9,
+        "complete_44_check_report": true,
+        "execution_classification": "recorded_verifier_error",
+        "semantic_failure_count": null,
+        "verifier_files_sha256_verified": 6
+      },
+      "verified": true
+    },
+    {
+      "trial": "gpt61-sol-xhigh-r3",
+      "visible_tool_calls": 78,
+      "paired_tool_results": 78,
+      "records": 168,
+      "production_files_verified": 6,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true,
+      "historical_execution_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      },
+      "current": {
+        "patch_sha256": "14d6b0d87b37b5c22022924acf7ce9d89792462ef2db5b5ca5987d4f2ad1059c",
+        "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+        "reward": 0,
+        "tests": 44,
+        "passed": 33,
+        "failed": 11,
+        "complete_44_check_report": true,
+        "execution_classification": "recorded_verifier_error",
+        "semantic_failure_count": null,
+        "verifier_files_sha256_verified": 6
+      },
+      "verified": true
+    },
+    {
+      "trial": "claude-deepseek41-flash-max-r2",
+      "visible_tool_calls": 245,
+      "paired_tool_results": 245,
+      "records": 507,
+      "production_files_verified": 6,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true,
+      "historical_execution_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      },
+      "current": {
+        "patch_sha256": "6f4246a45f490e0dee4bc464c09c1beff6b26cfa467e080d10aa01ec1c1fe0d1",
+        "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+        "reward": 0,
+        "tests": 44,
+        "passed": 34,
+        "failed": 10,
+        "complete_44_check_report": true,
+        "execution_classification": "recorded_verifier_error",
+        "semantic_failure_count": null,
+        "verifier_files_sha256_verified": 6
+      },
+      "verified": true
+    },
+    {
+      "trial": "claude-deepseek41-flash-max-r3",
+      "visible_tool_calls": 242,
+      "paired_tool_results": 242,
+      "records": 500,
+      "production_files_verified": 5,
+      "patch_applies_to_frozen_baseline": true,
+      "historical_log_counts_match": true,
+      "historical_execution_classifications": {
+        "behavior": "completed_test_run",
+        "retry": "completed_test_run"
+      },
+      "current": {
+        "patch_sha256": "7088a0f3bed950c725f436562e768c8bcbf3d71e8e07a09afe19c6c3c0856011",
+        "image": "sha256:57b825c56f05b13066e8d81125a03473d098550d2bd16a0d613ba64577a4be35",
+        "reward": 0,
+        "tests": 44,
+        "passed": 34,
+        "failed": 10,
+        "complete_44_check_report": true,
+        "execution_classification": "recorded_verifier_error",
+        "semantic_failure_count": null,
+        "verifier_files_sha256_verified": 6
+      },
+      "verified": true
+    }
+  ]
+}

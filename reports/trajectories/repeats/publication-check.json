@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "privacy_findings": [],
+  "parent_workspace_call_references": [],
+  "scope": "Four new public exports; credential patterns, user-directory remnants, observable parent-workspace tool arguments. Not an OS isolation or adversarial proof.",
+  "trials": [
+    {
+      "trial": "gpt61-sol-xhigh-r2",
+      "records": 142,
+      "visible_calls": 65,
+      "production_files": 6,
+      "secret_replacements": 0,
+      "omissions": {
+        "local_skill_output": 3
+      }
+    },
+    {
+      "trial": "gpt61-sol-xhigh-r3",
+      "records": 168,
+      "visible_calls": 78,
+      "production_files": 6,
+      "secret_replacements": 0,
+      "omissions": {
+        "local_skill_output": 4
+      }
+    },
+    {
+      "trial": "claude-deepseek41-flash-max-r2",
+      "records": 507,
+      "visible_calls": 245,
+      "production_files": 6,
+      "secret_replacements": 0,
+      "omissions": {}
+    },
+    {
+      "trial": "claude-deepseek41-flash-max-r3",
+      "records": 500,
+      "visible_calls": 242,
+      "production_files": 5,
+      "secret_replacements": 0,
+      "omissions": {}
+    }
+  ]
+}

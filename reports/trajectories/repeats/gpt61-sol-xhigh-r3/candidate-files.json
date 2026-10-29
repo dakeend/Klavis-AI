@@ -1,0 +1,38 @@
+[
+  {
+    "path": "src/prefect/server/database/_migrations/versions/postgresql/2026_10_29_000000_7f46a920ce31_automation_bucket_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "469ffb008c5dca5f8b891590c088b9cde17c4f27bb1c14d39513e09c07a68549",
+    "candidate_lf_sha256": "469ffb008c5dca5f8b891590c088b9cde17c4f27bb1c14d39513e09c07a68549"
+  },
+  {
+    "path": "src/prefect/server/database/_migrations/versions/sqlite/2026_10_29_000000_be17c8d9e204_automation_bucket_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "778db1897dc1190e5b1554ced6456f708944950496e65c3c371b7d8c9a1413db",
+    "candidate_lf_sha256": "778db1897dc1190e5b1554ced6456f708944950496e65c3c371b7d8c9a1413db"
+  },
+  {
+    "path": "src/prefect/server/database/interface.py",
+    "baseline_lf_sha256": "3ee69d71cac72ccd754ed1fa7c05a42e9fd274d6cd4456c110010b7fb392190e",
+    "candidate_snapshot_sha256": "99ac28c6581e5577408946b2fff1b6d266803f30bb591f4483471d64a0ade9dc",
+    "candidate_lf_sha256": "9780d9d09f6945ed2f648bdd4bd56a261d27020a3bd0f70b20447402ba724d3c"
+  },
+  {
+    "path": "src/prefect/server/database/orm_models.py",
+    "baseline_lf_sha256": "805fa5f56ac8413da792ba64747763b2f6840be0f27af0b4bab5419fc70e6858",
+    "candidate_snapshot_sha256": "a8a5481a2c2ff5dd6751e69d0601c711cc58a2c812bbb59ba55112a0c1f893e5",
+    "candidate_lf_sha256": "a998471cfd2367014978105affd27f94078ea5fef86f9cdd15f30a9288e2d1b0"
+  },
+  {
+    "path": "src/prefect/server/events/models/automation_bucket_watermark.py",
+    "baseline_lf_sha256": null,
+    "candidate_snapshot_sha256": "3c916ee15fabd64d8ac58526fddce1b149be4be40b247effbab127c737291fa9",
+    "candidate_lf_sha256": "3c916ee15fabd64d8ac58526fddce1b149be4be40b247effbab127c737291fa9"
+  },
+  {
+    "path": "src/prefect/server/events/triggers.py",
+    "baseline_lf_sha256": "0adf4facbe56258ad95adc663b8b4669ceb87225e2a9cd8aafcd9bcfcdc54021",
+    "candidate_snapshot_sha256": "7c13420990f0103986ac29b4d7c4808bad110b1e03fb49bbc3983be8c6dc3033",
+    "candidate_lf_sha256": "383d50a96cea26c3903b7a5173630cb5c754e4080728593c57636205dd9edd6e"
+  }
+]

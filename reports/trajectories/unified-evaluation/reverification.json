@@ -1,0 +1,28 @@
+{
+  "status": "completed",
+  "label": "claude-deepseek41-flash-max-r2",
+  "reason": "baseline seed process timed out before candidate upgrade/record/open/evaluate",
+  "original_execution": "infrastructure-attempts/claude-deepseek41-flash-max-r2-seed-timeout",
+  "model_rerun": false,
+  "final_execution": "claude-deepseek41-flash-max-r2/execution.json",
+  "final_reward": 0,
+  "final_details": {
+    "behavior": {
+      "exit_code": 1,
+      "expected_tests": 36,
+      "passed": false
+    },
+    "retry": {
+      "exit_code": 0,
+      "expected_tests": 4,
+      "passed": true
+    },
+    "compatibility": {
+      "exit_code": 0,
+      "expected_tests": 3,
+      "passed": true
+    },
+    "error": "AssertionError: Restart, identity or resource-isolation failure: ['some.silent']"
+  },
+  "interpretation": "Initial baseline seed timeout is retained as infrastructure; rerun reaches a genuine external-behavior assertion. Same patch, same image; no extra model run."
+}

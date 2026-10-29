@@ -1,6 +1,6 @@
 # 本次封装的验收状态
 
-更新日期：2026-10-28（Asia/Shanghai）。这是实际进度表，不是正式提交已通过的声明。
+更新日期：2026-10-29（Asia/Shanghai）。这是实际进度表，不是正式提交已通过的声明。
 
 | 项目 | 状态 |
 |---|---|
@@ -16,8 +16,9 @@
 | TB3 官方静态脚本 | 固定提交 `6964e9252c90227fc1cfa26cbc59aee4134792e4` 的 28/28 通过，见 `upstream-static/result.json`；为本地运行，不是托管 CI |
 | LLM implementation-rubric | 未执行 |
 | 冻结任务的 Harbor oracle / nop | 未执行；Docker smoke 与便携式检查不等于 Harbor 试验 |
-| 每组模型 3 次正式 `/run` | 未执行；旧 session 是探索性运行 |
-| 旧探索性运行的操作轨迹与评测证据 | 2026-10-29 已补充至 `trajectories/`，包含两组可见操作、配置、生产补丁和原有独立验收日志；未计入正式试验次数 |
+| 每组模型 3 次正式 Harbor `/run` | 未执行；下列本地三次求解和直接 Docker 复核不能改称 Harbor 运行 |
+| 招聘方后续要求：两组模型各三次求解 | 已完成，保留此前各一次并新增各两次；六份生产补丁统一用当前 Docker 验证器复核，完整成绩见 [结果汇总](trajectories/repeats/RESULTS.md) |
+| 六次求解的操作轨迹与评测证据 | 已公开：保留最初两次历史材料，新增四次可见操作、配置、生产补丁和验收日志；两次零 token 网络启动故障另行披露，不计作模型答题失败。见 `trajectories/repeats/` 和 `trajectories/unified-evaluation/` |
 | 每组模型 1 次正式 `/cheat` | 未执行；不能声明 verifier 不可绕过 |
 | 任务 README 人类撰写要求 | 难度和经验段来自作者；解法和验证两段仍是明确标注的 AI 草稿，等待作者自己的说明 |
 | 原创题要求 | PR 派生来源已披露，是否符合招聘要求未确认 |

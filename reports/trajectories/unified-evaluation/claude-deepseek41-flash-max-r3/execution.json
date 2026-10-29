@@ -1,0 +1,42 @@
+{
+  "label": "claude-deepseek41-flash-max-r3",
+  "started_at_utc": "2026-10-29T05:06:27.394549+00:00",
+  "finished_at_utc": "2026-10-29T05:08:53.841408+00:00",
+  "driver_exit_code": 0,
+  "patch_sha256": "7088a0f3bed950c725f436562e768c8bcbf3d71e8e07a09afe19c6c3c0856011",
+  "evaluation": "Current packaged 44-check verifier, same immutable Docker image for six candidates",
+  "model_rerun": false,
+  "formal_harbor_trial": false,
+  "candidate_patch_extracted_by_author": true,
+  "candidate_self_tests_used": false,
+  "reward": 0,
+  "summary": {
+    "tests": 44,
+    "passed": 34,
+    "failed": 10,
+    "skipped": 0,
+    "pending": 0,
+    "other": 0,
+    "start": 1793250399947,
+    "stop": 1793250532402
+  },
+  "details": {
+    "behavior": {
+      "exit_code": 1,
+      "expected_tests": 36,
+      "passed": false
+    },
+    "retry": {
+      "exit_code": 0,
+      "expected_tests": 4,
+      "passed": true
+    },
+    "compatibility": {
+      "exit_code": 0,
+      "expected_tests": 3,
+      "passed": true
+    },
+    "error": "AssertionError: Restart, identity or resource-isolation failure: ['some.silent']"
+  },
+  "status": "evaluated"
+}

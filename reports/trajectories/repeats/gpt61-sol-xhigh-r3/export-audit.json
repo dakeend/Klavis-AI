@@ -1,0 +1,46 @@
+{
+  "exported_at_utc": "2026-10-29T04:06:44.971309+00:00",
+  "source_observed_export_sha256": "2bd986b1693b5facc60a56ba66ebee3513848bad7d9e631da92bd20364c43601",
+  "source_records": 168,
+  "exported_records": 168,
+  "record_kinds": {
+    "tool_call": 78,
+    "tool_result": 78,
+    "assistant_message": 12
+  },
+  "transformations": {
+    "instruction_block_omissions": 0,
+    "path_replacements": 207,
+    "secret_replacements": 0
+  },
+  "omitted_records": {
+    "local_skill_output": 4
+  },
+  "model_summary_provenance": "Public model summary staged in research trial folder by author.",
+  "excluded": [
+    "private reasoning/thinking",
+    "system/developer messages",
+    "internal metadata",
+    "collaboration calls and results",
+    "local skill body outputs",
+    "raw stream/session",
+    "credentials/configuration"
+  ],
+  "source_hashes_verified": true,
+  "normalized_prompt_matches_attempt1": true,
+  "candidate_patch": "Production only, frozen independent snapshot; generated metadata excluded; LF normalized.",
+  "source_results_sha256": "0c57be43b17edab273f19b3326e14cc98a2740c6fdf0ef033d5d41d12617aa2c",
+  "file_sha256": {
+    "trajectory.jsonl": "e896c8b104509b9e4bcfa06c0e5a23cc8fddf50a1d2056b6126783f3d50fd5d2",
+    "trajectory.md": "a098ee6ce0985408297971b56e050c20162749755de454a14b43d75aef319621",
+    "input-task.md": "352a6a18976407d88bdfa0992f83da1103d4245ade3a83ac3f20e9eaa7f43584",
+    "model-summary.md": "d7166bd74cdb6a848b759e75901fa9b1270d47d11cda5a8b9de8176986086a66",
+    "candidate-production.patch": "14d6b0d87b37b5c22022924acf7ce9d89792462ef2db5b5ca5987d4f2ad1059c",
+    "evaluation/behavior.log": "204b6417b5119b29e75754a86def2c9964dda8fab8e1699a16f7a4b776ab8cef",
+    "evaluation/retry.log": "473ec2e62be24e63ad4500d1a71d9796cd22546aa6df4b5e0011fc099b6b1792",
+    "candidate-files.json": "7a8e2515777bcfbb77315f3042d5e8f7c4f3dca46735765686f10a3e36f8d0b6",
+    "run-config.json": "d44554722565c13b810dc508b05451983a1def24d532847085b3a9ba7da4477e",
+    "evaluation/result.json": "a11dde0b1f493cb4015539f1dd7db0100864592b0cac3fb444e4245492439981",
+    "infrastructure-startups.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}

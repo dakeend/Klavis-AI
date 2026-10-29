@@ -1,0 +1,7 @@
+model,attempt,retained_previous_run,solver_minutes,public_replay_passed,current_passed,current_failed,current_reported_total,current_expected_total,reward
+GPT-6.1-sol / xhigh,1,true,41.07,true,35,9,44,44,0
+GPT-6.1-sol / xhigh,2,false,42.03,true,35,9,44,44,0
+GPT-6.1-sol / xhigh,3,false,44.02,true,33,11,44,44,0
+Claude Code + DeepSeek / max,1,true,50.28,true,26,18,44,44,0
+Claude Code + DeepSeek / max,2,false,107.48,true,34,10,44,44,0
+Claude Code + DeepSeek / max,3,false,98.99,true,34,10,44,44,0

@@ -1,0 +1,44 @@
+{
+  "exported_at_utc": "2026-10-29T05:14:14.069761+00:00",
+  "source_observed_export_sha256": "588da144f76c4ec0121f32bd5373dda39e9a5d1de3d523db1d2804b6266bb2c3",
+  "source_records": 509,
+  "exported_records": 507,
+  "record_kinds": {
+    "assistant_message": 17,
+    "tool_call": 245,
+    "tool_result": 245
+  },
+  "transformations": {
+    "instruction_block_omissions": 0,
+    "path_replacements": 488,
+    "secret_replacements": 0
+  },
+  "omitted_records": {},
+  "model_summary_provenance": "Public model summary staged in research trial folder by author.",
+  "excluded": [
+    "private reasoning/thinking",
+    "system/developer messages",
+    "internal metadata",
+    "collaboration calls and results",
+    "local skill body outputs",
+    "raw stream/session",
+    "credentials/configuration"
+  ],
+  "source_hashes_verified": true,
+  "normalized_prompt_matches_attempt1": true,
+  "candidate_patch": "Production only, frozen independent snapshot; generated metadata excluded; LF normalized.",
+  "source_results_sha256": "f0ce6477276eb20b50684deb8b5666ccb14e009d92c1f8a87fa9b4c55b206ee3",
+  "file_sha256": {
+    "trajectory.jsonl": "422e6b3f230757087b5527391f0cfcdb124e77c24da49deb3b459db5b4e92e3c",
+    "trajectory.md": "7c5f73ac17b8da54df38f95508a8fa7b38971cf2658fdf75610c59ec1beff8c1",
+    "input-task.md": "352a6a18976407d88bdfa0992f83da1103d4245ade3a83ac3f20e9eaa7f43584",
+    "model-summary.md": "ad3c739a0f1b3b475e895b1c1ce81a2dd6f290748f4f8b6785c36ff2d73601ca",
+    "candidate-production.patch": "6f4246a45f490e0dee4bc464c09c1beff6b26cfa467e080d10aa01ec1c1fe0d1",
+    "evaluation/behavior.log": "cba489254463884bacf3932cdf41a64c20b22bc97b7be8f3d0ad56da1c571ca4",
+    "evaluation/retry.log": "b4fe5586eaa0c33fbdaa0695952a5afc5a7986c0e4a67f9f23802adff5e772ee",
+    "candidate-files.json": "143d354b23d896807bfe6be65cff551074ec6955cc7b65e1067439fe499cd13e",
+    "run-config.json": "237931947a2e492e00f0c483c25c7850aecfd2ea81991681324af8d028edd710",
+    "evaluation/result.json": "04af5eccd5950d4788cfc2d9ecae03a1f56aafb5727df4dcdc6e09382d9958ce",
+    "infrastructure-startups.json": "cec27fba9eb9001783bacbe3110b482f8c3b839774ce0fca87b2fc93b1092599"
+  }
+}

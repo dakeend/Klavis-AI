@@ -1,0 +1,42 @@
+{
+  "label": "claude-deepseek41-flash-max-r2",
+  "started_at_utc": "2026-10-29T05:14:33.887124+00:00",
+  "finished_at_utc": "2026-10-29T05:18:42.365332+00:00",
+  "driver_exit_code": 0,
+  "patch_sha256": "6f4246a45f490e0dee4bc464c09c1beff6b26cfa467e080d10aa01ec1c1fe0d1",
+  "evaluation": "Current packaged 44-check verifier, same immutable Docker image for six candidates",
+  "model_rerun": false,
+  "formal_harbor_trial": false,
+  "candidate_patch_extracted_by_author": true,
+  "candidate_self_tests_used": false,
+  "reward": 0,
+  "summary": {
+    "tests": 44,
+    "passed": 34,
+    "failed": 10,
+    "skipped": 0,
+    "pending": 0,
+    "other": 0,
+    "start": 1793250883402,
+    "stop": 1793251121345
+  },
+  "details": {
+    "behavior": {
+      "exit_code": 1,
+      "expected_tests": 36,
+      "passed": false
+    },
+    "retry": {
+      "exit_code": 0,
+      "expected_tests": 4,
+      "passed": true
+    },
+    "compatibility": {
+      "exit_code": 0,
+      "expected_tests": 3,
+      "passed": true
+    },
+    "error": "AssertionError: Restart phase seed exited 124; see restart-seed.log"
+  },
+  "status": "evaluated"
+}

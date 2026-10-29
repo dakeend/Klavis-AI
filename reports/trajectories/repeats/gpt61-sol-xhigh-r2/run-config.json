@@ -1,0 +1,28 @@
+{
+  "base_commit": "71d1906204dfca1bd2dff36b57bcfc46dd7a2dd8",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "fresh_conversation": true,
+  "reference_material_copied": false,
+  "previous_solution_copied": false,
+  "upstream_git_history_copied": false,
+  "isolation": "separate source copy and instructions; no container or hard read boundary",
+  "environment_preinstalled": true,
+  "comparison_limitations": [
+    "Independent local repeat; not a Harbor or container-isolated trial.",
+    "Same diagnostic-v1 source, prompt and historical evaluation as attempt 1."
+  ],
+  "formal_tb3_trial": false,
+  "agent_framework": "codex-app-subagent",
+  "attempt": 2,
+  "session_id": "01a185a9-07fa-73b3-86b8-d86cd84ac520",
+  "started_at_utc": "2026-10-29T03:16:49.789Z",
+  "finished_at_utc": "2026-10-29T03:58:51.574Z",
+  "settings_verified": true,
+  "source_observed_export_sha256": "305b55a10d30c3201f21daf830d967519b3367ac077d2fc7adeec8573fa2df2b",
+  "input_task_original_sha256": "d645b14bf42fb6a03618dcf1144e0296b36bebe775053cedbe7555ce234336c3",
+  "reasoning_exported": false,
+  "source_timestamps_preserved": true,
+  "input_provenance": "Attempt 1 public input reconstructed with this preparation path; exact original preparation SHA-256 matched.",
+  "launch_method": "Codex desktop subagent"
+}

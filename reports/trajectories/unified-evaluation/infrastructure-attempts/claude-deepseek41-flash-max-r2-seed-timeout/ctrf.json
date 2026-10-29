@@ -1,0 +1,239 @@
+{
+  "results": {
+    "tool": {
+      "name": "pytest+isolated-sqlite"
+    },
+    "summary": {
+      "tests": 44,
+      "passed": 34,
+      "failed": 10,
+      "skipped": 0,
+      "pending": 0,
+      "other": 0,
+      "start": 1793250883402,
+      "stop": 1793251121345
+    },
+    "tests": [
+      {
+        "name": "tests.events.server.triggers.test_incident_completed_run.test_completed_run_incident",
+        "status": "passed",
+        "duration": 13210.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-also-expected]",
+        "status": "passed",
+        "duration": 205.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_evaluated_before_its_window_opens_satisfies_it[after-is-not-expected]",
+        "status": "passed",
+        "duration": 192.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-also-expected]",
+        "status": "passed",
+        "duration": 203.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[before-the-window-after-is-not-expected]",
+        "status": "passed",
+        "duration": 188.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-also-expected]",
+        "status": "failed",
+        "duration": 182.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_outside_the_window_does_not_satisfy_it[after-the-window-after-is-not-expected]",
+        "status": "failed",
+        "duration": 180.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_later_after_events_evaluated_late_keep_the_window_satisfied",
+        "status": "passed",
+        "duration": 213.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-also-expected]",
+        "status": "failed",
+        "duration": 181.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[one-of-two-after-is-not-expected]",
+        "status": "failed",
+        "duration": 181.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-also-expected]",
+        "status": "passed",
+        "duration": 188.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_events_evaluated_early_count_toward_the_threshold[two-of-two-after-is-not-expected]",
+        "status": "passed",
+        "duration": 187.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_counted_in_a_window_carries_into_a_late_roll",
+        "status": "passed",
+        "duration": 221.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_counted_in_a_window_carries_into_a_late_roll_in_any_order",
+        "status": "passed",
+        "duration": 241.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_every_expect_event_counted_in_a_window_carries_into_a_late_roll",
+        "status": "passed",
+        "duration": 249.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_rolled_window_fires_with_the_carried_expect_event",
+        "status": "failed",
+        "duration": 222.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_counts_once[after-is-also-expected]",
+        "status": "failed",
+        "duration": 194.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_counts_once[after-is-not-expected]",
+        "status": "failed",
+        "duration": 196.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-also-expected]",
+        "status": "failed",
+        "duration": 228.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_one_expect_event_evaluated_twice_in_an_open_window_counts_once[after-is-not-expected]",
+        "status": "failed",
+        "duration": 265.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-also-expected]",
+        "status": "passed",
+        "duration": 197.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_at_the_same_instant_as_after_counts_in_either_order[b-first-after-is-not-expected]",
+        "status": "passed",
+        "duration": 200.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_at_the_same_instant_as_after_counts_in_either_order[a-first-after-is-also-expected]",
+        "status": "passed",
+        "duration": 225.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_at_the_same_instant_as_after_counts_in_either_order[a-first-after-is-not-expected]",
+        "status": "passed",
+        "duration": 219.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-also-expected]",
+        "status": "passed",
+        "duration": 234.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_after_an_expired_window_counts_in_the_next_one[after-is-not-expected]",
+        "status": "passed",
+        "duration": 226.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_a_high_threshold_counts_every_held_event",
+        "status": "passed",
+        "duration": 2206.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-also-expected]",
+        "status": "passed",
+        "duration": 1195.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_many_later_expect_events_do_not_crowd_out_an_earlier_one[after-is-not-expected]",
+        "status": "passed",
+        "duration": 1171.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_later_expect_event_keeps_an_earlier_one_held_for_a_lost_follower",
+        "status": "passed",
+        "duration": 213.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_is_still_held_when_a_lost_follower_is_evaluated",
+        "status": "passed",
+        "duration": 207.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_early_expect_events.test_expect_event_carries_into_a_late_roll_of_a_window_longer_than_the_retention",
+        "status": "passed",
+        "duration": 264.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_proactive_terminal_events.test_zombie_flow_detection_does_not_fire_when_flow_completes",
+        "status": "passed",
+        "duration": 291.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_proactive_terminal_events.test_zombie_flow_detection_does_not_fire_when_heartbeat_races_terminal",
+        "status": "passed",
+        "duration": 356.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_proactive_terminal_events.test_after_event_following_an_expect_event_re_arms_the_window",
+        "status": "passed",
+        "duration": 335.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_proactive_terminal_events.test_flow_run_timeout_enforcer_does_not_fire_when_run_completes",
+        "status": "passed",
+        "duration": 1469.0
+      },
+      {
+        "name": "tests.server.orchestration.test_core_policy.TestFlowConcurrencyLimits.test_in_process_retry_transition_does_not_release_concurrency_slots",
+        "status": "passed",
+        "duration": 14858.0
+      },
+      {
+        "name": "tests.server.orchestration.test_core_policy.TestFlowConcurrencyLimits.test_scheduled_transition_without_retry_releases_concurrency_slots",
+        "status": "passed",
+        "duration": 299.0
+      },
+      {
+        "name": "tests.server.orchestration.test_core_policy.TestFlowConcurrencyLimits.test_rescheduled_retry_transition_releases_concurrency_slots",
+        "status": "passed",
+        "duration": 341.0
+      },
+      {
+        "name": "tests.server.orchestration.test_core_policy.TestFlowConcurrencyLimits.test_direct_reschedule_after_automatic_retry_releases_concurrency_slots",
+        "status": "passed",
+        "duration": 1577.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_basics.test_reactive_automation_triggers_can_trigger_immediately",
+        "status": "passed",
+        "duration": 12818.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_basics.test_reactive_automation_triggers_only_on_expected_events",
+        "status": "passed",
+        "duration": 236.0
+      },
+      {
+        "name": "tests.events.server.triggers.test_basics.test_proactive_trigger_fires_after_time_expires",
+        "status": "passed",
+        "duration": 1930.0
+      },
+      {
+        "name": "verifier.integrity_or_reliability",
+        "status": "failed",
+        "duration": 0
+      }
+    ]
+  }
+}

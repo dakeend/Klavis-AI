@@ -1,0 +1,42 @@
+{
+  "label": "gpt61-sol-xhigh-r2",
+  "started_at_utc": "2026-10-29T04:05:13.086693+00:00",
+  "finished_at_utc": "2026-10-29T04:08:05.783886+00:00",
+  "driver_exit_code": 0,
+  "patch_sha256": "bcb5d8656cf59f5c777139a5bfbafc4aa1f934910477744963d4fd7abe374e04",
+  "evaluation": "Current packaged 44-check verifier, same immutable Docker image for six candidates",
+  "model_rerun": false,
+  "formal_harbor_trial": false,
+  "candidate_patch_extracted_by_author": true,
+  "candidate_self_tests_used": false,
+  "reward": 0,
+  "summary": {
+    "tests": 44,
+    "passed": 35,
+    "failed": 9,
+    "skipped": 0,
+    "pending": 0,
+    "other": 0,
+    "start": 1793246725554,
+    "stop": 1793246884374
+  },
+  "details": {
+    "behavior": {
+      "exit_code": 1,
+      "expected_tests": 36,
+      "passed": false
+    },
+    "retry": {
+      "exit_code": 0,
+      "expected_tests": 4,
+      "passed": true
+    },
+    "compatibility": {
+      "exit_code": 0,
+      "expected_tests": 3,
+      "passed": true
+    },
+    "error": "AssertionError: Restart, identity or resource-isolation failure: ['some.completed', 'some.duplicate', 'some.silent']"
+  },
+  "status": "evaluated"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "label": "gpt61-sol-xhigh-r2",
+    "attempt": 2,
+    "session_id": "01a185a9-07fa-73b3-86b8-d86cd84ac520",
+    "started_at_utc": "2026-10-29T03:16:49.789Z",
+    "configured_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "framework": "codex-app-subagent",
+    "fresh_conversation": true,
+    "inherited_parent_history": false,
+    "input_task_original_sha256": "d645b14bf42fb6a03618dcf1144e0296b36bebe775053cedbe7555ce234336c3",
+    "settings_verified_from_session_context": true,
+    "observed_api_models": null
+  },
+  {
+    "label": "gpt61-sol-xhigh-r3",
+    "attempt": 3,
+    "session_id": "01a185a9-38e8-7c12-8b37-6ff5047c2030",
+    "started_at_utc": "2026-10-29T03:17:02.314Z",
+    "configured_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "framework": "codex-app-subagent",
+    "fresh_conversation": true,
+    "inherited_parent_history": false,
+    "input_task_original_sha256": "036d810c9e58047ed0de34452d632171951da2a270f315ee91e31f47317ccf17",
+    "settings_verified_from_session_context": true,
+    "observed_api_models": null
+  },
+  {
+    "label": "claude-deepseek41-flash-max-r2",
+    "attempt": 2,
+    "session_id": "73cf70fe-9eea-49e4-859a-19f850e0b6c3",
+    "started_at_utc": "2026-10-29T03:22:08.772578+00:00",
+    "configured_model": "deepseek-flash[1m]",
+    "reasoning_effort": "max",
+    "framework": "claude-code",
+    "fresh_conversation": true,
+    "inherited_parent_history": false,
+    "input_task_original_sha256": "3af8e3af942b220321b22117d3a92d2dc451bb3aa0817887356090886db445d8",
+    "settings_verified_from_session_context": null,
+    "observed_api_models": [
+      "deepseek-flash"
+    ]
+  },
+  {
+    "label": "claude-deepseek41-flash-max-r3",
+    "attempt": 3,
+    "session_id": "d14d4262-c2a4-4dbf-b3ed-9581a7634eed",
+    "started_at_utc": "2026-10-29T03:22:08.830244+00:00",
+    "configured_model": "deepseek-flash[1m]",
+    "reasoning_effort": "max",
+    "framework": "claude-code",
+    "fresh_conversation": true,
+    "inherited_parent_history": false,
+    "input_task_original_sha256": "705f59e5463badbf7e5839bbb71dea1d18eb2a55e71fc0094cae41107aea5fa6",
+    "settings_verified_from_session_context": null,
+    "observed_api_models": [
+      "deepseek-flash"
+    ]
+  }
+]
